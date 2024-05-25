@@ -10,8 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-
-
 NAME = cub3d
 ##########################   COMPILING SETTINGS   #########################
 CC = gcc
@@ -45,6 +43,7 @@ COLOR_BLUE = \033[0;34m
 COLOR_BLUE_N = \033[1;34m
 COLOR_PURPLE = \033[0;35m
 COLOR_PURPLE_N = \033[1;35m
+NOC		=	\033[0m
 
 CHANGES_MADE = 0
 CHARS_LEN := 0
@@ -95,3 +94,10 @@ normi:
 re: fclean all
 
 .PHONY: all, clean, fclean, re
+
+
+# @echo "$(COLOR_YELLOW)──▄────▄▄▄▄▄▄▄────▄───"
+# @echo "─▀▀▄─▄█████████▄─▄▀▀──"
+# @echo "─────██─▀███▀─██──────"
+# @echo "───▄─▀████▀████▀─▄────"
+# @echo "─▀█────██▀█▀██────█▀──$(NOC)"
