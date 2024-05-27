@@ -18,15 +18,33 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
+// # include <X11/X.h>
+// # include <X11/keysym.h>
 
 # define WIN_H 600
 # define WIN_W 800
+//textures
+# define texWidth 64
+# define texHeight 64
+# define NUM_TEXTURES 4
+# define TEXTURE_SIZE 64
+typedef enum e_cardinal_direction
+{
+	NORTH = 0,
+	SOUTH = 1,
+	WEST = 2,
+	EAST = 3
+}	t_direction;
+
 //test map
 # define MAP_W 16
 # define MAP_H 24
 
 typedef struct s_data
 {
+	void	*mlx_ptr;
+	void	*win_ptr;
+	t_img	img;
 	// int **map;
 	int		**worldMap;
 	int     map_x;
@@ -46,9 +64,30 @@ typedef struct s_data
 	double  delta_dist_y;
 	int     step_x;
 	int     step_y;
+	int     side;
+	double	wall_dist;
+	double	wall_x;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		*texture_buffer[NUM_TEXTURES];
+	t_direction dir;
+	int tex_x;
+	int color;
+	double pos;
+	double step;
 	t_settings  *settings;
 
 }   t_data;
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		ln_len;
+	int		endian;
+}				t_img;
 
 typedef struct s_settings
 {

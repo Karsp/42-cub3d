@@ -13,19 +13,21 @@
 NAME = cub3d
 ##########################   COMPILING SETTINGS   #########################
 CC = gcc
-CFLAGS = --Werror -Wextra -Wall #-g3 -fsanitize=address 
+CFLAGS = -Werror -Wextra -Wall #-g3 -fsanitize=address 
 RM = rm -f
-
-#########################		LIBS		#################################
-#LIBFT_DIR = libft/
-#LIBFT = $(LIBFT_DIR)libft.a
-#MLX_DIR = .minilibx/
-#MLX = -lmlx -framework OpenGL -framework AppKit -L $(MLX_DIR)
 
 ##########################		DIRS		#################################
 SRC_DIR = src
 OBJ_DIR = obj
 INCLUDE = include/cub3d.h #include/cub3d2.h
+
+#########################		LIBS		#################################
+LIBFT_DIR = libft/
+LIBFT = $(LIBFT_DIR)libft.a
+#MLX_DIR = .minilibx/
+#MLX = -lmlx -framework OpenGL -framework AppKit -L $(MLX_DIR)
+INCLUDE += -I/usr/include -Imlx
+MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 
 ###########################    FILES   ####################################
 SRC = $(shell find $(SRC_DIR) -name '*.c')
@@ -62,7 +64,7 @@ all: $(NAME)
 	@echo ""
 
 $(NAME):$(OBJ) $(LIBFT) $(INCLUDE)
-	@$(CC) $(CFLAGS) $(OBJ) $(CCLANG) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(CCLANG) $(LIBFT) -o $(NAME) $(MLX_FLAGS)
 	@$(eval CHANGES_MADE=1)
 
 $(LIBFT):
@@ -74,7 +76,7 @@ endef
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $< 
 	$(eval progress=$(shell echo $$(($(progress) + 1))))
 	$(call print_progress)
 # @echo "$(COLOR_BLUE) Created! 😸 $(COLOR_RESET)"
