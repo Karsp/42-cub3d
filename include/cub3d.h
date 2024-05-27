@@ -36,6 +36,33 @@ typedef enum e_cardinal_direction
 	EAST = 3
 }	t_direction;
 
+enum keys
+{
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_LCLICK = 1,
+	ON_RCLICK = 2,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17,
+	J = 38,
+	M = 46,
+	SPACE = 49,
+	L_SHIFT = 257,
+	R_SHIFT = 258,
+	W = 13,
+	S = 1,
+	A = 0,
+	D = 2,
+	A_UP = 126,
+	A_DOWN = 125,
+	A_LEFT = 123,
+	A_RIGHT = 124,
+	ESC = 53,
+};
+
 //test map
 # define MAP_W 16
 # define MAP_H 24
@@ -46,13 +73,15 @@ typedef struct s_data
 	void	*win_ptr;
 	t_img	img;
 	// int **map;
-	int		**worldMap;
+	int		**world_map;
 	int     map_x;
 	int     map_y;
+	//Player struct
 	double  pos_x;
 	double  pos_y;
 	double  dir_x;
 	double  dir_y;
+	//Raycast struct
 	double  plane_x;
 	double  plane_y;
 	double  ray_dirx;
@@ -70,7 +99,10 @@ typedef struct s_data
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
+	//settings struct? or Map? or Textures?
 	int		*texture_buffer[NUM_TEXTURES];
+	t_color	*ceil_color;
+	t_color	*floor_color;
 	t_direction dir;
 	int tex_x;
 	int color;
@@ -88,6 +120,14 @@ typedef struct s_img
 	int		ln_len;
 	int		endian;
 }				t_img;
+
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+	int	t;
+}	t_color;
 
 typedef struct s_settings
 {

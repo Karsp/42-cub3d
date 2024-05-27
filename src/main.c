@@ -62,7 +62,7 @@ int	generate_map(t_data **data)
 				(*data)->map_y += (*data)->step_y;
 				(*data)->side = 1;
 			}
-			if ((*data)->worldMap[(*data)->map_x][(*data)->map_y] == '1')        //Check if ray has hit a wall
+			if ((*data)->world_map[(*data)->map_x][(*data)->map_y] == '1')        //Check if ray has hit a wall
 				break;
 		}
 
@@ -114,10 +114,11 @@ int	generate_map(t_data **data)
 		}
 		
 }
+}
 
 int init_data(t_data  **data)
 {
-	int		worldMap[MAP_W][MAP_H]=
+	int		world_map[MAP_W][MAP_H]=
 	{
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -146,7 +147,7 @@ int init_data(t_data  **data)
 	if (!(*data)->win_ptr)
 		return (free((*data)->mlx_ptr), 1);
 
-	(*data)->worldMap = worldMap; //later will read from file
+	(*data)->world_map = world_map; //later will read from file
 	(*data)->pos_x = 22.0; //x and y start position
 	(*data)->pos_y = 11.5;
 	(*data)->dir_x = -1.0; //initial direction vector. Replace later with N S W or E
