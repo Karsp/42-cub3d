@@ -24,7 +24,7 @@ INCLUDE = include/cub3d.h #include/cub3d2.h
 #########################		LIBS		#################################
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
-#MLX_DIR = .minilibx/
+#MLX_DIR = .mlx/
 #MLX = -lmlx -framework OpenGL -framework AppKit -L $(MLX_DIR)
 INCLUDE += -I/usr/include -Imlx
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
