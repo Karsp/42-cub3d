@@ -72,6 +72,7 @@ typedef struct s_data
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
+	int		fd;
 	// int **map;
 	int		**world_map;
 	int     map_x;

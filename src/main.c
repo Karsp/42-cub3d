@@ -108,7 +108,7 @@ int	generate_map(t_data **data)
 				(*data)->color = ((*data)->color >> 1) & 0x7F7F7F;
 			if ((*data)->color > 0)
 				// your pixel map (int** in this case)
-				pixels_map[(*data)->draw_start][x] = (*data)->color;
+				//pixels_map[(*data)->draw_start][x] = (*data)->color;
 		
 			(*data)->draw_start++;
 		}

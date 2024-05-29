@@ -103,3 +103,6 @@ re: fclean all
 # @echo "─────██─▀███▀─██──────"
 # @echo "───▄─▀████▀████▀─▄────"
 # @echo "─▀█────██▀█▀██────█▀──$(NOC)"
+#After clone repo execute those cmds:
+#$ git submodule init
+#$ git submodule update
