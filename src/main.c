@@ -112,8 +112,8 @@ int	generate_map(t_data **data)
 		
 			(*data)->draw_start++;
 		}
-		
-}
+	x++;	
+	}
 }
 
 int init_data(t_data  **data)
