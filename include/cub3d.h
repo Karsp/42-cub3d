@@ -14,7 +14,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "mlx/mlx.h"
+# include "../external/mlx/mlx.h"
+# include "../external/libft/libft.h"
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
@@ -67,6 +68,31 @@ enum keys
 # define MAP_W 16
 # define MAP_H 24
 
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		ln_len;
+	int		endian;
+}				t_img;
+
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+	int	t;
+}	t_color;
+
+typedef struct s_settings
+{
+	double  time;
+	double  old_time;
+	double  fps;
+}   t_settings;
+
 typedef struct s_data
 {
 	void	*mlx_ptr;
@@ -112,30 +138,6 @@ typedef struct s_data
 	t_settings  *settings;
 
 }   t_data;
-
-typedef struct s_img
-{
-	void	*mlx_img;
-	char	*addr;
-	int		bpp;
-	int		ln_len;
-	int		endian;
-}				t_img;
-
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-	int	t;
-}	t_color;
-
-typedef struct s_settings
-{
-	double  time;
-	double  old_time;
-	double  fps;
-}   t_settings;
 
 
 #endif

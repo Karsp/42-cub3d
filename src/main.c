@@ -107,9 +107,9 @@ int	generate_map(t_data **data)
 				// add some shading to the north and south walls
 				(*data)->color = ((*data)->color >> 1) & 0x7F7F7F;
 			if ((*data)->color > 0)
+				printf("Working on..");
 				// your pixel map (int** in this case)
 				//pixels_map[(*data)->draw_start][x] = (*data)->color;
-		
 			(*data)->draw_start++;
 		}
 	x++;	
