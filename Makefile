@@ -24,9 +24,10 @@ INCLUDE = include/cub3d.h #include/cub3d2.h
 #########################		LIBS		#################################
 LIBFT_DIR = external/libft/
 LIBFT = $(LIBFT_DIR)libft.a
+
 MLX_DIR = external/mlx/
 # MLX_FLAGS = -I/usr/include -I$(MLX_DIR)
-#MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -L $(MLX_DIR)
+# MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -L $(MLX_DIR) #MAC
 # MLX_CFLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 MLX_CFLAGS = -L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext -lz 
 
@@ -70,6 +71,9 @@ $(NAME):$(OBJ) $(LIBFT) $(INCLUDE)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR) > /dev/null
+
+# $(MLX):
+# 	@make -C $(MLX_DIR) > /dev/null
 
 define print_progress
 	@printf "\r$(COLOR_GREEN)[$(COLOR_GREEN_N) %d%%%*.*s $(COLOR_GREEN)] $(COLOR_PURPLE_N)CUB3D $(COLOR_PURPLE)Compiling 🛠️$(COLOR_RESET)" $(progress) $(CHARS_LEN) $(CHARS)
