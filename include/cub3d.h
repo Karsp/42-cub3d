@@ -14,7 +14,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../external/mlx/mlx.h"
+// # include "../external/mlx/mlx.h"
+# include "../external/mlx42/include/MLX42/MLX42.h"
 # include "../external/libft/libft.h"
 # include <stdlib.h>
 # include <math.h>
@@ -37,7 +38,7 @@ typedef enum e_cardinal_direction
 	EAST = 3
 }	t_direction;
 
-enum keys
+enum my_keys
 {
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,

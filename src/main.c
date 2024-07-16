@@ -158,7 +158,7 @@ int init_data(t_data  **data)
 	void *mlx_ptr;
  	void *win_ptr;
 
-	(*data)->mlx_ptr = mlx_init();
+	// (*data)->mlx_ptr = mlx_init();
 	if (!(*data)->mlx_ptr)
 		return (1);
 	(*data)->win_ptr = mlx_new_window((*data)->mlx_ptr, WIN_W, WIN_H, "hi :)");

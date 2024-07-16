@@ -19,17 +19,17 @@ RM = rm -f
 ##########################		DIRS		#################################
 SRC_DIR = src
 OBJ_DIR = obj
-INCLUDE = include/cub3d.h #include/cub3d2.h
+HEADERS = -I include -I $(MLX_DIR)/include/MLX/MLX42.h -I $(MLX_DIR)/include/MLX/MLX42_Int.h #include/cub3d2.h 
 
 #########################		LIBS		#################################
 LIBFT_DIR = external/libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
-MLX_DIR = external/mlx/
-# MLX_FLAGS = -I/usr/include -I$(MLX_DIR)
+# MLX_DIR = external/mlx/
+MLX_DIR = ./external/mlx42
 # MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -L $(MLX_DIR) #MAC
-# MLX_CFLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-MLX_CFLAGS = -L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext -lz 
+# MLX_CFLAGS = -L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext -lz 
+MLX_CFLAGS = -L $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 ###########################    FILES   ####################################
 SRC = $(shell find $(SRC_DIR) -name '*.c')
@@ -54,7 +54,7 @@ CHARS_LEN := 0
 CHARS := 0
 progress := 4
 
-all: $(NAME)
+all: libmlx $(NAME)
 	@if [ "$(CHANGES_MADE)" -eq "0" ]; then \
 		echo "$(COLOR_RED)No hay cambios para hacer. $(COLOR_RESET)"; \
 	fi
@@ -65,15 +65,15 @@ all: $(NAME)
 	$(call print_progress)
 	@echo ""
 
-$(NAME):$(OBJ) $(LIBFT) $(INCLUDE)
-	@$(CC) $(CFLAGS) $(OBJ) $(MLX_CFLAGS) $(LIBFT) -o $(NAME)
+$(NAME):$(OBJ) $(LIBFT) 
+	@$(CC) $(CFLAGS) $(OBJ) $(MLX_CFLAGS) $(LIBFT) $(HEADERS) -o $(NAME)
 	@$(eval CHANGES_MADE=1)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR) > /dev/null
 
-# $(MLX):
-# 	@make -C $(MLX_DIR) > /dev/null
+libmlx:
+	@cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4  > /dev/null
 
 define print_progress
 	@printf "\r$(COLOR_GREEN)[$(COLOR_GREEN_N) %d%%%*.*s $(COLOR_GREEN)] $(COLOR_PURPLE_N)CUB3D $(COLOR_PURPLE)Compiling 🛠️$(COLOR_RESET)" $(progress) $(CHARS_LEN) $(CHARS)
@@ -81,7 +81,7 @@ endef
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -I $(MLX_DIR) -c -o $@ $< 
+	@$(CC) $(CFLAGS) $(MLX_CFLAGS) -c -o $@ $<  $(HEADERS)
 	$(eval progress=$(shell echo $$(($(progress) + 1))))
 	$(call print_progress)
 # @echo "$(COLOR_BLUE) Created! 😸 $(COLOR_RESET)"
@@ -89,6 +89,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 clean:
 	@rm -rf $(OBJ_DIR) $(LIBFT) > /dev/null
 	@make clean -C $(LIBFT_DIR) > /dev/null
+	@rm -rf $(LIBMLX)/build > /dev/null
 
 fclean: clean
 	@rm -f $(NAME)
@@ -100,7 +101,7 @@ normi:
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re
+.PHONY: all, clean, fclean, re, libmlx
 
 
 # @echo "$(COLOR_YELLOW)──▄────▄▄▄▄▄▄▄────▄───"
