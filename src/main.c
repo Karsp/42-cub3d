@@ -122,7 +122,7 @@ t_data	clean_init(void)
 
 	data.mlx_ptr = NULL;
 	data.win_ptr = NULL;
-	data.img.mlx_img = ft_calloc(1, sizeof(t_img));
+	// data.img.mlx_img = ft_calloc(1, sizeof(t_img));
 	data.pos_x = 22.0; //x and y start position
 	data.pos_y = 11.5;
 	data.dir_x = -1.0; //initial direction vector. Replace later with N S W or E
@@ -161,19 +161,19 @@ int init_data(t_data  **data)
 	// (*data)->mlx_ptr = mlx_init();
 	if (!(*data)->mlx_ptr)
 		return (1);
-	(*data)->win_ptr = mlx_new_window((*data)->mlx_ptr, WIN_W, WIN_H, "hi :)");
-	if (!(*data)->win_ptr)
-		return (free((*data)->mlx_ptr), 1);
-	(*data)->img.mlx_img = mlx_new_image((*data)->mlx_ptr, WIN_W, WIN_H);
-	if (!(*data)->img.mlx_img)
-	{
-		ft_close(data);
-		ft_printf("MLX image creation error.\n");
-		return (free((*data)->mlx_ptr), 1);
-	}
-	(*data)->img.addr = mlx_get_data_addr((*data)->img.mlx_img, &(*data)->img.bpp, \
-							&(*data)->img.ln_len, &(*data)->img.endian);
-	// (*data)->world_map = world_map; //later will read from file
+	// (*data)->win_ptr = mlx_new_window((*data)->mlx_ptr, WIN_W, WIN_H, "hi :)");
+	// if (!(*data)->win_ptr)
+	// 	return (free((*data)->mlx_ptr), 1);
+	// (*data)->img.mlx_img = mlx_new_image((*data)->mlx_ptr, WIN_W, WIN_H);
+	// if (!(*data)->img.mlx_img)
+	// {
+	// 	ft_close(data);
+	// 	ft_printf("MLX image creation error.\n");
+	// 	return (free((*data)->mlx_ptr), 1);
+	// }
+	// (*data)->img.addr = mlx_get_data_addr((*data)->img.mlx_img, &(*data)->img.bpp, \
+	// 						&(*data)->img.ln_len, &(*data)->img.endian);
+	// // (*data)->world_map = world_map; //later will read from file
 	(*data)->pos_x = 22.0; //x and y start position
 	(*data)->pos_y = 11.5;
 	(*data)->dir_x = -1.0; //initial direction vector. Replace later with N S W or E
@@ -193,10 +193,10 @@ int	main(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
-	init_data(&data);
-	generate_map(&data);
-	mlx_loop(data->mlx_ptr);
-	// mlx_destroy_window(mlx_ptr, win_ptr);
+	// init_data(&data);
+	// generate_map(&data);
+	// mlx_loop(data->mlx_ptr);
+	// // mlx_destroy_window(mlx_ptr, win_ptr);
 	// mlx_destroy_display(mlx_ptr);
 	return(0);
 }

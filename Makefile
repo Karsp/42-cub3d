@@ -73,7 +73,10 @@ $(LIBFT):
 	@make -C $(LIBFT_DIR) > /dev/null
 
 libmlx:
+	@echo "$(COLOR_BLUE) Creating MLX! $(COLOR_RESET)"
 	@cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4  > /dev/null
+	@echo "$(COLOR_BLUE) MLX done $(COLOR_RESET)"
+
 
 define print_progress
 	@printf "\r$(COLOR_GREEN)[$(COLOR_GREEN_N) %d%%%*.*s $(COLOR_GREEN)] $(COLOR_PURPLE_N)CUB3D $(COLOR_PURPLE)Compiling 🛠️$(COLOR_RESET)" $(progress) $(CHARS_LEN) $(CHARS)
@@ -89,7 +92,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 clean:
 	@rm -rf $(OBJ_DIR) $(LIBFT) > /dev/null
 	@make clean -C $(LIBFT_DIR) > /dev/null
-	@rm -rf $(LIBMLX)/build > /dev/null
+	@rm -rf $(MLX_DIR)/build > /dev/null
+	@echo "$(COLOR_RED_N) Cleaned objects and libs! 🧹 $(COLOR_RESET)"
+
 
 fclean: clean
 	@rm -f $(NAME)
