@@ -13,23 +13,23 @@
 #include "../include/cub3d.h"
 
 
-void ft_randomize(void* param)
-{
-	mlx_image_t* image = param;
-	for (uint32_t i = 0; i < image->width; ++i)
-	{
-		for (uint32_t y = 0; y < image->height; ++y)
-		{
-			uint32_t color = ft_pixel(
-				rand() % 0xFF, // R
-				rand() % 0xFF, // G
-				rand() % 0xFF, // B
-				rand() % 0xFF  // A
-			);
-			mlx_put_pixel(image, i, y, color);
-		}
-	}
-}
+// void ft_randomize(void* param)
+// {
+// 	mlx_image_t* image = param;
+// 	for (uint32_t i = 0; i < image->width; ++i)
+// 	{
+// 		for (uint32_t y = 0; y < image->height; ++y)
+// 		{
+// 			uint32_t color = ft_pixel(
+// 				rand() % 0xFF, // R
+// 				rand() % 0xFF, // G
+// 				rand() % 0xFF, // B
+// 				rand() % 0xFF  // A
+// 			);
+// 			mlx_put_pixel(image, i, y, color);
+// 		}
+// 	}
+// }
 
 // void ft_hook(void* param)
 // {
@@ -170,31 +170,44 @@ void ft_hook(void* param)
 // 	return (EXIT_SUCCESS);
 // }
 
-
-int	main(void)
+void start_x(t_data *data)
 {
-	t_data  *data;
-
-	//if args OK
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (1);
-	init_data(&data);
-	// generate_map(&data);
-	// mlx_loop(data->mlx_ptr);
-	// // mlx_destroy_window(mlx_ptr, win_ptr);
-	// mlx_destroy_display(mlx_ptr);
-
-	if (init_data(&data))
-		puts(mlx_strerror(mlx_errno));
-	
-	
-	mlx_loop_hook(data->mlx_ptr, ft_randomize, &data);
-		printf("AQUI\n");
-	mlx_loop_hook(data->mlx_ptr, ft_hook, &data);
-	// mlx_key_hook(data->mlx_ptr, &my_keyhook, NULL);
-	mlx_loop(data->mlx_ptr);
-	mlx_terminate(data->mlx_ptr);
-	return (EXIT_SUCCESS);
-	return(0);
+	data->pos_x = 4.2;
 }
+
+int main(void)
+{
+	t_data hola;
+
+	memset(&hola, 0, sizeof(t_data));
+	start_x(&hola);
+	printf("%f\n", hola.pos_x);
+}
+
+// int	main(void)
+// {
+// 	t_data  *data;
+
+// 	//if args OK
+// 	data = malloc(sizeof(t_data));
+// 	if (!data)
+// 		return (1);
+// 	init_data(&data);
+// 	// generate_map(&data);
+// 	// mlx_loop(data->mlx_ptr);
+// 	// // mlx_destroy_window(mlx_ptr, win_ptr);
+// 	// mlx_destroy_display(mlx_ptr);
+
+// 	if (init_data(&data))
+// 		puts(mlx_strerror(mlx_errno));
+	
+	
+// 	mlx_loop_hook(data->mlx_ptr, ft_randomize, &data);
+// 		printf("AQUI\n");
+// 	mlx_loop_hook(data->mlx_ptr, ft_hook, &data);
+// 	// mlx_key_hook(data->mlx_ptr, &my_keyhook, NULL);
+// 	mlx_loop(data->mlx_ptr);
+// 	mlx_terminate(data->mlx_ptr);
+// 	return (EXIT_SUCCESS);
+// 	return(0);
+// }
