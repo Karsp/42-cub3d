@@ -82,10 +82,10 @@ typedef struct s_img
 
 typedef struct s_color
 {
-	int	r;
-	int	g;
-	int	b;
-	int	t;
+	int32_t	r;
+	int32_t	g;
+	int32_t	b;
+	int32_t	a;
 }	t_color;
 
 typedef struct s_settings
@@ -97,9 +97,9 @@ typedef struct s_settings
 
 typedef struct s_data
 {
-	void	*mlx_ptr;
+	mlx_t	*mlx_ptr;
 	void	*win_ptr;
-	t_img	img;
+	mlx_image_t	*img;
 	int		fd;
 	// int **map;
 	int		**world_map;
@@ -142,4 +142,9 @@ typedef struct s_data
 }   t_data;
 
 
+
+int init_data(t_data  **data);
+void ft_hook(void* param);
+void ft_randomize(void* param);
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 #endif

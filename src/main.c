@@ -12,216 +12,189 @@
 
 #include "../include/cub3d.h"
 
-int	generate_map(t_data **data)
-{
-	int x = 0;
-	while (x < WIDTH)
-	{
-		//calculate ray position and direction
-		(*data)->camera_x = 2 * x / (double)WIDTH - 1; //x-coordinate in camera space
-		(*data)->ray_dirx = (*data)->dir_x + (*data)->plane_x * (*data)->camera_x;
-		(*data)->ray_diry = (*data)->dir_y + (*data)->plane_y * (*data)->camera_x;
-		//Calculating the Delta Distance
-		(*data)->map_x = (int)(*data)->pos_x;       //which box of the map we're in
-		(*data)->map_y = (int)(*data)->pos_y;
-		(*data)->delta_dist_x = fabs(1 /(*data)->ray_dirx);  //length of ray from one x or y-side to next x or y-side
-		(*data)->delta_dist_y = fabs(1 / (*data)->ray_diry);
-		//Caltulate Step and initial Side Distance
-		if ((*data)->ray_dirx < 0)
-		{
-			(*data)->step_x = -1;       //what direction to step in x or y-direction (either +1 or -1)
-			(*data)->side_dist_x = ((*data)->pos_x - (*data)->map_x) * (*data)->delta_dist_x;       //length of ray from initial position to next x or y-side
-		}
-		else
-		{
-			(*data)->step_x = 1;
-			(*data)->side_dist_x = ((*data)->map_x + 1.0 - (*data)->pos_x) * (*data)->delta_dist_x;
-		}
-		if ((*data)->ray_diry < 0)
-		{
-			(*data)->step_y = -1;
-			(*data)->side_dist_y = ((*data)->pos_y - (*data)->map_y) * (*data)->delta_dist_y;
-		}
-		else
-		{
-			(*data)->step_y = 1;
-			(*data)->side_dist_y = ((*data)->map_y + 1.0 - (*data)->pos_y) * (*data)->delta_dist_y;
-		}
-		// Performing DDA to determine the distance to the next grid line  We also take note of the side of the wall we hit (0 for x, 1 for y).
-		while (42) // hit == 0
-		{
-			if ((*data)->side_dist_x < (*data)->side_dist_y) //jump to next map square, either in x-direction, or in y-direction
-			{
-				(*data)->side_dist_x += (*data)->delta_dist_x;
-				(*data)->map_x += (*data)->step_x;
-				(*data)->side = 0;
-			}
-			else
-			{
-				(*data)->side_dist_y += (*data)->delta_dist_y;
-				(*data)->map_y += (*data)->step_y;
-				(*data)->side = 1;
-			}
-			if ((*data)->world_map[(*data)->map_x][(*data)->map_y] == '1')        //Check if ray has hit a wall
-				break;
-		}
 
-		//Calculating the Wall Height
-		//Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
-		if ((*data)->side == 0)
-			(*data)->wall_dist = ((*data)->map_x - (*data)->pos_x + (1 - (*data)->step_x) / 2) / (*data)->ray_dirx;
-		else
-			(*data)->wall_dist = ((*data)->map_y - (*data)->pos_y + (1 - (*data)->step_y) / 2) / (*data)->ray_diry;
-	
-		(*data)->line_height = (int)(HEIGHT / (*data)->wall_dist);       //Calculate height of line to draw on screen
-	      //calculate lowest and highest pixel to fill in current stripe
-		(*data)->draw_start = - (*data)->line_height / 2 + HEIGHT / 2;
-		if ((*data)->draw_start < 0)
-			(*data)->draw_start = 0;
-	
-		(*data)->draw_end = (*data)->line_height / 2 + HEIGHT / 2;
-		if ((*data)->draw_end >= HEIGHT)
-			(*data)->draw_end = HEIGHT - 1;
-	
-		if ((*data)->side == 0)
-			(*data)->wall_x = (*data)->pos_y + (*data)->wall_dist * (*data)->ray_diry; //it's called wallX, it's actually an y-coordinate of the wall if side==1, but it's always the x-coordinate of the texture
-		else
-			(*data)->wall_x = (*data)->pos_x + (*data)->wall_dist * (*data)->ray_dirx;
-		(*data)->wall_x -= floor((*data)->wall_x);
-		
-		//handling textures
-		(*data)->dir = 1; //ft_get_cardinal_direction();
-		(*data)->tex_x = (int)((*data)->wall_x * TEXTURE_SIZE);
- 
-		if (((*data)->side == 0 && (*data)->ray_dirx < 0) || ((*data)->side == 1 && (*data)->ray_diry > 0))
-			(*data)->tex_x = TEXTURE_SIZE - (*data)->tex_x - 1;
-		
-		(*data)->step = 1.0 * TEXTURE_SIZE / (*data)->line_height; //texture step
-		(*data)->pos = ((*data)->draw_start - HEIGHT / 2 + (*data)->line_height / 2) * (*data)->step;
-		while ((*data)->draw_start < (*data)->draw_end)
+void ft_randomize(void* param)
+{
+	mlx_image_t* image = param;
+	for (uint32_t i = 0; i < image->width; ++i)
+	{
+		for (uint32_t y = 0; y < image->height; ++y)
 		{
-			(*data)->pos += (*data)->step;
-			(*data)->color = ((*data)->texture_buffer)[(*data)->dir][TEXTURE_SIZE * ((int)(*data)->pos & (TEXTURE_SIZE - 1)) + (*data)->tex_x];
-		
-			if ((*data)->dir == NORTH || (*data)->dir == SOUTH)
-				// add some shading to the north and south walls
-				(*data)->color = ((*data)->color >> 1) & 0x7F7F7F;
-			if ((*data)->color > 0)
-				printf("Working on..");
-				// your pixel map (int** in this case)
-				//pixels_map[(*data)->draw_start][x] = (*data)->color;
-			(*data)->draw_start++;
+			uint32_t color = ft_pixel(
+				rand() % 0xFF, // R
+				rand() % 0xFF, // G
+				rand() % 0xFF, // B
+				rand() % 0xFF  // A
+			);
+			mlx_put_pixel(image, i, y, color);
 		}
-	x++;	
 	}
 }
 
-t_data	clean_init(void)
+// void ft_hook(void* param)
+// {
+// 	t_data* data = param;
+// 	mlx_t* mlx = data->mlx_ptr;
+// 	mlx_image_t* image = data->img;
+
+// 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+// 		mlx_close_window(mlx);
+// 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+// 		image->instances[0].y -= 5;
+// 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+// 		image->instances[0].y += 5;
+// 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+// 		image->instances[0].x -= 5;
+// 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+// 		image->instances[0].x += 5;
+// }
+
+// void my_keyhook(mlx_key_data_t keydata, void* param)
+// {
+// 	(void)param;
+// 	// If we PRESS the 'J' key, print "Hello".
+// 	if (keydata.key == MLX_KEY_J && keydata.action == MLX_PRESS)
+// 		puts("Hello ");
+
+// 	// If we RELEASE the 'K' key, print "World".
+// 	if (keydata.key == MLX_KEY_K && keydata.action == MLX_RELEASE)
+// 		puts("World");
+
+// 	// If we HOLD the 'L' key, print "!".
+// 	if (keydata.key == MLX_KEY_L && keydata.action == MLX_REPEAT)
+// 		puts("!");
+// }
+
+static mlx_image_t* image;
+
+
+// int init_data(t_data  **data)
+// {
+// 	if (!((*data)->mlx_ptr = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+// 	{
+// 		puts(mlx_strerror(mlx_errno));
+// 		return(EXIT_FAILURE);
+// 	}
+// 	if (!((*data)->img = mlx_new_image((*data)->mlx_ptr, 128, 128)))
+// 	{
+// 		mlx_close_window((*data)->mlx_ptr);
+// 		puts(mlx_strerror(mlx_errno));
+// 		return(EXIT_FAILURE);
+// 	}
+//     if (mlx_image_to_window((*data)->mlx_ptr, image, 0, 0) == -1)
+// 	{
+// 		mlx_close_window((*data)->mlx_ptr);
+// 		puts(mlx_strerror(mlx_errno));
+// 		return(EXIT_FAILURE);
+// 	}
+// //  (*data)->time = 0; //time of current frame
+// //  (*data)->oldTime = 0; //time of previous frame
+// 	(*data)->pos_x = 22.0; //x and y start position
+// 	(*data)->pos_y = 11.5;
+// 	(*data)->dir_x = -1.0; //initial direction vector. Replace later with N S W or E
+// 	(*data)->dir_y = 0.0;
+// 	(*data)->plane_x = 0.0; //the 2d raycaster version of camera plane
+// 	(*data)->plane_y = 0.66;
+//     return(EXIT_SUCCESS);
+// }
+
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
-	t_data	data;
-
-	data.mlx_ptr = NULL;
-	data.win_ptr = NULL;
-	// data.img.mlx_img = ft_calloc(1, sizeof(t_img));
-	data.pos_x = 22.0; //x and y start position
-	data.pos_y = 11.5;
-	data.dir_x = -1.0; //initial direction vector. Replace later with N S W or E
-	data.dir_y = 0.0;
-	data.plane_x = 0.0; //the 2d raycaster version of camera plane
-	data.plane_y = 0.66;
-//  data.time = 0; //time of current frame
-//  data.oldTime = 0; //time of previous frame
-	return (data);
-}
-
-int init_data(t_data  **data)
-{
-	// int		world_map[MAP_W][MAP_H]=
-	// {
-	// {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	// {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	// };
-	void *mlx_ptr;
- 	void *win_ptr;
-
-	// (*data)->mlx_ptr = mlx_init();
-	if (!(*data)->mlx_ptr)
-		return (1);
-	// (*data)->win_ptr = mlx_new_window((*data)->mlx_ptr, WIDTH, HEIGHT, "hi :)");
-	// if (!(*data)->win_ptr)
-	// 	return (free((*data)->mlx_ptr), 1);
-	// (*data)->img.mlx_img = mlx_new_image((*data)->mlx_ptr, WIDTH, HEIGHT);
-	// if (!(*data)->img.mlx_img)
-	// {
-	// 	ft_close(data);
-	// 	ft_printf("MLX image creation error.\n");
-	// 	return (free((*data)->mlx_ptr), 1);
-	// }
-	// (*data)->img.addr = mlx_get_data_addr((*data)->img.mlx_img, &(*data)->img.bpp, \
-	// 						&(*data)->img.ln_len, &(*data)->img.endian);
-	// // (*data)->world_map = world_map; //later will read from file
-	(*data)->pos_x = 22.0; //x and y start position
-	(*data)->pos_y = 11.5;
-	(*data)->dir_x = -1.0; //initial direction vector. Replace later with N S W or E
-	(*data)->dir_y = 0.0;
-	(*data)->plane_x = 0.0; //the 2d raycaster version of camera plane
-	(*data)->plane_y = 0.66;
-//  (*data)->time = 0; //time of current frame
-//  (*data)->oldTime = 0; //time of previous frame
-
-}
-
-void my_keyhook(mlx_key_data_t keydata, void* param)
-{
-	// If we PRESS the 'J' key, print "Hello".
-	if (keydata.key == MLX_KEY_J && keydata.action == MLX_PRESS)
-		puts("Hello ");
-
-	// If we RELEASE the 'K' key, print "World".
-	if (keydata.key == MLX_KEY_K && keydata.action == MLX_RELEASE)
-		puts("World");
-
-	// If we HOLD the 'L' key, print "!".
-	if (keydata.key == MLX_KEY_L && keydata.action == MLX_REPEAT)
-		puts("!");
+    return (r << 24 | g << 16 | b << 8 | a);
 }
 
 
-int	main(int argc, char **argv)
+// void ft_randomize(void* param)
+// {
+// 	(void)param;
+// 	for (uint32_t i = 0; i < image->width; ++i)
+// 	{
+// 		for (uint32_t y = 0; y < image->height; ++y)
+// 		{
+// 			uint32_t color = ft_pixel(
+// 				rand() % 0xFF, // R
+// 				rand() % 0xFF, // G
+// 				rand() % 0xFF, // B
+// 				rand() % 0xFF  // A
+// 			);
+// 			mlx_put_pixel(image, i, y, color);
+// 		}
+// 	}
+// }
+
+void ft_hook(void* param)
+{
+	mlx_t* mlx = param;
+
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+		image->instances[0].y -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+		image->instances[0].y += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+		image->instances[0].x -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+		image->instances[0].x += 5;
+}
+
+
+// int32_t main(void)
+// {
+// 	mlx_t* mlx;
+
+// 	// Gotta error check this stuff
+// 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+// 	{
+// 		puts(mlx_strerror(mlx_errno));
+// 		return(EXIT_FAILURE);
+// 	}
+// 	if (!(image = mlx_new_image(mlx, 128, 128)))
+// 	{
+// 		mlx_close_window(mlx);
+// 		puts(mlx_strerror(mlx_errno));
+// 		return(EXIT_FAILURE);
+// 	}
+// 	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
+// 	{
+// 		mlx_close_window(mlx);
+// 		puts(mlx_strerror(mlx_errno));
+// 		return(EXIT_FAILURE);
+// 	}
+	
+// 	mlx_loop_hook(mlx, ft_randomize, mlx);
+// 	mlx_loop_hook(mlx, ft_hook, mlx);
+
+// 	mlx_loop(mlx);
+// 	mlx_terminate(mlx);
+// 	return (EXIT_SUCCESS);
+// }
+
+
+int	main(void)
 {
 	t_data  *data;
-	mlx_t	*mlx;
 
 	//if args OK
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
-	// init_data(&data);
+	init_data(&data);
 	// generate_map(&data);
 	// mlx_loop(data->mlx_ptr);
 	// // mlx_destroy_window(mlx_ptr, win_ptr);
 	// mlx_destroy_display(mlx_ptr);
 
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-		return (EXIT_FAILURE);
-
-	mlx_key_hook(mlx, &my_keyhook, NULL);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	if (init_data(&data))
+		puts(mlx_strerror(mlx_errno));
+	
+	
+	mlx_loop_hook(data->mlx_ptr, ft_randomize, &data);
+		printf("AQUI\n");
+	mlx_loop_hook(data->mlx_ptr, ft_hook, &data);
+	// mlx_key_hook(data->mlx_ptr, &my_keyhook, NULL);
+	mlx_loop(data->mlx_ptr);
+	mlx_terminate(data->mlx_ptr);
 	return (EXIT_SUCCESS);
 	return(0);
 }
