@@ -15,10 +15,10 @@
 int	generate_map(t_data **data)
 {
 	int x = 0;
-	while (x < WIN_W)
+	while (x < WIDTH)
 	{
 		//calculate ray position and direction
-		(*data)->camera_x = 2 * x / (double)WIN_W - 1; //x-coordinate in camera space
+		(*data)->camera_x = 2 * x / (double)WIDTH - 1; //x-coordinate in camera space
 		(*data)->ray_dirx = (*data)->dir_x + (*data)->plane_x * (*data)->camera_x;
 		(*data)->ray_diry = (*data)->dir_y + (*data)->plane_y * (*data)->camera_x;
 		//Calculating the Delta Distance
@@ -73,15 +73,15 @@ int	generate_map(t_data **data)
 		else
 			(*data)->wall_dist = ((*data)->map_y - (*data)->pos_y + (1 - (*data)->step_y) / 2) / (*data)->ray_diry;
 	
-		(*data)->line_height = (int)(WIN_H / (*data)->wall_dist);       //Calculate height of line to draw on screen
+		(*data)->line_height = (int)(HEIGHT / (*data)->wall_dist);       //Calculate height of line to draw on screen
 	      //calculate lowest and highest pixel to fill in current stripe
-		(*data)->draw_start = - (*data)->line_height / 2 + WIN_H / 2;
+		(*data)->draw_start = - (*data)->line_height / 2 + HEIGHT / 2;
 		if ((*data)->draw_start < 0)
 			(*data)->draw_start = 0;
 	
-		(*data)->draw_end = (*data)->line_height / 2 + WIN_H / 2;
-		if ((*data)->draw_end >= WIN_H)
-			(*data)->draw_end = WIN_H - 1;
+		(*data)->draw_end = (*data)->line_height / 2 + HEIGHT / 2;
+		if ((*data)->draw_end >= HEIGHT)
+			(*data)->draw_end = HEIGHT - 1;
 	
 		if ((*data)->side == 0)
 			(*data)->wall_x = (*data)->pos_y + (*data)->wall_dist * (*data)->ray_diry; //it's called wallX, it's actually an y-coordinate of the wall if side==1, but it's always the x-coordinate of the texture
@@ -97,7 +97,7 @@ int	generate_map(t_data **data)
 			(*data)->tex_x = TEXTURE_SIZE - (*data)->tex_x - 1;
 		
 		(*data)->step = 1.0 * TEXTURE_SIZE / (*data)->line_height; //texture step
-		(*data)->pos = ((*data)->draw_start - WIN_H / 2 + (*data)->line_height / 2) * (*data)->step;
+		(*data)->pos = ((*data)->draw_start - HEIGHT / 2 + (*data)->line_height / 2) * (*data)->step;
 		while ((*data)->draw_start < (*data)->draw_end)
 		{
 			(*data)->pos += (*data)->step;
@@ -161,10 +161,10 @@ int init_data(t_data  **data)
 	// (*data)->mlx_ptr = mlx_init();
 	if (!(*data)->mlx_ptr)
 		return (1);
-	// (*data)->win_ptr = mlx_new_window((*data)->mlx_ptr, WIN_W, WIN_H, "hi :)");
+	// (*data)->win_ptr = mlx_new_window((*data)->mlx_ptr, WIDTH, HEIGHT, "hi :)");
 	// if (!(*data)->win_ptr)
 	// 	return (free((*data)->mlx_ptr), 1);
-	// (*data)->img.mlx_img = mlx_new_image((*data)->mlx_ptr, WIN_W, WIN_H);
+	// (*data)->img.mlx_img = mlx_new_image((*data)->mlx_ptr, WIDTH, HEIGHT);
 	// if (!(*data)->img.mlx_img)
 	// {
 	// 	ft_close(data);
@@ -185,9 +185,26 @@ int init_data(t_data  **data)
 
 }
 
+void my_keyhook(mlx_key_data_t keydata, void* param)
+{
+	// If we PRESS the 'J' key, print "Hello".
+	if (keydata.key == MLX_KEY_J && keydata.action == MLX_PRESS)
+		puts("Hello ");
+
+	// If we RELEASE the 'K' key, print "World".
+	if (keydata.key == MLX_KEY_K && keydata.action == MLX_RELEASE)
+		puts("World");
+
+	// If we HOLD the 'L' key, print "!".
+	if (keydata.key == MLX_KEY_L && keydata.action == MLX_REPEAT)
+		puts("!");
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_data  *data;
+	mlx_t	*mlx;
 
 	//if args OK
 	data = malloc(sizeof(t_data));
@@ -198,5 +215,13 @@ int	main(int argc, char **argv)
 	// mlx_loop(data->mlx_ptr);
 	// // mlx_destroy_window(mlx_ptr, win_ptr);
 	// mlx_destroy_display(mlx_ptr);
+
+	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+		return (EXIT_FAILURE);
+
+	mlx_key_hook(mlx, &my_keyhook, NULL);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	return (EXIT_SUCCESS);
 	return(0);
 }

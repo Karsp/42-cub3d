@@ -19,7 +19,7 @@ RM = rm -f
 ##########################		DIRS		#################################
 SRC_DIR = src
 OBJ_DIR = obj
-HEADERS = -I include -I $(MLX_DIR)/include/MLX/MLX42.h -I $(MLX_DIR)/include/MLX/MLX42_Int.h #include/cub3d2.h 
+HEADERS = -I ./include -I $(MLX_DIR)/include #include/cub3d2.h 
 
 #########################		LIBS		#################################
 LIBFT_DIR = external/libft/
@@ -29,7 +29,7 @@ LIBFT = $(LIBFT_DIR)libft.a
 MLX_DIR = ./external/mlx42
 # MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -L $(MLX_DIR) #MAC
 # MLX_CFLAGS = -L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext -lz 
-MLX_CFLAGS = -L $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+MLX_CFLAGS = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 ###########################    FILES   ####################################
 SRC = $(shell find $(SRC_DIR) -name '*.c')
@@ -65,18 +65,17 @@ all: libmlx $(NAME)
 	$(call print_progress)
 	@echo ""
 
-$(NAME):$(OBJ) $(LIBFT) 
-	@$(CC) $(CFLAGS) $(OBJ) $(MLX_CFLAGS) $(LIBFT) $(HEADERS) -o $(NAME)
-	@$(eval CHANGES_MADE=1)
-
-$(LIBFT):
-	@make -C $(LIBFT_DIR) > /dev/null
-
 libmlx:
 	@echo "$(COLOR_BLUE) Creating MLX! $(COLOR_RESET)"
 	@cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4  > /dev/null
 	@echo "$(COLOR_BLUE) MLX done $(COLOR_RESET)"
 
+$(NAME):$(OBJ) $(LIBFT) 
+	@$(CC) $(OBJ) $(MLX_CFLAGS) $(HEADERS) $(LIBFT) -o $(NAME)
+	@$(eval CHANGES_MADE=1)
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR) > /dev/null
 
 define print_progress
 	@printf "\r$(COLOR_GREEN)[$(COLOR_GREEN_N) %d%%%*.*s $(COLOR_GREEN)] $(COLOR_PURPLE_N)CUB3D $(COLOR_PURPLE)Compiling 🛠️$(COLOR_RESET)" $(progress) $(CHARS_LEN) $(CHARS)
@@ -84,7 +83,7 @@ endef
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(MLX_CFLAGS) -c -o $@ $<  $(HEADERS)
+	@$(CC) $(CFLAGS) -c -o $@ $<  $(HEADERS)
 	$(eval progress=$(shell echo $$(($(progress) + 1))))
 	$(call print_progress)
 # @echo "$(COLOR_BLUE) Created! 😸 $(COLOR_RESET)"

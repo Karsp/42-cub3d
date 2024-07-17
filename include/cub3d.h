@@ -23,13 +23,14 @@
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 
-# define WIN_H 600
-# define WIN_W 800
+# define WIDTH 600
+# define HEIGHT 800
 //textures
 # define texWidth 64
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
+
 typedef enum e_cardinal_direction
 {
 	NORTH = 0,
