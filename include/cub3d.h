@@ -14,7 +14,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-// # include "../external/mlx/mlx.h"
 # include "../external/mlx42/include/MLX42/MLX42.h"
 # include "../external/libft/libft.h"
 # include <stdlib.h>
@@ -142,9 +141,10 @@ typedef struct s_data
 }   t_data;
 
 
+int		init_data(t_data  *data);
+void	ft_hook(void* param);
+void my_keyhook(mlx_key_data_t keydata, void* param);
+void	ft_randomize(void* param);
+int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
-int init_data(t_data  **data);
-void ft_hook(void* param);
-void ft_randomize(void* param);
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 #endif
