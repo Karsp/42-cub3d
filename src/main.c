@@ -47,7 +47,17 @@ int	main(void)
 		puts(mlx_strerror(mlx_errno));
 	if (init_map(&data))
 		return (EXIT_FAILURE);
-
+	// int x = -1;
+	// int y = -1;
+	// while (++y < 24)
+	// {
+	// 	x = -1;
+	// 	while (++x < 24)
+	// 	{
+	// 		printf("%d",data.world_map[x][y]);
+	// 	}
+	// 	printf("\n");
+	// }
 	// generate_map(&data);
 	// mlx_loop(data->mlx_ptr);
 	// // mlx_destroy_window(mlx_ptr, win_ptr);

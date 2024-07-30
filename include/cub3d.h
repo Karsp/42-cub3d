@@ -66,7 +66,7 @@ enum my_keys
 };
 
 //test map
-# define MAP_W 16
+# define MAP_W 24
 # define MAP_H 24
 
 
@@ -77,6 +77,9 @@ typedef struct s_img
 	int		bpp;
 	int		ln_len;
 	int		endian;
+	char	*path;
+	int		width;
+	int		height;
 }				t_img;
 
 typedef struct s_color
@@ -102,19 +105,22 @@ typedef struct s_data
 	int		fd;
 	// int **map;
 	char		**world_map;
-	int     map_x;
-	int     map_y;
 	//Player struct
 	double  pos_x;
 	double  pos_y;
 	double  dir_x;
 	double  dir_y;
-	//Raycast struct
 	double  plane_x;
 	double  plane_y;
+	double	movespeed;
+	double	rotspeed;
+	bool	is_moving;
+	//Raycast struct
+	double  camera_x;
 	double  ray_dirx;
 	double  ray_diry;
-	double  camera_x;
+	int     map_x;
+	int     map_y;
 	double  side_dist_x;
 	double  side_dist_y;
 	double  delta_dist_x;
@@ -127,8 +133,9 @@ typedef struct s_data
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
-	//settings struct? or Map? or Textures?
+	// Map? or Textures?
 	int		*texture_buffer[NUM_TEXTURES];
+	int		**pixels;
 	t_color	*ceil_color;
 	t_color	*floor_color;
 	t_direction dir;

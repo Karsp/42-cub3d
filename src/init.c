@@ -43,7 +43,7 @@ int init_data(t_data  *data)
 
 int	init_map(t_data *data)
 {
-	int file_map[24][24]=
+	int file_map[MAP_H][MAP_W]=
 	{
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -74,14 +74,16 @@ int	init_map(t_data *data)
 	int x = 0;
 	int y = -1;
 
-	final_map = ft_calloc(sizeof(char*), 25);
+	final_map = ft_calloc(sizeof(char*), MAP_H + 1);
 	if (!final_map)
-		return (1);
-	while(++y < 24)
+		return (free(final_map), 1);
+	while(++y < MAP_H)
 	{
-		final_map[y] = ft_calloc(sizeof(char *), 25);
+		final_map[y] = ft_calloc(sizeof(char *), MAP_W + 1);
+		if (!final_map[y])
+			return (ft_freematrix(&final_map), 1);
 		x = -1;
-		while(++x < 24)
+		while(++x < MAP_W)
 		{
 			final_map[y][x] = file_map[y][x];
 			// printf("%d",final_map[y][x]);
