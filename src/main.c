@@ -45,6 +45,9 @@ int	main(void)
 	memset(&data, 0, sizeof(t_data));
 	if (init_data(&data))
 		puts(mlx_strerror(mlx_errno));
+	if (init_map(&data))
+		return (EXIT_FAILURE);
+
 	// generate_map(&data);
 	// mlx_loop(data->mlx_ptr);
 	// // mlx_destroy_window(mlx_ptr, win_ptr);

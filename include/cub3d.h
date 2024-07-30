@@ -101,7 +101,7 @@ typedef struct s_data
 	mlx_image_t	*img;
 	int		fd;
 	// int **map;
-	int		**world_map;
+	char		**world_map;
 	int     map_x;
 	int     map_y;
 	//Player struct
@@ -142,8 +142,11 @@ typedef struct s_data
 
 
 int		init_data(t_data  *data);
+int		init_map(t_data *data);
+
 void	ft_hook(void* param);
 void my_keyhook(mlx_key_data_t keydata, void* param);
+
 void	ft_randomize(void* param);
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
