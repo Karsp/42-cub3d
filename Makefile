@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 ##########################   COMPILING SETTINGS   #########################
 CC = gcc
 CFLAGS = -Werror -Wextra -Wall -Wunreachable-code -Ofast #-g3 -fsanitize=address 
@@ -32,7 +32,7 @@ MLX_DIR = ./external/mlx42
 MLX_CFLAGS = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 ###########################    FILES   ####################################
-SRC = $(shell find $(SRC_DIR) -name '*.c')
+SRC = $(shell find $(SRC_DIR) -name '*.c') #Quitar y poner todos los archivos
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 #########################  COLORS & EXTRAS  #################################

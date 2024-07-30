@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daviles- <daviles-@student.madrid42.com>   +#+  +:+       +#+        */
+/*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/05/23 17:55:19 by daviles-         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:14:59 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
+# include <string.h>
+# include <errno.h>
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 
@@ -138,13 +140,39 @@ typedef struct s_data
 	double step;
 	t_settings  *settings;
 
-}   t_data;
+}	t_data;
 
+// Struct fot the map values
+typedef struct s_map
+{
+	int		fd;
+	int		pos_x;
+	int		pos_y;
+	int		num_lines;
+	int		num_cols;
+	char	*read_map;
+	char	**map;
+	char	**checked_map;
+}			t_map;
+
+// Struct for the MLX pointers
+typedef struct s_game
+{
+	t_map			*map;
+	mlx_t			*mlx;
+	mlx_texture_t	*texture;
+	mlx_image_t		*img;
+}				t_game;
 
 int		init_data(t_data  *data);
 void	ft_hook(void* param);
 void my_keyhook(mlx_key_data_t keydata, void* param);
 void	ft_randomize(void* param);
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
+int		get_rgba(int r, int g, int b, int a);
+void	c_error(char *message);
+void	c_check_file(char *file);
+void	c_read_map(t_map *v, char *file);
 
 #endif
