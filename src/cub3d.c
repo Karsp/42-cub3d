@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/07/31 16:54:51 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:43:49 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ int	get_size(t_map	*map)
 	int		r_size;
 	float	con;
 
-	con = 228.006;
-	// ft_printf("pos_y: %d\n", map->pos_y);
+	con = 3 * 228.006;
 	r_size = 300 * con / (300 * (map->pos_y - 1));
-	ft_printf("r_size en get_size: %d\n", r_size);
 	return (r_size);
 }
 
@@ -56,10 +54,11 @@ int	main(int argc, char **argv)
 	r_size = 0.0;
 	game.map = (t_map *)malloc(sizeof(t_map));
 	game.map->num_lines = 0;
+	game.map->info_map = 0;
 	if (argc == 2)
 	{
 		name = argv[1];
-		c_check_file(name);
+		c_check_ext(name);
 		c_read_map(game.map, argv[1]);
 		game.mlx = mlx_init(WIDTH, HEIGHT, "cub3dlanzas-", false);
 		if (!game.mlx)

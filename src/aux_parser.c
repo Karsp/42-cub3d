@@ -6,11 +6,21 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/07/31 14:13:35 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:26:24 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+/* int	c_strlen(const char *s)
+{
+	int	c;
+
+	c = 0;
+	while (s[c] != '\0' && s[c] != '\n')
+		c++;
+	return (c);
+} */
 
 /**
  * @brief Function ton locate the initail position of the player

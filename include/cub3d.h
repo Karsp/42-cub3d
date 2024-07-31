@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/07/31 16:35:56 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:52:59 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 
-# define WIDTH 1280
-# define HEIGHT 960
+# define WIDTH 2560
+# define HEIGHT 1920
 //textures
 # define texWidth 64
 # define texHeight 64
@@ -151,7 +151,7 @@ typedef struct s_square
 	int					color;
 }		t_square;
 
-// Struct fot the map values
+// Struct for the map values
 typedef struct s_map
 {
 	int		fd;
@@ -159,12 +159,17 @@ typedef struct s_map
 	int		pos_y;
 	int		num_lines;
 	int		num_cols;
+	char	*n_path;
+	char	*s_path;
+	char	*e_path;
+	char	*w_path;
+	int		info_map;
 	char	*read_map;
 	char	**map;
 	char	**checked_map;
 }			t_map;
 
-// Struct for the MLX pointers
+// Struct for the map and MLX pointers
 typedef struct s_game
 {
 	t_map			*map;
@@ -173,20 +178,21 @@ typedef struct s_game
 	mlx_image_t		*img;
 }				t_game;
 
-int		init_data(t_data  *data);
-void	ft_hook(void* param);
+int		init_data(t_data *data);
+void	ft_hook(void *param);
 //void my_keyhook(mlx_key_data_t keydata, void* param);
-void	ft_randomize(void* param);
+void	ft_randomize(void *param);
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 
 int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
 int		get_rgba(int r, int g, int b, int a);
 void	c_error(char *message);
-void	c_check_file(char *file);
+void	c_check_ext(char *file);
 void	c_read_map(t_map *v, char *file);
 int		find_n(const char *s, char c);
 void	draw_square(t_square square, mlx_image_t img);
+// int		c_strlen(const char *s);
 
 
 #endif
