@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/05 17:23:44 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:26:43 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ void	c_read_map(t_map *map, char *file)
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
 	init_map(map);
-	map->map = (char **)malloc((map->num_lines - map->init_line - 1) * sizeof(char *));
+	map->map = (char **)malloc((map->num_lines - map->init_line) * sizeof(char *));
 	close(map->fd);
 	map->fd = open (file, O_RDONLY);
 	if (map->fd == -1)
@@ -226,13 +226,19 @@ void	c_read_map(t_map *map, char *file)
 	{
 		if (aux_line > map->init_line)
 		{
+			// ft_printf("Linea %d: %s", count, line);
 			map->map[count] = (char *)malloc((ft_strlen(line) + 1) * sizeof(char));
 			map->map[count] = ft_strdup(line);
+			map->map[ft_strlen(line) + 1] = '\0';
+			ft_printf("Linea %d: %s", count, map->map[count]);
 			count++;
 		}
 		(free(line), line = NULL);
 		line = get_next_line(map->fd);
 		aux_line++;
 	}
+	//count++;
+	ft_printf("count final read_map %d\n", count);
+	map->map[count] = NULL;
 	close(map->fd);
 }

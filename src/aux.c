@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/05 16:58:40 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:15:40 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,48 @@ void	free_array(char **colors)
  * @brief Check if a character is a whitespace
  * @param c Character to check
 */
-int	is_whitespace(char c)
+/* int	is_char(char c)
 {
-	char	*ws;
+	char	*str;
 
-	ws = " \t\v\n\f\r";
-	while (*ws)
+	str = "NSWE01";
+	while (*str)
 	{
-		if (c == *ws)
+		if (c == *str)
 			return (1);
-		ws++;
+		str++;
 	}
+	return (0);
+} */
+/* int	is_char(char c)
+{
+	char	*str;
+	int		aux;
+
+	str = "NSWE01";
+	aux = 0;
+	ft_printf("char %c -  ", c);
+	while (aux < 6)
+	{
+		if (c == str[aux])
+		{
+			ft_printf("1\n");
+			return (1);
+		}
+		aux++;
+	}
+	ft_printf("0\n");
+	return (0);
+} */
+int	is_char(char c)
+{
+	// ft_printf("char %c -  ", c);
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == '1' || c =='1')
+	{
+		// ft_printf("1\n");
+		return (1);
+	}
+	// ft_printf("0\n");
 	return (0);
 }
 
@@ -67,9 +98,18 @@ void	c_print_all(t_map *map)
 	ft_printf("c_color %d\n", map->c_color);
 	ft_printf("dir %c\n", map->dir);
 	ft_printf("info_map %d\n", map->info_map);
+	ft_printf("map\n");
 	while (aux < (map->num_lines - map->init_line - 1))
 	{
 		ft_printf("%s", map->map[aux]);
+		aux++;
+	}
+	ft_printf("\n");
+	aux = 0;
+	ft_printf("checked_map\n");
+	while (aux < (map->num_lines - map->init_line + 1))
+	{
+		ft_printf("%s\n", map->checked_map[aux]);
 		aux++;
 	}
 	ft_printf("\n");

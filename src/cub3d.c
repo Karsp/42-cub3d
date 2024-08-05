@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/05 14:52:02 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:01:23 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	main(int argc, char **argv)
 		name = argv[1];
 		c_check_ext(name);
 		c_read_map(game.map, argv[1]);
-		c_print_all(game.map);
+		c_check_map(game.map);
+		// c_print_all(game.map);
 		game.mlx = mlx_init(WIDTH, HEIGHT, "cub3dlanzas-", false);
 		if (!game.mlx)
 			c_error("MLX error\n");
