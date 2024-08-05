@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/07/31 18:52:59 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:36:46 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
+# define GRIDSIZE 300
 
 typedef enum e_cardinal_direction
 {
@@ -151,7 +152,7 @@ typedef struct s_square
 	int					color;
 }		t_square;
 
-// Struct for the map values
+// Struct for the map values. info_map to chek if there's all of the needed data
 typedef struct s_map
 {
 	int		fd;
@@ -159,10 +160,14 @@ typedef struct s_map
 	int		pos_y;
 	int		num_lines;
 	int		num_cols;
+	int		init_line;
 	char	*n_path;
 	char	*s_path;
 	char	*e_path;
 	char	*w_path;
+	int		f_color;
+	int		c_color;
+	char	dir;
 	int		info_map;
 	char	*read_map;
 	char	**map;
@@ -187,12 +192,21 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
 int		get_rgba(int r, int g, int b, int a);
-void	c_error(char *message);
-void	c_check_ext(char *file);
-void	c_read_map(t_map *v, char *file);
-int		find_n(const char *s, char c);
 void	draw_square(t_square square, mlx_image_t img);
 // int		c_strlen(const char *s);
 
+// Errors management
+void	c_error(char *message);
+
+// Parsing functions
+int		find_n(const char *s, t_map *map);
+void	c_check_ext(char *file);
+void	c_read_map(t_map *v, char *file);
+
+// Auxiliar functions
+void	free_array(char **colors);
+
+// To delete
+void	c_print_all(t_map *map);
 
 #endif

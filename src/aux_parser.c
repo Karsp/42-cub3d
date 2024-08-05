@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/07/31 18:26:24 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:31:24 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,40 @@
  * @param c The character to check
  * @return The position in the line or -1 if there's no c in s
  */
-int	find_n(const char *s, char c)
+int	find_n(const char *s, t_map *map)
 {
 	char	*p;
+	//char	c;
 	int		pos;
 
 	p = (char *)s;
 	pos = 0;
 	while (p[pos] != '\0')
 	{
-		if (p[pos] == c)
+		if (p[pos] == 'N')
+		{
+			map->dir = 'N';
 			return (pos + 1);
+		}
+		else if (p[pos] == 'S')
+		{
+			map->dir = 'S';
+			return (pos + 1);
+		}
+		else if (p[pos] == 'E')
+		{
+			map->dir = 'E';
+			return (pos + 1);
+		}
+		else if (p[pos] == 'W')
+		{
+			map->dir = 'W';
+			return (pos + 1);
+		}
 		pos++;
 	}
-	if (p[pos] == c)
-		return (pos + 1);
+	// if (p[pos] == 'N')
+	// 	return (pos + 1);
 	return (-1);
 }
 

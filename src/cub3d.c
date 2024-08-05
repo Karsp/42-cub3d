@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/07/31 18:43:49 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:15:31 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ int	main(int argc, char **argv)
 	r_size = 0.0;
 	game.map = (t_map *)malloc(sizeof(t_map));
 	game.map->num_lines = 0;
+	game.map->num_cols = 0;
 	game.map->info_map = 0;
 	if (argc == 2)
 	{
 		name = argv[1];
 		c_check_ext(name);
+		//
 		c_read_map(game.map, argv[1]);
+		c_print_all(game.map);
 		game.mlx = mlx_init(WIDTH, HEIGHT, "cub3dlanzas-", false);
 		if (!game.mlx)
 			c_error("MLX error\n");
