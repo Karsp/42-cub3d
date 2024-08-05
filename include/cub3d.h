@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/05 13:36:46 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:44:03 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void	c_read_map(t_map *v, char *file);
 
 // Auxiliar functions
 void	free_array(char **colors);
+int		is_whitespace(char c);
 
 // To delete
 void	c_print_all(t_map *map);

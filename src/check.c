@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/05 13:53:58 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:23:44 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ char	*extract_data(t_map *map, char *line, int start)
 void	check_line(t_map *map, char *line)
 {
 	char	**colors;
+	int		aux;
 
+	aux = 0;
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		colors = extract_color_data(map, line, 2);
@@ -106,6 +108,13 @@ void	check_line(t_map *map, char *line)
 		map->w_path = extract_data(map, line, 3);
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		map->e_path = extract_data(map, line, 3);
+	else
+	{
+		while (line[aux] == ' ' || line[aux] == '\t')
+			aux++;
+		if (line[aux] != '\0' && line[aux] != '\n')
+			c_error("Mapa erróneo\n");
+	}
 }
 
 /**
@@ -142,20 +151,30 @@ void	init_map(t_map *map)
 	char	*line;
 	int		posx;
 	int		map_line;
+	int		aux;
 
 	posx = 0;
 	map_line = 0;
 	line = get_next_line(map->fd);
+	aux = 0;
 	if (!line)
 		c_error("Error de lectura del mapa\n");
 	check_line(map, line);
 	while (line)
 	{
 		map_line++;
+		while (line[aux] == ' ' || line[aux] == '\t')
+			aux++;
+		if (line[aux] == '\0')
+		{
+			ft_printf("Entra al if de init_map\n");
+			continue ;
+		}
 		posx = find_n(line, map);
 		if (posx >= 0)
 		{
 			map->pos_x = posx;
+			posx = 0;
 			map->pos_y = map_line;
 		}
 		if (line)
@@ -163,9 +182,6 @@ void	init_map(t_map *map)
 		line = get_next_line(map->fd);
 		if (!line)
 			break ;
-		check_line(map, line);
-		if (ft_strncmp(line, "\t", 1))
-			continue ;
 		if (map->info_map < 6)
 			check_line(map, line);
 		else if (map->info_map >= 6 && line)
@@ -179,9 +195,9 @@ void	init_map(t_map *map)
 }
 
 /**
- * Función guarra para guardar el mapa en un char ** NO DEFINITIVA
- * No me he molestado en liberar las cosas al final, habría que hacerlo en el
- * main (se puede sin problema)
+ * @brief Function to parse the map
+ * @param map The map structure
+ * @param file The path to the .cub file
  */
 void	c_read_map(t_map *map, char *file)
 {
@@ -194,11 +210,11 @@ void	c_read_map(t_map *map, char *file)
 	check_file(map, file);
 	map_size(map);
 	close(map->fd);
-	map->map = (char **)malloc(map->num_lines * sizeof(char *));
 	map->fd = open (file, O_RDONLY);
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
 	init_map(map);
+	map->map = (char **)malloc((map->num_lines - map->init_line - 1) * sizeof(char *));
 	close(map->fd);
 	map->fd = open (file, O_RDONLY);
 	if (map->fd == -1)
@@ -208,14 +224,15 @@ void	c_read_map(t_map *map, char *file)
 		c_error("Error de lectura del mapa");
 	while (line)
 	{
-		if (aux_line >= map->init_line)
+		if (aux_line > map->init_line)
 		{
 			map->map[count] = (char *)malloc((ft_strlen(line) + 1) * sizeof(char));
 			map->map[count] = ft_strdup(line);
+			count++;
 		}
 		(free(line), line = NULL);
 		line = get_next_line(map->fd);
-		count++;
+		aux_line++;
 	}
 	close(map->fd);
 }

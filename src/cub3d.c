@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/05 13:15:31 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/05 14:52:02 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	get_size(t_map	*map)
 	float	con;
 
 	con = 3 * 228.006;
-	r_size = 300 * con / (300 * (map->pos_y - 1));
+	r_size = GRIDSIZE * con / (GRIDSIZE * (map->pos_y - 1));
 	return (r_size);
 }
 
@@ -60,7 +60,6 @@ int	main(int argc, char **argv)
 	{
 		name = argv[1];
 		c_check_ext(name);
-		//
 		c_read_map(game.map, argv[1]);
 		c_print_all(game.map);
 		game.mlx = mlx_init(WIDTH, HEIGHT, "cub3dlanzas-", false);
