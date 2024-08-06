@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/05 20:01:23 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:00:29 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	my_keyhook(mlx_key_data_t keydata, void *param)
 
 int	get_size(t_map	*map)
 {
-	int		r_size;
+	size_t	r_size;
 	float	con;
 
 	con = 3 * 228.006;

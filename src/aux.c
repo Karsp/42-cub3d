@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 10:38:52 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:38:03 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,52 +30,14 @@ void	free_array(char **colors)
 }
 
 /**
- * @brief Check if a character is a whitespace
+ * @brief Check if a character is one of the allowed characters
  * @param c Character to check
 */
-/* int	is_char(char c)
-{
-	char	*str;
-
-	str = "NSWE01";
-	while (*str)
-	{
-		if (c == *str)
-			return (1);
-		str++;
-	}
-	return (0);
-} */
-/* int	is_char(char c)
-{
-	char	*str;
-	int		aux;
-
-	str = "NSWE01";
-	aux = 0;
-	ft_printf("char %c -  ", c);
-	while (aux < 6)
-	{
-		if (c == str[aux])
-		{
-			ft_printf("1\n");
-			return (1);
-		}
-		aux++;
-	}
-	ft_printf("0\n");
-	return (0);
-} */
 int	is_char(char c)
 {
-	// ft_printf("Entra a is_char");
-	// ft_printf("char %c -  ", c);
+
 	if (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 49 || c == 48)
-	{
-		// ft_printf("1\n");
 		return (1);
-	}
-	// ft_printf("0\n");
 	return (0);
 }
 
@@ -84,7 +46,7 @@ int	is_char(char c)
  */
 void	c_print_all(t_map *map)
 {
-	int	aux;
+	size_t	aux;
 
 	aux = 0;
 	ft_printf("pos_x: %d\n", map->pos_x);

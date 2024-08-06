@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 10:57:44 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:38:48 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*extract_data(t_map *map, char *line, int start)
 void	check_line(t_map *map, char *line)
 {
 	char	**colors;
-	int		aux;
+	size_t	aux;
 
 	aux = 0;
 	if (ft_strncmp(line, "F ", 2) == 0)
@@ -124,7 +124,7 @@ void	check_line(t_map *map, char *line)
 void	map_size(t_map *map)
 {
 	char	*aux;
-	int		num_cols;
+	size_t	num_cols;
 
 	num_cols = 0;
 	aux = get_next_line(map->fd);
@@ -149,14 +149,13 @@ void	map_size(t_map *map)
 void	init_map(t_map *map)
 {
 	char	*line;
-	int		posx;
-	int		map_line;
-	int		aux;
+	size_t	map_line;
+	size_t	aux;
 
-	posx = 0;
 	map_line = 0;
 	line = get_next_line(map->fd);
 	aux = 0;
+	map->symbols = 0;
 	if (!line)
 		c_error("Error de lectura del mapa\n");
 	check_line(map, line);
@@ -167,13 +166,6 @@ void	init_map(t_map *map)
 			aux++;
 		if (line[aux] == '\0')
 			continue ;
-		posx = find_n(line, map);
-		if (posx >= 0)
-		{
-			map->pos_x = posx;
-			posx = 0;
-			map->pos_y = map_line;
-		}
 		if (line)
 			(free(line), line = NULL);
 		line = get_next_line(map->fd);
@@ -199,8 +191,8 @@ void	init_map(t_map *map)
 void	c_read_map(t_map *map, char *file)
 {
 	char	*line;
-	int		count;
-	int		aux_line;
+	size_t	count;
+	long	aux_line;
 
 	count = 0;
 	aux_line = 0;
@@ -224,9 +216,8 @@ void	c_read_map(t_map *map, char *file)
 	{
 		if (aux_line > map->init_line)
 		{
-			map->map[count] = (char *)malloc((ft_strlen(line) + 1) * sizeof(char));
+			map->map[count] = (char *)malloc(ft_strlen(line) * sizeof(char));
 			map->map[count] = ft_strdup(line);
-			map->map[count][ft_strlen(line)] = '\0';
 			count++;
 		}
 		(free(line), line = NULL);

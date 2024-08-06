@@ -6,21 +6,11 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/05 12:31:24 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:36:51 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-/* int	c_strlen(const char *s)
-{
-	int	c;
-
-	c = 0;
-	while (s[c] != '\0' && s[c] != '\n')
-		c++;
-	return (c);
-} */
 
 /**
  * @brief Function ton locate the initail position of the player
@@ -28,43 +18,50 @@
  * @param c The character to check
  * @return The position in the line or -1 if there's no c in s
  */
-int	find_n(const char *s, t_map *map)
+long	find_n(char *s, t_map *map)
 {
-	char	*p;
+	//char	*p;
 	//char	c;
-	int		pos;
+	long	pos;
 
-	p = (char *)s;
+	//p = (char *)s;
 	pos = 0;
-	while (p[pos] != '\0')
+	while (s[pos] != '\0')
 	{
-		if (p[pos] == 'N')
+		if (s[pos] == 'N')
 		{
 			map->dir = 'N';
+			map->symbols++;
 			return (pos + 1);
 		}
-		else if (p[pos] == 'S')
+		else if (s[pos] == 'S')
 		{
 			map->dir = 'S';
+			map->symbols++;
 			return (pos + 1);
 		}
-		else if (p[pos] == 'E')
+		else if (s[pos] == 'E')
 		{
 			map->dir = 'E';
+			map->symbols++;
 			return (pos + 1);
 		}
-		else if (p[pos] == 'W')
+		else if (s[pos] == 'W')
 		{
 			map->dir = 'W';
+			map->symbols++;
 			return (pos + 1);
 		}
+		ft_printf("map->dir: %c con char: %c\n", map->dir, s[pos]);
 		pos++;
 	}
-	// if (p[pos] == 'N')
-	// 	return (pos + 1);
 	return (-1);
 }
 
+/**
+ * @brief Funtion to transform rgba color into MLX42 color
+ * @param RGBA The R, G, B & A values
+ */
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);

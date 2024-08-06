@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/05 19:14:56 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:16:52 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,11 @@ typedef struct s_square
 typedef struct s_map
 {
 	int		fd;
-	int		pos_x;
-	int		pos_y;
-	int		num_lines;
-	int		num_cols;
-	int		init_line;
+	size_t	pos_x;
+	size_t	pos_y;
+	size_t	num_lines;
+	size_t	num_cols;
+	long	init_line;
 	char	*n_path;
 	char	*s_path;
 	char	*e_path;
@@ -169,6 +169,7 @@ typedef struct s_map
 	int		c_color;
 	char	dir;
 	int		info_map;
+	int		symbols;
 	char	*read_map;
 	char	**map;
 	char	**checked_map;
@@ -199,7 +200,7 @@ void	draw_square(t_square square, mlx_image_t img);
 void	c_error(char *message);
 
 // Parsing functions
-int		find_n(const char *s, t_map *map);
+long	find_n(char *s, t_map *map);
 void	c_check_ext(char *file);
 void	c_read_map(t_map *v, char *file);
 void	c_check_map(t_map *map);
