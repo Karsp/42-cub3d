@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 13:34:33 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:16:27 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,16 @@ void	build_map(t_map *map)
 	size_t	aux;
 
 	aux = 0;
-	map->checked_map = (char **)malloc((map->num_lines - map->init_line + 2) * sizeof(char *));
-	while (aux < map->num_lines - map->init_line + 1)
+	ft_printf("num_lines: %d, init_line: %d\n", map->num_lines, map->init_line);
+	map->checked_map = (char **)malloc((map->num_lines - map->init_line + 3) * sizeof(char *));
+	while (aux < map->num_lines - map->init_line + 2)
 	{
 		map->checked_map[aux] = (char *)malloc(sizeof(char) * (map->num_cols + 3));
 		ft_memset(map->checked_map[aux], 'x', map->num_cols + 2);
-		map->checked_map[aux][map->num_cols + 3] = '\0';
+		map->checked_map[aux][map->num_cols + 2] = '\0';
 		aux++;
 	}
-	map->checked_map[map->num_lines - map->init_line + 2] = NULL;
+	map->checked_map[map->num_lines - map->init_line + 3] = NULL;
 }
 
 /**

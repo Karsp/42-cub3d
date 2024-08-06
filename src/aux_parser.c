@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 13:36:51 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:04:23 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ long	find_n(char *s, t_map *map)
 			map->symbols++;
 			return (pos + 1);
 		}
-		ft_printf("map->dir: %c con char: %c\n", map->dir, s[pos]);
 		pos++;
 	}
 	return (-1);

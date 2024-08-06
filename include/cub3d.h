@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/06 13:16:52 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:59:29 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,6 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 
 int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
-int		get_rgba(int r, int g, int b, int a);
-void	draw_square(t_square square, mlx_image_t img);
 // int		c_strlen(const char *s);
 
 // Errors management
@@ -208,6 +206,14 @@ void	c_check_map(t_map *map);
 // Auxiliar functions
 void	free_array(char **colors);
 int		is_char(char c);
+
+// Drawing functions
+void	draw_square(t_square square, mlx_image_t img);
+void	draw_map(t_game *game);
+
+// Auxiliar drawing functions
+int		get_size(t_map	*map);
+int		get_rgba(int r, int g, int b, int a);
 
 // To delete
 void	c_print_all(t_map *map);

@@ -6,12 +6,15 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 13:38:48 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:21:53 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+/**
+ * Pendiente de controlar los errores
+ */
 void	c_error(char *message)
 {
 	ft_printf("Error - %s: %s\n", mlx_strerror(mlx_errno), message);
@@ -150,11 +153,9 @@ void	init_map(t_map *map)
 {
 	char	*line;
 	size_t	map_line;
-	size_t	aux;
 
 	map_line = 0;
 	line = get_next_line(map->fd);
-	aux = 0;
 	map->symbols = 0;
 	if (!line)
 		c_error("Error de lectura del mapa\n");
@@ -162,10 +163,6 @@ void	init_map(t_map *map)
 	while (line)
 	{
 		map_line++;
-		while (line[aux] == ' ' || line[aux] == '\t')
-			aux++;
-		if (line[aux] == '\0')
-			continue ;
 		if (line)
 			(free(line), line = NULL);
 		line = get_next_line(map->fd);
@@ -173,12 +170,13 @@ void	init_map(t_map *map)
 			break ;
 		if (map->info_map < 6)
 			check_line(map, line);
-		else if (map->info_map >= 6 && line)
-		{
-			map->init_line = map_line;
+		else if (line[0] == '\0' || line[0] == '\n')
+			continue ;
+		else if (map->info_map >= 6 && line && (line[0] != '\0'\
+		|| line[0] != '\n'))
 			break ;
-		}
 	}
+	map->init_line = map_line;
 	if (map->info_map < 6)
 		c_error("Mapa incompleto: faltan datos\n");
 }
@@ -203,7 +201,6 @@ void	c_read_map(t_map *map, char *file)
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
 	init_map(map);
-	ft_printf("map->init_line: %d, map->num_lines: %d\n", map->init_line, map->num_lines);
 	map->map = (char **)malloc((map->num_lines - map->init_line) * sizeof(char *));
 	close(map->fd);
 	map->fd = open (file, O_RDONLY);
@@ -212,9 +209,10 @@ void	c_read_map(t_map *map, char *file)
 	line = get_next_line(map->fd);
 	if (!line)
 		c_error("Error de lectura del mapa");
+	ft_printf("map->init_line: %d\n", map->init_line);
 	while (line)
 	{
-		if (aux_line > map->init_line)
+		if (aux_line >= map->init_line)
 		{
 			map->map[count] = (char *)malloc(ft_strlen(line) * sizeof(char));
 			map->map[count] = ft_strdup(line);

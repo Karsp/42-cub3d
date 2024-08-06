@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 13:38:03 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:18:40 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	c_print_all(t_map *map)
 	ft_printf("dir %c\n", map->dir);
 	ft_printf("info_map %d\n", map->info_map);
 	ft_printf("map\n");
-	while (aux < (map->num_lines - map->init_line - 1))
+	while (aux < (map->num_lines - map->init_line))
 	{
 		ft_printf("%s", map->map[aux]);
 		aux++;
@@ -70,7 +70,7 @@ void	c_print_all(t_map *map)
 	ft_printf("\n");
 	aux = 0;
 	ft_printf("checked_map\n");
-	while (aux < (map->num_lines - map->init_line + 1))
+	while (aux < (map->num_lines - map->init_line + 2))
 	{
 		ft_printf("%s\n", map->checked_map[aux]);
 		aux++;

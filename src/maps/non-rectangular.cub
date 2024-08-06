@@ -2,16 +2,18 @@
 NO ./textures/greystone.xpm
 
 
-
-
 SO ./textures/greystone.xpm
 WE ./textures/greystone.xpm
+
+
 EA ./textures/greystone.xpm
 
+
 F 112,112,112
-
-
 C 56,56,56
+
+
+
 
 
 1111111111111
