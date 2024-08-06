@@ -100,15 +100,9 @@ typedef struct s_settings
 	double  fps;
 }   t_settings;
 
-typedef struct s_data
+//Player struct
+typedef struct s_player
 {
-	mlx_t	*mlx_ptr;
-	void	*win_ptr;
-	mlx_image_t	*img;
-	int		fd;
-	// int **map;
-	char		**world_map;
-	//Player struct
 	double  pos_x;
 	double  pos_y;
 	double  dir_x;
@@ -118,7 +112,11 @@ typedef struct s_data
 	double	movespeed;
 	double	rotspeed;
 	bool	is_moving;
-	//Raycast struct
+}	t_player;
+
+//Raycast struct
+typedef struct s_raycast
+{
 	double  camera_x;
 	double  ray_dirx;
 	double  ray_diry;
@@ -136,19 +134,13 @@ typedef struct s_data
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
-	// Map? or Textures?
-	int		*texture_buffer[NUM_TEXTURES];
-	int		**pixels;
-	t_color	*ceil_color;
-	t_color	*floor_color;
 	t_direction dir;
 	int tex_x;
 	int color;
 	double pos;
 	double step;
 	t_settings  *settings;
-
-}	t_data;
+}	t_raycast;
 
 // Struct for a rectangle
 typedef struct s_square
@@ -182,19 +174,28 @@ typedef struct s_map
 	char	**checked_map;
 }			t_map;
 
-// Struct for the map and MLX pointers
+// General struct. Contains map, player, raycast settings and MLX pointers
 typedef struct s_game
 {
 	t_map			*map;
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
+	t_raycast		*r;
+	t_player		*p;
 }				t_game;
 
-int		init_data(t_data *data);
+// Init.c
+int		init_data(t_game *game);
+int		init_player(t_player  *p);
+// int	init_map(t_data *data);
+
+// Clean.c
+void	my_close(t_game *game);
+// Hooks.c
 void	ft_hook(void *param);
 //void my_keyhook(mlx_key_data_t keydata, void* param);
-void	ft_randomize(void *param);
+
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 
@@ -224,5 +225,6 @@ int		get_rgba(int r, int g, int b, int a);
 
 // To delete
 void	c_print_all(t_map *map);
+// void	ft_randomize(void *param);
 
 #endif
