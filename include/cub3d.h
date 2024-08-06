@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/06 17:29:37 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:43:56 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
-# define GRIDSIZE 300
+# define GRIDSIZE 20
 
 typedef enum e_cardinal_direction
 {

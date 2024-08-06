@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 18:00:21 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:04:58 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,13 @@ void	check_colors(char **colors)
 		count++;
 	if (count != 3)
 		c_error("Error en el número de colores\n");
-	count = 0;
-	while (count++ < 3)
+	count = -1;
+	while (++count < 3)
 	{
-		while (colors[count] && colors[count][++aux] != '\0')
+		while (colors[count] && colors[count][++aux] != '\0' && aux < 3)
 			if (colors[count][aux] < 48 || colors[count][aux] > 57)
-				c_error("Error en los colores\n");
+				c_error("Error en los colores number\n");
+		aux = -1;
 	}
 }
 
@@ -118,7 +119,7 @@ void	check_line(t_map *map, char *line)
 		ft_atoi(colors[2])};
 		if (rgb.r < 0 || rgb.r > 255 || rgb.g < 0 || rgb.g > 255 || rgb.b < 0\
 		|| rgb.b > 255)
-			c_error("Error en los colores\n");
+			c_error("Error en los colores F\n");
 		map->f_color = get_rgba(rgb.r, rgb.g, rgb.b, 255);
 		free_array(colors);
 	}
@@ -129,7 +130,7 @@ void	check_line(t_map *map, char *line)
 		ft_atoi(colors[2])};
 		if (rgb.r < 0 || rgb.r > 255 || rgb.g < 0 || rgb.g > 255 || rgb.b < 0\
 		|| rgb.b > 255)
-			c_error("Error en los colores\n");
+			c_error("Error en los colores C\n");
 		map->c_color = get_rgba(rgb.r, rgb.g, rgb.b, 255);
 		free_array(colors);
 	}

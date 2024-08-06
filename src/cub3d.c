@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 16:34:02 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:46:08 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ int	main(int argc, char **argv)
 		c_read_map(game.map, argv[1]);
 		c_check_map(game.map);
 		// c_print_all(game.map);
-		game.mlx = mlx_init(WIDTH, HEIGHT, "cub3dlanzas-", false);
+		game.mlx = mlx_init(game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE, "cub3dlanzas-", false);
 		if (!game.mlx)
 			c_error("MLX error\n");
-		game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
+		game.img = mlx_new_image(game.mlx, game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE);
 		if (!game.img)
 			c_error("Image error\n");
 		// color = get_rgba(0, 10, 254, 255);
 		// r_size = get_size(game.map);
 		// draw_square((t_square){GRIDSIZE, GRIDSIZE, r_size, color}, *game.img);
 		ft_printf("Acaba el parseo\n");
-		//draw_map(&game);
+		draw_map(&game);
 		// if (mlx_image_to_window(game.mlx, game.img, 0, 0) < 0)
 		// 	c_error("Image to window error\n");
 		mlx_key_hook(game.mlx, &my_keyhook, &game);
