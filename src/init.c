@@ -71,6 +71,15 @@ int init_player(t_player  *p)
     return(EXIT_SUCCESS);
 }
 
+int init_raycast(t_game **game)
+{
+	t_raycast  *r;
+
+	memset(&r, 0, sizeof(t_raycast));
+	(*game)->r = r;
+	return (EXIT_SUCCESS);
+}
+
 // int	init_map(t_data *data)
 // {
 // 	int file_map[MAP_H][MAP_W]=

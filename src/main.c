@@ -60,7 +60,8 @@ int	main(int argc, char **argv)
 		puts(mlx_strerror(mlx_errno));
 	// if (init_map(&game))
 	// 	return (EXIT_FAILURE);
-		draw_map(&game);
+	generate_map(&game);
+		// draw_map(&game);
 		// if (mlx_image_to_window(game.mlx, game.img, 0, 0) < 0)
 		// 	c_error("Image to window error\n");
 

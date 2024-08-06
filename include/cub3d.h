@@ -136,7 +136,7 @@ typedef struct s_raycast
 	int		draw_end;
 	t_direction dir;
 	int tex_x;
-	int color;
+	int32_t color;
 	double pos;
 	double step;
 	t_settings  *settings;
@@ -188,6 +188,7 @@ typedef struct s_game
 // Init.c
 int		init_data(t_game *game);
 int		init_player(t_player  *p);
+int init_raycast(t_game **game);
 // int	init_map(t_data *data);
 
 // Clean.c
@@ -218,6 +219,8 @@ int		is_char(char c);
 // Drawing functions
 void	draw_square(t_square square, mlx_image_t img);
 void	draw_map(t_game *game);
+void	generate_map(t_game *game);
+
 
 // Auxiliar drawing functions
 int		get_size(t_map	*map);
