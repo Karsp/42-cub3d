@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daviles- <daviles-@student.madrid42.com>   +#+  +:+       +#+        */
+/*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/05/23 17:55:19 by daviles-         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:59:29 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
+# include <string.h>
+# include <errno.h>
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 
-# define WIDTH 600
-# define HEIGHT 800
+# define WIDTH 2560
+# define HEIGHT 1920
 //textures
 # define texWidth 64
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
+# define GRIDSIZE 300
 
 typedef enum e_cardinal_direction
 {
@@ -145,16 +148,81 @@ typedef struct s_data
 	double step;
 	t_settings  *settings;
 
-}   t_data;
+}	t_data;
 
+// Struct for a rectangle
+typedef struct s_square
+{
+	unsigned short int	x;
+	unsigned short int	y;
+	int					size;
+	int					color;
+}		t_square;
 
-int		init_data(t_data  *data);
-int		init_map(t_data *data);
+// Struct for the map values. info_map to chek if there's all of the needed data
+typedef struct s_map
+{
+	int		fd;
+	size_t	pos_x;
+	size_t	pos_y;
+	size_t	num_lines;
+	size_t	num_cols;
+	long	init_line;
+	char	*n_path;
+	char	*s_path;
+	char	*e_path;
+	char	*w_path;
+	int		f_color;
+	int		c_color;
+	char	dir;
+	int		info_map;
+	int		symbols;
+	char	*read_map;
+	char	**map;
+	char	**checked_map;
+}			t_map;
 
-void	ft_hook(void* param);
-void my_keyhook(mlx_key_data_t keydata, void* param);
+// Struct for the map and MLX pointers
+typedef struct s_game
+{
+	t_map			*map;
+	mlx_t			*mlx;
+	mlx_texture_t	*texture;
+	mlx_image_t		*img;
+}				t_game;
 
-void	ft_randomize(void* param);
+int		init_data(t_data *data);
+void	ft_hook(void *param);
+//void my_keyhook(mlx_key_data_t keydata, void* param);
+void	ft_randomize(void *param);
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+
+
+int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
+// int		c_strlen(const char *s);
+
+// Errors management
+void	c_error(char *message);
+
+// Parsing functions
+long	find_n(char *s, t_map *map);
+void	c_check_ext(char *file);
+void	c_read_map(t_map *v, char *file);
+void	c_check_map(t_map *map);
+
+// Auxiliar functions
+void	free_array(char **colors);
+int		is_char(char c);
+
+// Drawing functions
+void	draw_square(t_square square, mlx_image_t img);
+void	draw_map(t_game *game);
+
+// Auxiliar drawing functions
+int		get_size(t_map	*map);
+int		get_rgba(int r, int g, int b, int a);
+
+// To delete
+void	c_print_all(t_map *map);
 
 #endif
