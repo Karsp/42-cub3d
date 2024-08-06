@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 14:58:59 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:34:02 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 		// r_size = get_size(game.map);
 		// draw_square((t_square){GRIDSIZE, GRIDSIZE, r_size, color}, *game.img);
 		ft_printf("Acaba el parseo\n");
-		draw_map(&game);
+		//draw_map(&game);
 		// if (mlx_image_to_window(game.mlx, game.img, 0, 0) < 0)
 		// 	c_error("Image to window error\n");
 		mlx_key_hook(game.mlx, &my_keyhook, &game);

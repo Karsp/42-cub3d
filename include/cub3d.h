@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/06 13:59:29 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:29:37 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,13 @@ typedef struct s_game
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
 }				t_game;
+
+typedef struct s_colors
+{
+	int	r;
+	int	g;
+	int	b;
+}				t_colors;
 
 int		init_data(t_data *data);
 void	ft_hook(void *param);
