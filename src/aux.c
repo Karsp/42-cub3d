@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/05 20:15:40 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 10:38:52 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,9 @@ void	free_array(char **colors)
 } */
 int	is_char(char c)
 {
+	// ft_printf("Entra a is_char");
 	// ft_printf("char %c -  ", c);
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == '1' || c =='1')
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 49 || c == 48)
 	{
 		// ft_printf("1\n");
 		return (1);

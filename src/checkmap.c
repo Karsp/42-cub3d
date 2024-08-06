@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/05 20:15:04 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 11:10:19 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ void	build_map(t_map *map)
 	int	aux;
 
 	aux = 0;
-	ft_printf("Entra en build_map\n");
 	map->checked_map = (char **)malloc((map->num_lines - map->init_line + 2) * sizeof(char *));
-	while (map->map[aux] != NULL)
+	while (aux < map->num_lines - map->init_line + 1)
 	{
 		map->checked_map[aux] = (char *)malloc(sizeof(char) * (map->num_cols + 3));
 		ft_memset(map->checked_map[aux], 'x', map->num_cols + 2);
@@ -31,41 +30,33 @@ void	build_map(t_map *map)
 		aux++;
 	}
 	map->checked_map[map->num_lines - map->init_line + 2] = NULL;
-	ft_printf("Sale de build_map\n");
 }
 
 void	write_map(t_map *map)
 {
 	int	aux;
 	int	count;
+	int	i;
 
 	aux = 0;
 	count = 0;
+	i = 0;
 	while (map->map[aux] != NULL)
 	{
-		ft_printf("linea %d map: %s", aux, map->map[aux]);
-		while (map->map[aux][count] != '\0' && map->map[aux][count] != '\n')
+		while (i++ < map->num_cols && map->map[aux][count] != '\n')
 		{
 			if (is_char(map->map[aux][count]))
 				map->checked_map[aux + 1][count + 1] = map->map[aux][count];
 			count++;
 		}
-		ft_printf("linea %d c_m: %s\n", aux, map->checked_map[aux + 1]);
 		aux++;
-	}
-	// Para imprimir
-	ft_printf("checked_map\n");
-	aux = 0;
-	while (map->checked_map[aux] != NULL)
-	{
-		ft_printf("%s\n", map->checked_map[aux]);
-		aux++;
+		count = 0;
+		i = 0;
 	}
 }
 
 void	c_check_map(t_map *map)
 {
-	ft_printf("map en c_check_map\n");
 	build_map(map);
 	write_map(map);
 	c_print_all(map);
