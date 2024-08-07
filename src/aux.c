@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/07 10:42:11 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:15:31 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,13 @@ int	free_array(char **colors)
 	int	i;
 
 	i = 0;
-	ft_printf("Entra a liberar\n");
-	while (colors[i])
+	while (colors[i] != NULL)
 	{
-		ft_printf("Va a liberar: %s con i: %d\n", colors[i], i);
 		(free(colors[i]), colors[i] = NULL);
 		i++;
-		ft_printf("Ahora toca: %s con i: %d\n", colors[i], i);
 	}
-	ft_printf("Pasa el while\n");
-	(free(colors), colors = NULL);
+	if (colors)
+		(free(colors), colors = NULL);
 	return (1);
 }
 

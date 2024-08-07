@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/07 11:35:57 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:14:57 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,17 @@
 
 static void	my_close(t_game *game)
 {
-	ft_printf("Liberar checked_map\n");
 	free_array(game->map->checked_map);
-	ft_printf("Liberar read_map\n");
 	free(game->map->read_map);
-	ft_printf("Liberar map\n");
 	free_array(game->map->map);
 	mlx_delete_image(game->mlx, game->img);
-	mlx_delete_texture(game->texture);
+	//mlx_delete_texture(game->texture);
 	mlx_terminate(game->mlx);
-	
+	exit (EXIT_SUCCESS);
 }
 
 static void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
-	// Segfault, solo por probar
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
 		my_close((t_game *)param);
@@ -85,7 +81,7 @@ int	main(int argc, char **argv)
 		// if (mlx_image_to_window(game.mlx, game.img, 0, 0) < 0)
 		// 	c_error("Image to window error\n");
 		mlx_key_hook(game.mlx, &my_keyhook, &game);
-		if (game.mlx != NULL)
+		if (game.mlx && game.mlx != NULL)
 			mlx_loop(game.mlx);
 	}
 	else

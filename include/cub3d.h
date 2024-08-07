@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/07 11:22:45 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:12:27 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
-# define GRIDSIZE 20
+# define GRIDSIZE 10
 
 typedef enum e_cardinal_direction
 {
@@ -182,7 +182,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
-	mlx_instance_t	*instances;
+	//mlx_instance_t	*instances;
 }				t_game;
 
 typedef struct s_colors
