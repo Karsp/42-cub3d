@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/07 12:12:27 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:21:31 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
+	mlx_image_t		*img2;
 	//mlx_instance_t	*instances;
 }				t_game;
 
