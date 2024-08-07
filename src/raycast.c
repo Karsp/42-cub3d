@@ -98,18 +98,18 @@ void	generate_map(t_game *game)
       if(game->map->checked_map[r->map_x][r->map_y] == '1')
       {
         r->color = ft_pixel(
-				rand() % 0xFF, // R
-				rand() % 0xFF, // G
-				rand() % 0xFF, // B
-				rand() % 0xFF  // A
+				0xFF, // R
+				0xFF, // G
+				0x00, // B
+				0xFF  // A
 			);
       }
       else
       {
         r->color = ft_pixel(
 				0xFF, // R
-				0xFF, // G
-				0xFF, // B
+				0x00, // G
+				0x00, // B
 				0xFF  // A
         );
       }
@@ -119,7 +119,7 @@ void	generate_map(t_game *game)
         r->color = r->color / 2;
 
       //draw the pixels of the stripe as a vertical line
-      verLine(x, r->draw_start, r->draw_end, r->color);
+      //verLine(x, r->draw_start, r->draw_end, r->color);
       // complete the pixel map with the next loop
       while (r->draw_start < r->draw_end)
 		{
@@ -131,9 +131,8 @@ void	generate_map(t_game *game)
 				// add some shading to the north and south walls
 				r->color = (r->color >> 1) & 0x7F7F7F;
 			if (r->color > 0)
-				printf("Working on..");
 				// your pixel map (int** in this case)
-				//pixels_map[r->draw_start][x] = r->color;
+				r->pixel_map[r->draw_start][x] = r->color;
 			r->draw_start++;
 		}
     }

@@ -55,6 +55,8 @@ int init_data(t_game  *data)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
+	// if (create_pixelmap(&data))
+	// 	return(EXIT_FAILURE);
 //  data->time = 0; //time of current frame
 //  data->oldTime = 0; //time of previous frame
     return(EXIT_SUCCESS);
@@ -77,6 +79,26 @@ int init_raycast(t_game **game)
 
 	memset(&r, 0, sizeof(t_raycast));
 	(*game)->r = r;
+	return (EXIT_SUCCESS);
+}
+
+int	create_pixelmap(t_game **game)
+{
+	int	i;
+
+	(*game)->r->pixel_map = ft_calloc(HEIGHT + 1, sizeof(int*));
+	if (!(*game)->r->pixel_map)
+		return (EXIT_FAILURE);
+	i = -1;
+	while (++i < HEIGHT)
+	{
+		(*game)->r->pixel_map[i] = ft_calloc(WIDTH + 1, sizeof(int));
+		if (!(*game)->r->pixel_map[i])
+		{
+			ft_freeintarray(&(*game)->r->pixel_map);
+			return (EXIT_FAILURE);
+		}
+	}
 	return (EXIT_SUCCESS);
 }
 

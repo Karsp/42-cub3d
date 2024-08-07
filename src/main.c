@@ -37,6 +37,16 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 // 	}
 // }
 
+
+// static void	my_keyhook(mlx_key_data_t keydata, void *param)
+// {
+// 	// Segfault, solo por probar
+// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+// 	{
+// 		my_close((t_game *)param);
+// 	}
+// }
+
 int	main(int argc, char **argv)
 {
 	char	*name;
@@ -57,16 +67,18 @@ int	main(int argc, char **argv)
 
 		// Init mlx, player and raycast structs
 		if (init_data(&game))
-		puts(mlx_strerror(mlx_errno));
+			ft_putstr_fd((char *)mlx_strerror(mlx_errno),2);
 	// if (init_map(&game))
-	// 	return (EXIT_FAILURE);
-	generate_map(&game);
-		// draw_map(&game);
-		// if (mlx_image_to_window(game.mlx, game.img, 0, 0) < 0)
-		// 	c_error("Image to window error\n");
+		// return (EXIT_FAILURE);
+	// generate_map(&game);
 
+		draw_map(&game);
+		mlx_loop_hook(game.mlx, ft_hook, &game);
+		// mlx_key_hook(game.mlx, &my_keyhook, &game);
+		if (game.mlx != NULL)
+			mlx_loop(game.mlx);
 	// mlx_loop_hook(game.mlx, ft_randomize, &game);
-	mlx_loop_hook(game.mlx, ft_hook, &game);
+	// mlx_loop_hook(game.mlx, ft_hook, &game);
 	// mlx_key_hook(game.mlx, &my_keyhook, NULL);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);

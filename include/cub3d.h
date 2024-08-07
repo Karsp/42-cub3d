@@ -139,6 +139,7 @@ typedef struct s_raycast
 	int32_t color;
 	double pos;
 	double step;
+	int		**pixel_map;
 	t_settings  *settings;
 }	t_raycast;
 
@@ -189,6 +190,8 @@ typedef struct s_game
 int		init_data(t_game *game);
 int		init_player(t_player  *p);
 int init_raycast(t_game **game);
+int	create_pixelmap(t_game **game);
+
 // int	init_map(t_data *data);
 
 // Clean.c
