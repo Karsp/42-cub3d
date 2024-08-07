@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/07 12:21:31 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:53:46 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
 # define GRIDSIZE 10
+# define MINMAP_SIZE 301
 
 typedef enum e_cardinal_direction
 {
@@ -167,6 +168,7 @@ typedef struct s_map
 	char	*w_path;
 	int		f_color;
 	int		c_color;
+	int		p_color;
 	char	dir;
 	int		info_map;
 	int		symbols;
@@ -183,6 +185,7 @@ typedef struct s_game
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
 	mlx_image_t		*img2;
+	mlx_image_t		*img3;
 	//mlx_instance_t	*instances;
 }				t_game;
 
