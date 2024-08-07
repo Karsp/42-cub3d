@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 19:04:58 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:58:22 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	check_colors(char **colors)
 	count = -1;
 	while (++count < 3)
 	{
-		while (colors[count] && colors[count][++aux] != '\0' && aux < 3)
+		while (colors[count] && colors[count][++aux] != '\0' && aux < 3 && colors[count][aux] != '\n' )
 			if (colors[count][aux] < 48 || colors[count][aux] > 57)
 				c_error("Error en los colores number\n");
 		aux = -1;

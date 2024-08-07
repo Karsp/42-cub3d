@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 18:39:19 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:01:27 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,28 @@
 void	draw_map(t_game *game)
 {
 	t_map	*map;
-	long	aux;
-	size_t	count;
-	// int		color;
-	int		r_size;
+	size_t	aux;
+	long	count;
 
 	aux = 0;
 	count = 0;
 	map = game->map;
-	// color = get_rgba(0, 10, 254, 255);
-	r_size = 50;//get_size(game->map);
-	while (map->map[aux] != NULL)
+	draw_square((t_square){GRIDSIZE, GRIDSIZE, GRIDSIZE, map->c_color}, *game->img);
+	while (map->checked_map[count])
 	{
-		while (count < map->num_cols)
+		while (aux < map->num_lines)
 		{
-			if (map->map[aux][count] == 1)
+			if (map->checked_map[count][aux] == '1' && aux == 0 && count == 0)
 			{
-				draw_square((t_square){aux * 50, count * 50, r_size, map->c_color}, *game->img);
-				if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
+				if (mlx_image_to_window(game->mlx, game->img, aux * GRIDSIZE, count * GRIDSIZE) < 0)
 					c_error("Image to window error\n");
 			}
-			else if (map->map[aux][count] == 0)
-			{
-				draw_square((t_square){aux * 50, count * 50, r_size, map->f_color}, *game->img);
-				if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
+			else if (map->checked_map[count][aux] == '1')
+				if (mlx_image_to_window(game->mlx, game->img, aux * GRIDSIZE, count * GRIDSIZE) < 0)
 					c_error("Image to window error\n");
-			}
-			count++;
+			aux++;
 		}
-		aux++;
-		count = 0;
+		count++;
+		aux = 0;
 	}
 }

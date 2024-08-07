@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 18:46:08 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:35:57 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 static void	my_close(t_game *game)
 {
+	ft_printf("Liberar checked_map\n");
+	free_array(game->map->checked_map);
+	ft_printf("Liberar read_map\n");
+	free(game->map->read_map);
+	ft_printf("Liberar map\n");
+	free_array(game->map->map);
 	mlx_delete_image(game->mlx, game->img);
 	mlx_delete_texture(game->texture);
 	mlx_terminate(game->mlx);
+	
 }
 
 static void	my_keyhook(mlx_key_data_t keydata, void *param)
@@ -66,7 +73,8 @@ int	main(int argc, char **argv)
 		game.mlx = mlx_init(game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE, "cub3dlanzas-", false);
 		if (!game.mlx)
 			c_error("MLX error\n");
-		game.img = mlx_new_image(game.mlx, game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE);
+		//game.img = mlx_new_image(game.mlx, game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE);
+		game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);//GRIDSIZE, GRIDSIZE);
 		if (!game.img)
 			c_error("Image error\n");
 		// color = get_rgba(0, 10, 254, 255);

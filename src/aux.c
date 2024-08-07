@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 16:18:40 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 10:42:11 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@
  * @brief Function to free a 2D array os strings
  * @param colors The array to free
  */
-void	free_array(char **colors)
+int	free_array(char **colors)
 {
 	int	i;
 
 	i = 0;
+	ft_printf("Entra a liberar\n");
 	while (colors[i])
 	{
+		ft_printf("Va a liberar: %s con i: %d\n", colors[i], i);
 		(free(colors[i]), colors[i] = NULL);
 		i++;
+		ft_printf("Ahora toca: %s con i: %d\n", colors[i], i);
 	}
+	ft_printf("Pasa el while\n");
 	(free(colors), colors = NULL);
+	return (1);
 }
 
 /**

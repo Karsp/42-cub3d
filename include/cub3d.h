@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/06 18:43:56 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:22:45 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
+	mlx_instance_t	*instances;
 }				t_game;
 
 typedef struct s_colors
@@ -211,7 +212,7 @@ void	c_read_map(t_map *v, char *file);
 void	c_check_map(t_map *map);
 
 // Auxiliar functions
-void	free_array(char **colors);
+int		free_array(char **colors);
 int		is_char(char c);
 
 // Drawing functions
