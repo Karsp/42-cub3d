@@ -38,3 +38,30 @@ void	draw_map(t_game *game)
 		count = 0;
 	}
 }
+
+void	ft_draw_pixel_map(t_game *game)
+{
+	size_t		x;
+	long		y;
+
+	t_map	*map;
+	int		color;
+	int		r_size;
+
+	y = 0;
+	x = 0;
+	map = game->map;
+	color = get_rgba(0, 10, 254, 255);
+	r_size = 50;//get_size(game->map);
+	while (map->map[y] != NULL)
+	{
+		while (x < map->num_cols)
+		{
+			draw_square((t_square){y * 50, x * 50, r_size, color}, *game->img);
+			if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
+				c_error("Image to window error\n");
+			x++;
+		}
+		y++;
+		x = 0;
+	}}

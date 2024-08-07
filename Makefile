@@ -12,8 +12,8 @@
 
 NAME = cub3D
 ##########################   COMPILING SETTINGS   #########################
-CC = gcc
-CFLAGS = -Werror -Wextra -Wall -Wunreachable-code -Ofast -g3 #-fsanitize=address 
+CC = cc
+CFLAGS = -Werror -Wextra -Wall -Wunreachable-code -g3 #-fsanitize=address 
 RM = rm -f
 
 ##########################		DIRS		#################################

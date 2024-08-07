@@ -12,15 +12,33 @@
 
 #include "../include/cub3d.h"
 
+static t_direction	ft_get_cardinal_direction(t_raycast *ray)
+{
+	if (ray->side == 0)
+	{
+		if (ray->ray_dirx < 0)
+			return (WEST);
+		else
+			return (EAST);
+	}
+	else
+	{
+		if (ray->ray_diry > 0)
+			return (SOUTH);
+		else
+			return (NORTH);
+	}
+}
+
 void	generate_map(t_game *game)
 {
     t_player    *p;
     t_raycast   *r;
-	int x = 0;
+	int x = -1;
 
-    p = game->p;
-    r = game->r;
-	while (x < WIDTH)
+    p = &game->p;
+    r = &game->r;
+	while (++x < WIDTH)
 	{
 		//calculate ray position and direction
 		r->camera_x = 2 * x / (double)WIDTH - 1; //x-coordinate in camera space
@@ -55,6 +73,7 @@ void	generate_map(t_game *game)
 		// Performing DDA to determine the distance to the next grid line  We also take note of the side of the wall we hit (0 for x, 1 for y).
 		while (42) // hit == 0
 		{
+			// printf("Map pos: %c\n",game->map->checked_map[r->map_x][r->map_y]);
 			if (r->side_dist_x < r->side_dist_y) //jump to next map square, either in x-direction, or in y-direction
 			{
 				r->side_dist_x += r->delta_dist_x;
@@ -78,13 +97,20 @@ void	generate_map(t_game *game)
 		else
 			r->wall_dist = (r->map_y - p->pos_y + (1 - r->step_y) / 2) / r->ray_diry;
 	
-		r->line_height = (int)(HEIGHT / r->wall_dist);       //Calculate height of line to draw on screen
-	      //calculate lowest and highest pixel to fill in current stripe
-		r->draw_start = - r->line_height / 2 + HEIGHT / 2;
+
+
+		//Calculate height of line to draw on screen
+		r->line_height = (int)(HEIGHT / r->wall_dist);
+	    //calculate lowest and highest pixel to fill in current stripe
+		r->draw_start = (-1 * r->line_height) / 2 + HEIGHT / 2;
+		//   printf("DrawStart: %d\n",r->draw_start);
+
 		if (r->draw_start < 0)
 			r->draw_start = 0;
 	
 		r->draw_end = r->line_height / 2 + HEIGHT / 2;
+			//   printf("DrawEnd: %d\n",r->draw_end);
+
 		if (r->draw_end >= HEIGHT)
 			r->draw_end = HEIGHT - 1;
 	
@@ -115,30 +141,36 @@ void	generate_map(t_game *game)
       }
 
       //give x and y sides different brightness
-      if (r->side == 1) 
-        r->color = r->color / 2;
+    if (r->side == 1) 
+	{
+    	r->color = r->color / 2;
+	}
 
-      //draw the pixels of the stripe as a vertical line
-      //verLine(x, r->draw_start, r->draw_end, r->color);
-      // complete the pixel map with the next loop
+      //update pixel map	
+	//   printf("DrawStart: %d   DrawEnd: %d\n",r->draw_start, r->draw_end);
+	r->dir = ft_get_cardinal_direction(r);
+	r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
+	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
+		r->tex_x = TEXTURE_SIZE - r->tex_x - 1;
+	r->step = 1.0 * TEXTURE_SIZE / r->line_height;
+	r->pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
+
+			printf("X: %d\n",x);
+	  printf("DrawStart: %d   DrawEnd: %d\n",r->draw_start, r->draw_end);
       while (r->draw_start < r->draw_end)
 		{
+
 			r->pos += r->step;
 			// (*data)->color = ((*data)->texture_buffer)[(*data)->dir][TEXTURE_SIZE * ((int)(*data)->pos & (TEXTURE_SIZE - 1)) + (*data)->tex_x];
 			// r->color = (r->texture_buffer)[r->dir][TEXTURE_SIZE * ((int)r->pos & (TEXTURE_SIZE - 1)) + r->tex_x];
-		
-			if (r->dir == NORTH || r->dir == SOUTH)
-				// add some shading to the north and south walls
+			if (r->dir == NORTH || r->dir == SOUTH)				// add some shading to the north and south walls
 				r->color = (r->color >> 1) & 0x7F7F7F;
-			if (r->color > 0)
-				// your pixel map (int** in this case)
+			if (r->color > 0)				// your pixel map (int** in this case)
 				r->pixel_map[r->draw_start][x] = r->color;
 			r->draw_start++;
 		}
     }
-	x++;	
 }
-
 
 
 // 		//handling textures
@@ -168,3 +200,6 @@ void	generate_map(t_game *game)
 // 	x++;	
 // 	}
 // }
+
+
+

@@ -56,6 +56,8 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		//Parseo
+		ft_bzero(&game,sizeof(t_game));
+		game.p.pos_x = 42;
 		game.map = (t_map *)malloc(sizeof(t_map));
 		game.map->num_lines = 0;
 		game.map->num_cols = 0;
@@ -64,19 +66,19 @@ int	main(int argc, char **argv)
 		c_check_ext(name);
 		c_read_map(game.map, argv[1]);
 		c_check_map(game.map);
-
+	printf("map (%c)\n ", game.map->checked_map[0][0]);
 		// Init mlx, player and raycast structs
 		if (init_data(&game))
 			ft_putstr_fd((char *)mlx_strerror(mlx_errno),2);
 	// if (init_map(&game))
 		// return (EXIT_FAILURE);
-	// generate_map(&game);
+	generate_map(&game);
 
-		draw_map(&game);
-		mlx_loop_hook(game.mlx, ft_hook, &game);
+		// ft_draw_pixel_map(&game);
+	// mlx_loop_hook(game.mlx, ft_hook, &game);
 		// mlx_key_hook(game.mlx, &my_keyhook, &game);
-		if (game.mlx != NULL)
-			mlx_loop(game.mlx);
+	// if (game.mlx != NULL)
+	// 	mlx_loop(game.mlx);
 	// mlx_loop_hook(game.mlx, ft_randomize, &game);
 	// mlx_loop_hook(game.mlx, ft_hook, &game);
 	// mlx_key_hook(game.mlx, &my_keyhook, NULL);
@@ -90,3 +92,5 @@ int	main(int argc, char **argv)
 		my_close(&game);
 	return (EXIT_SUCCESS);
 }
+
+

@@ -24,8 +24,8 @@
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 
-# define WIDTH 2560
-# define HEIGHT 1920
+# define WIDTH 500
+# define HEIGHT 400
 //textures
 # define texWidth 64
 # define texHeight 64
@@ -182,15 +182,16 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
-	t_raycast		*r;
-	t_player		*p;
+	char			*img_addr;
+	t_raycast		r;
+	t_player		p;
 }				t_game;
 
 // Init.c
 int		init_data(t_game *game);
-int		init_player(t_player  *p);
-int init_raycast(t_game **game);
-int	create_pixelmap(t_game **game);
+int init_player(t_game *game);
+int init_raycast(t_game *game);
+int	create_pixelmap(t_game *game);
 
 // int	init_map(t_data *data);
 
@@ -223,6 +224,7 @@ int		is_char(char c);
 void	draw_square(t_square square, mlx_image_t img);
 void	draw_map(t_game *game);
 void	generate_map(t_game *game);
+void	ft_draw_pixel_map(t_game *game);
 
 
 // Auxiliar drawing functions
