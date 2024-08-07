@@ -6,14 +6,14 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/07 11:58:22 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:56:02 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 /**
- * Pendiente de controlar los errores
+ * Pendiente de controlar los errores. Habrá que pasar game
  */
 void	c_error(char *message)
 {
@@ -167,9 +167,12 @@ void	map_size(t_map *map)
 	while (aux)
 	{
 		map->num_lines++;
-		num_cols = ft_strlen(aux);
-		if (num_cols > map->num_cols)
-			map->num_cols = num_cols;
+		if (ft_strncmp(aux, " ", 1) == 0 || ft_strncmp(aux, "1", 1) == 0)
+		{		
+			num_cols = ft_strlen(aux);
+			if (num_cols > map->num_cols)
+				map->num_cols = num_cols + 2;
+		}
 		(free(aux), aux = NULL);
 		aux = get_next_line(map->fd);
 	}

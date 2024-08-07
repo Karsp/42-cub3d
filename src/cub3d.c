@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/07 12:26:14 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:45:36 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int	main(int argc, char **argv)
 		game.mlx = mlx_init(game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE, "cub3dlanzas-", false);
 		if (!game.mlx)
 			c_error("MLX error\n");
-		game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
+		game.img = mlx_new_image(game.mlx, game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE);//WIDTH, HEIGHT);
 		if (!game.img)
 			c_error("Image error\n");
-		game.img2 = mlx_new_image(game.mlx, WIDTH, HEIGHT);
+		game.img2 = mlx_new_image(game.mlx, game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE);//WIDTH, HEIGHT);
 		if (!game.img2)
 			c_error("Image error\n");
 		ft_printf("Acaba el parseo\n");
