@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/08 12:09:43 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/08 18:51:42 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ typedef struct s_map
 	int		f_color;
 	int		c_color;
 	int		p_color;
+	int		g_color;
 	char	dir;
 	int		info_map;
 	int		symbols;
@@ -185,12 +186,13 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
+	mlx_image_t		*img1;
 	mlx_image_t		*img2;
 	mlx_image_t		*img3;
 	mlx_image_t		*img4;
 	mlx_image_t		*img5;
 	mlx_image_t		*img6;
-	//mlx_instance_t	*instances;
+	mlx_instance_t	*instances;
 }				t_game;
 
 typedef struct s_colors
@@ -224,9 +226,14 @@ int		free_array(char **colors);
 int		is_char(char c);
 
 // Drawing functions
-void	draw_square(t_square square, mlx_image_t img);
+void	draw_square(t_square square, mlx_image_t *img);
 void	draw_map(t_game *game);
 void	draw_minimap(t_game *game);
+
+// Game
+void	my_close(t_game *game);
+void	init_img(t_game *game);
+void	init_game(t_game *game);
 
 // Auxiliar drawing functions
 int		get_size(t_map	*map);

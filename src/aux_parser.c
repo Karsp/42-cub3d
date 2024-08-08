@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 17:43:25 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/08 19:27:53 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,29 @@ long	find_n(char *s, t_map *map) // Hacer funnción auxiliar para lo que hay den
 		{
 			map->dir = 'N';
 			map->symbols++;
-			symbols = pos + 1;
+			symbols = pos;
 		}
 		else if (s[pos] == 'S')
 		{
 			map->dir = 'S';
 			map->symbols++;
-			symbols = pos + 1;
+			symbols = pos;
 		}
 		else if (s[pos] == 'E')
 		{
 			map->dir = 'E';
 			map->symbols++;
-			symbols = pos + 1;
+			symbols = pos;
 		}
 		else if (s[pos] == 'W')
 		{
 			map->dir = 'W';
 			map->symbols++;
-			symbols = pos + 1;
+			symbols = pos;
 		}
 		pos++;
 	}
+	ft_printf("symbols: %d\n", map->symbols);
 	if (map->symbols <= 1)
 		return (symbols);
 	else
