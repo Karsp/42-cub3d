@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:29:00 by daviles-          #+#    #+#             */
-/*   Updated: 2024/07/17 16:29:02 by daviles-         ###   ########.fr       */
+/*   Updated: 2024/08/08 10:17:22 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 // int init_mlx(t_game  *data)
@@ -100,7 +101,7 @@ int	create_pixelmap(t_game *game)
 		game->r.pixel_map[i] = ft_calloc(sizeof(int), WIDTH);
 		if (!game->r.pixel_map[i])
 		{
-			ft_freeintarray(&game->r.pixel_map);
+			ft_freeintarray(game->r.pixel_map);
 			return (EXIT_FAILURE);
 		}
 	}

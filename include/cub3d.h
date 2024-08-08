@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/08 10:12:14 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/08 10:18:03 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,7 @@ void	c_check_map(t_map *map);
 
 // Auxiliar functions
 int		free_array(char **colors);
+int		ft_freeintarray(int **pixel_map);
 int		is_char(char c);
 
 // Drawing functions

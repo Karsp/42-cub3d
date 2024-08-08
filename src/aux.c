@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/07 12:15:31 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/08 10:18:08 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,25 @@ int	free_array(char **colors)
 	}
 	if (colors)
 		(free(colors), colors = NULL);
+	return (1);
+}
+
+/**
+ * @brief Function to free a 2D array os ints
+ * @param pixel_map The array to free
+ */
+int	ft_freeintarray(int **pixel_map)
+{
+	int	i;
+
+	i = 0;
+	while (pixel_map[i] != NULL)
+	{
+		(free(pixel_map[i]), pixel_map[i] = NULL);
+		i++;
+	}
+	if (pixel_map)
+		(free(pixel_map), pixel_map = NULL);
 	return (1);
 }
 

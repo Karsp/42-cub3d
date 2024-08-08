@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/07/30 18:13:06 by daviles-         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:13:18 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,24 @@ void	generate_map(t_game *game)
 			// printf("Map pos: %c\n",game->map->checked_map[r->map_x][r->map_y]);
 			if (r->side_dist_x < r->side_dist_y) //jump to next map square, either in x-direction, or in y-direction
 			{
+				ft_printf("raycast generate_map map_x inicio: %d\n", r->map_x);
 				r->side_dist_x += r->delta_dist_x;
 				r->map_x += r->step_x;
 				r->side = 0;
+				ft_printf("raycast generate_map map_x final: %d\n", r->map_x);
 			}
 			else
 			{
+				ft_printf("raycast generate_map map_y inicio: %d\n", r->map_y);
 				r->side_dist_y += r->delta_dist_y;
 				r->map_y += r->step_y;
 				r->side = 1;
+				ft_printf("raycast generate_map map_y fin: %d\n", r->map_y);
 			}
-			if (game->map->checked_map[r->map_x][r->map_y] == '1')        //Check if ray has hit a wall
+			if (game && game->map && game->map->checked_map && game->map->checked_map[r->map_x] && game->map->checked_map[r->map_x][r->map_y] && game->map->checked_map[r->map_x][r->map_y] == '1')        //Check if ray has hit a wall
 				break;
+			else if (!game->map->checked_map[r->map_x] || !game->map->checked_map[r->map_x][r->map_y])        //Check if ray has hit a wall
+				c_error("El rayo se ha salido del mapa\n");
 		}
 
 		//Calculating the Wall Height

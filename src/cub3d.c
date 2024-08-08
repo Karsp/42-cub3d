@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/08 10:13:55 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/08 10:18:27 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	my_close(t_game *game)
 	exit (EXIT_SUCCESS);
 }
 
-static void	my_keyhook(mlx_key_data_t keydata, void *param)
+/* static void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
 		my_close((t_game *)param);
 	}
 
-}
+} */
 
 int	get_size(t_map	*map)
 {
