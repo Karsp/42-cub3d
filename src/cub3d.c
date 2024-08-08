@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/08 12:19:45 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:51:49 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,22 @@ static void	my_close(t_game *game)
 
 static void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
-		my_close((t_game *)param);
-	}
+	t_game	*game;
 
+	ft_printf("Entra a keyhook\n");
+	game = (t_game *)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		my_close(game);
+	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
+		game->map->pos_x++;
+	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
+		game->map->pos_x--;
+	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
+		game->map->pos_y--;
+	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
+		game->map->pos_y++;
+	// draw_map(game);
+	// draw_minimap(game);
 }
 
 int	get_size(t_map	*map)
