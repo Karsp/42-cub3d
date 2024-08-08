@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/06 13:59:29 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/08 10:12:14 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
-# define GRIDSIZE 300
+# define GRIDSIZE 10
 
 typedef enum e_cardinal_direction
 {
@@ -182,16 +182,25 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
+	mlx_image_t		*img2;
+	mlx_image_t		*img3;
 	char			*img_addr;
 	t_raycast		r;
 	t_player		p;
 }				t_game;
 
+typedef struct s_colors
+{
+	int	r;
+	int	g;
+	int	b;
+}				t_colors;
+
 // Init.c
 int		init_data(t_game *game);
-int init_player(t_game *game);
-int init_raycast(t_game *game);
-int	create_pixelmap(t_game *game);
+int 	init_player(t_game *game);
+int 	init_raycast(t_game *game);
+int		create_pixelmap(t_game *game);
 
 // int	init_map(t_data *data);
 
@@ -199,6 +208,7 @@ int	create_pixelmap(t_game *game);
 void	my_close(t_game *game);
 // Hooks.c
 void	ft_hook(void *param);
+
 //void my_keyhook(mlx_key_data_t keydata, void* param);
 
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
@@ -217,7 +227,7 @@ void	c_read_map(t_map *v, char *file);
 void	c_check_map(t_map *map);
 
 // Auxiliar functions
-void	free_array(char **colors);
+int		free_array(char **colors);
 int		is_char(char c);
 
 // Drawing functions

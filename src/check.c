@@ -6,14 +6,14 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 16:21:53 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:56:02 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 /**
- * Pendiente de controlar los errores
+ * Pendiente de controlar los errores. Habrá que pasar game
  */
 void	c_error(char *message)
 {
@@ -49,6 +49,27 @@ void	check_file(t_map *map, char *file)
 		c_error("Empty file");
 }
 
+void	check_colors(char **colors)
+{
+	int	count;
+	int	aux;
+
+	count = 0;
+	aux = -1;
+	while (colors[count])
+		count++;
+	if (count != 3)
+		c_error("Error en el número de colores\n");
+	count = -1;
+	while (++count < 3)
+	{
+		while (colors[count] && colors[count][++aux] != '\0' && aux < 3 && colors[count][aux] != '\n' )
+			if (colors[count][aux] < 48 || colors[count][aux] > 57)
+				c_error("Error en los colores number\n");
+		aux = -1;
+	}
+}
+
 /**
  * @brief Function to save the data
  * @param map The map structure
@@ -63,6 +84,7 @@ char	**extract_color_data(t_map *map, char *line, int start)
 	aux = ft_substr(line, start, ft_strlen(line) - start + 1);
 	map->info_map++;
 	colors = ft_split(aux, ',');
+	check_colors(colors);
 	return (colors);
 }
 
@@ -87,20 +109,29 @@ void	check_line(t_map *map, char *line)
 {
 	char	**colors;
 	size_t	aux;
+	t_colors	rgb;
 
 	aux = 0;
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		colors = extract_color_data(map, line, 2);
-		map->f_color = get_rgba(ft_atoi(colors[0]), ft_atoi(colors[1]),\
-		ft_atoi(colors[1]), 255);
+		rgb = (t_colors){ft_atoi(colors[0]), ft_atoi(colors[1]),\
+		ft_atoi(colors[2])};
+		if (rgb.r < 0 || rgb.r > 255 || rgb.g < 0 || rgb.g > 255 || rgb.b < 0\
+		|| rgb.b > 255)
+			c_error("Error en los colores F\n");
+		map->f_color = get_rgba(rgb.r, rgb.g, rgb.b, 255);
 		free_array(colors);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		colors = extract_color_data(map, line, 2);
-		map->c_color = get_rgba(ft_atoi(colors[0]), ft_atoi(colors[1]),\
-		ft_atoi(colors[1]), 255);
+		rgb = (t_colors){ft_atoi(colors[0]), ft_atoi(colors[1]),\
+		ft_atoi(colors[2])};
+		if (rgb.r < 0 || rgb.r > 255 || rgb.g < 0 || rgb.g > 255 || rgb.b < 0\
+		|| rgb.b > 255)
+			c_error("Error en los colores C\n");
+		map->c_color = get_rgba(rgb.r, rgb.g, rgb.b, 255);
 		free_array(colors);
 	}
 	else if (ft_strncmp(line, "NO ", 3) == 0)
@@ -116,7 +147,7 @@ void	check_line(t_map *map, char *line)
 		while (line[aux] == ' ' || line[aux] == '\t')
 			aux++;
 		if (line[aux] != '\0' && line[aux] != '\n')
-			c_error("Mapa erróneo\n");
+			c_error("Datos del mapa erróneos\n");
 	}
 }
 
@@ -136,9 +167,12 @@ void	map_size(t_map *map)
 	while (aux)
 	{
 		map->num_lines++;
-		num_cols = ft_strlen(aux);
-		if (num_cols > map->num_cols)
-			map->num_cols = num_cols;
+		if (ft_strncmp(aux, " ", 1) == 0 || ft_strncmp(aux, "1", 1) == 0)
+		{		
+			num_cols = ft_strlen(aux);
+			if (num_cols > map->num_cols)
+				map->num_cols = num_cols + 2;
+		}
 		(free(aux), aux = NULL);
 		aux = get_next_line(map->fd);
 	}

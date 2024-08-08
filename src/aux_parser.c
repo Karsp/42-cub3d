@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 14:04:23 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:43:25 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,42 +18,48 @@
  * @param c The character to check
  * @return The position in the line or -1 if there's no c in s
  */
-long	find_n(char *s, t_map *map)
+long	find_n(char *s, t_map *map) // Hacer funnción auxiliar para lo que hay dentro de los if
 {
 	//char	*p;
 	//char	c;
 	long	pos;
+	int		symbols;	
 
 	//p = (char *)s;
 	pos = 0;
+	symbols = 0;
 	while (s[pos] != '\0')
 	{
 		if (s[pos] == 'N')
 		{
 			map->dir = 'N';
 			map->symbols++;
-			return (pos + 1);
+			symbols = pos + 1;
 		}
 		else if (s[pos] == 'S')
 		{
 			map->dir = 'S';
 			map->symbols++;
-			return (pos + 1);
+			symbols = pos + 1;
 		}
 		else if (s[pos] == 'E')
 		{
 			map->dir = 'E';
 			map->symbols++;
-			return (pos + 1);
+			symbols = pos + 1;
 		}
 		else if (s[pos] == 'W')
 		{
 			map->dir = 'W';
 			map->symbols++;
-			return (pos + 1);
+			symbols = pos + 1;
 		}
 		pos++;
 	}
+	if (map->symbols <= 1)
+		return (symbols);
+	else
+		c_error("Error en el número de puntos de inicio\n");
 	return (-1);
 }
 
