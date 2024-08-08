@@ -12,6 +12,9 @@
 
 #include "../include/cub3d.h"
 
+/*@brief Main hook that handle movements on key pressed
+	Maybe we should make separate funcions for movements.
+*/
 void ft_hook(void* param)
 {
 	t_game		*game;
@@ -59,7 +62,6 @@ void ft_hook(void* param)
 	}
 }
 
-
 // This moves the image inside the window
 // 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
 // 		game->img->instances[0].y -= 5;
@@ -69,18 +71,3 @@ void ft_hook(void* param)
 // 		game->img->instances[0].x -= 5;
 // 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 // 		game->img->instances[0].x += 5;
-void my_keyhook(mlx_key_data_t keydata, void* param)
-{
-	(void)param;
-	// If we PRESS the 'J' key, print "Hello".
-	if (keydata.key == MLX_KEY_J && keydata.action == MLX_PRESS)
-		puts("Hello ");
-
-	// If we RELEASE the 'K' key, print "World".
-	if (keydata.key == MLX_KEY_K && keydata.action == MLX_RELEASE)
-		puts("World");
-
-	// If we HOLD the 'L' key, print "!".
-	if (keydata.key == MLX_KEY_L && keydata.action == MLX_REPEAT)
-		puts("!");
-}

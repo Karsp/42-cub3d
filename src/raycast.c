@@ -12,7 +12,9 @@
 
 #include "../include/cub3d.h"
 
-static t_direction	ft_get_cardinal_direction(t_raycast *ray)
+/*@brief Returns the direction of the wall that was hit by the ray.
+@returns  The number of the correct texture*/
+t_direction	ft_get_cardinal_direction(t_raycast *ray)
 {
 	if (ray->side == 0)
 	{
@@ -29,7 +31,17 @@ static t_direction	ft_get_cardinal_direction(t_raycast *ray)
 			return (NORTH);
 	}
 }
-
+/*
+@brief Main function of Raycast. Need to separate in steps.
+camera_x ::x-coordinate in camera space
+ray_dirx / diry ::calculate ray position and direction
+map_x / map_y ::which box of the map we're in
+delta_dist_x / dist_y  ::length of ray from one x or y-side to next x or y-side
+step_x  ::what direction to step in x or y-direction (either +1 or -1)
+side_dist_x ::length of ray from initial position to next x or y-side
+ deltaDistX ::length of ray from one x or y-side to next x or y-side
+       
+*/
 void	generate_map(t_game *game)
 {
     t_player    *p;
@@ -49,7 +61,6 @@ void	generate_map(t_game *game)
 		r->map_y = (int)p->pos_y;
 		r->delta_dist_x = fabs(1 /r->ray_dirx);  //length of ray from one x or y-side to next x or y-side
 		r->delta_dist_y = fabs(1 / r->ray_diry);
-		// ft_printf("Map_x inicio: %d\n", r->map_x);
 
 		//Caltulate Step and initial Side Distance
 		if (r->ray_dirx < 0)
@@ -72,7 +83,9 @@ void	generate_map(t_game *game)
 			r->step_y = 1;
 			r->side_dist_y = (r->map_y + 1.0 - p->pos_y) * r->delta_dist_y;
 		}
-		// Performing DDA to determine the distance to the next grid line  We also take note of the side of the wall we hit (0 for x, 1 for y).
+
+
+		// Calculate Wall distance - Performing DDA to determine the distance to the next grid line  We also take note of the side of the wall we hit (0 for x, 1 for y).
 		while (42) // hit == 0
 		{
 			if (r->side_dist_x < r->side_dist_y) //jump to next map square, either in x-direction, or in y-direction
@@ -91,33 +104,26 @@ void	generate_map(t_game *game)
 				r->side = 1;
 				// ft_printf("raycast generate_map map_y fin: %d\n", r->map_y);
 			}
-			if (game && game->map && game->map->checked_map && game->map->checked_map[r->map_x] && game->map->checked_map[r->map_x][r->map_y] && game->map->checked_map[r->map_x][r->map_y] == '1')        //Check if ray has hit a wall
+			if (game->map->checked_map[r->map_x][r->map_y] && game->map->checked_map[r->map_x][r->map_y] == '1')        //Check if ray has hit a wall -remove protections game && game->map && game->map->checked_map && game->map->checked_map[r->map_x] && 
 				break;
 			else if (!game->map->checked_map[r->map_x] || !game->map->checked_map[r->map_x][r->map_y])        //Check if ray has hit a wall
-				ft_putstr_fd("El rayo se ha salido del mapa\n", 2);
+				ft_putstr_fd("Ray is out of the map\n", 2);
 		}
-
-		//Calculating the Wall Height
-		//Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
 		if (r->side == 0)
 			r->wall_dist = (r->map_x - p->pos_x + (1 - r->step_x) / 2) / r->ray_dirx;
 		else
 			r->wall_dist = (r->map_y - p->pos_y + (1 - r->step_y) / 2) / r->ray_diry;
 	
 
-
+		//Calculating the Wall Height
 		//Calculate height of line to draw on screen
 		r->line_height = (int)(HEIGHT / r->wall_dist);
 	    //calculate lowest and highest pixel to fill in current stripe
 		r->draw_start = (-1 * r->line_height) / 2 + HEIGHT / 2;
-		//   printf("DrawStart: %d\n",r->draw_start);
-
 		if (r->draw_start < 0)
 			r->draw_start = 0;
 	
 		r->draw_end = r->line_height / 2 + HEIGHT / 2;
-			//   printf("DrawEnd: %d\n",r->draw_end);
-
 		if (r->draw_end >= HEIGHT)
 			r->draw_end = HEIGHT - 1;
 	
@@ -127,25 +133,26 @@ void	generate_map(t_game *game)
 			r->wall_x = p->pos_x + r->wall_dist * r->ray_dirx;
 		r->wall_x -= floor(r->wall_x);
 		
+
+
         // choose wall color
       if(game->map->checked_map[r->map_x][r->map_y] == '1')
       {
         r->color = get_rgba(0, 10, 254, 255);
-
       }
-      else
-      {
-        r->color = get_rgba(255, 10, 10, 255);
-      }
+    //   else
+    //   {
+    //     r->color = get_rgba(255, 10, 10, 255);
+    //   }
 
       //give x and y sides different brightness
     if (r->side == 1) 
 	{
-        r->color = get_rgba(0, 10, 254, 150);
+        r->color = get_rgba(255, 255, 0, 255);
+        // r->color = r->color / 2;
 	}
 
       //update pixel map	
-	//   printf("DrawStart: %d   DrawEnd: %d\n",r->draw_start, r->draw_end);
 	r->dir = ft_get_cardinal_direction(r);
 	r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
@@ -162,7 +169,7 @@ void	generate_map(t_game *game)
 			// (*data)->color = ((*data)->texture_buffer)[(*data)->dir][TEXTURE_SIZE * ((int)(*data)->pos & (TEXTURE_SIZE - 1)) + (*data)->tex_x];
 			// r->color = (r->texture_buffer)[r->dir][TEXTURE_SIZE * ((int)r->pos & (TEXTURE_SIZE - 1)) + r->tex_x];
 			if (r->dir == NORTH || r->dir == SOUTH)				// add some shading to the north and south walls
-				r->color = (r->color >> 1) & 0x7F7F7F;
+				r->color = 0x7F7F7F;
 			if (r->color > 0)				// your pixel map (int** in this case)
 				r->pixel_map[r->draw_start][x] = r->color;
 			r->draw_start++;

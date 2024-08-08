@@ -47,14 +47,8 @@ void	ft_draw_pixel_map(t_game *game)
 	size_t		x;
 	long		y;
 
-	t_map	*map;
-	int		color;
-	int		r_size;
-
 	y = -1;
-	map = game->map;
-	color = get_rgba(0, 10, 254, 255);
-	r_size = 50;//get_size(game->map);
+// create new image each time?
 	while (++y < HEIGHT)
 	{
 		x = -1;
@@ -70,5 +64,5 @@ void	ft_draw_pixel_map(t_game *game)
 	}
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
 				c_error("Image to window error\n");	
-	
+	// mlx_delete_image(game->mlx, game->img);
 	}

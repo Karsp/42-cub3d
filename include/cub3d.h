@@ -140,7 +140,7 @@ typedef struct s_raycast
 	int		draw_end;
 	t_direction dir;
 	int tex_x;
-	int32_t color;
+	int color;
 	double pos;
 	double step;
 	int		**pixel_map;
@@ -214,7 +214,6 @@ void	my_close(t_game *game);
 void	ft_hook(void *param);
 void	ft_onloop(void *param);
 
-//void my_keyhook(mlx_key_data_t keydata, void* param);
 //settings FPS
 void	ft_init_fps(t_game *game);
 void	ft_calculate_fps(t_game *game);
