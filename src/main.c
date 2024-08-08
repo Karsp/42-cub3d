@@ -12,41 +12,6 @@
 
 #include "../include/cub3d.h"
 
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
-
-// void ft_randomize(void* param)
-// {
-// 	t_data *data;
-
-// 	data = param;
-// 	for (uint32_t i = 0; i < data->img->width; ++i)
-// 	{
-// 		for (uint32_t y = 0; y < data->img->height; ++y)
-// 		{
-// 			uint32_t color = ft_pixel(
-// 				rand() % 0xFF, // R
-// 				rand() % 0xFF, // G
-// 				rand() % 0xFF, // B
-// 				rand() % 0xFF  // A
-// 			);
-// 			mlx_put_pixel(data->img, i, y, color);
-// 		}
-// 	}
-// }
-
-
-// static void	my_keyhook(mlx_key_data_t keydata, void *param)
-// {
-// 	// Segfault, solo por probar
-// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-// 	{
-// 		my_close((t_game *)param);
-// 	}
-// }
-
 void	ft_onloop(void *param)
 {
 	t_game	*game;
@@ -56,6 +21,8 @@ void	ft_onloop(void *param)
 		return ;
 	generate_map(game);
 	ft_draw_pixel_map(game);
+	ft_calculate_fps(game);
+	ft_render_fps(game);
 	ft_freeintarray(game->r.pixel_map);
 }
 

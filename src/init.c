@@ -12,22 +12,22 @@
 
 #include "../include/cub3d.h"
 
-// int init_mlx(t_game  *data)
+// int init_mlx(t_game  *game)
 // {
-// 	if (!(data->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true)))
+// 	if (!(game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true)))
 // 	{
 // 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 // 		return(EXIT_FAILURE);
 // 	}
-// 	if (!(data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT)))
+// 	if (!(game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT)))
 // 	{
-// 		mlx_close_window(data->mlx);
+// 		mlx_close_window(game->mlx);
 // 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 // 		return(EXIT_FAILURE);
 // 	}
-//     if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
+//     if (mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
 // 	{
-// 		mlx_close_window(data->mlx);
+// 		mlx_close_window(game->mlx);
 // 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 // 		return(EXIT_FAILURE);
 // 	}
@@ -73,6 +73,7 @@ int init_player(t_game *game)
 {
 	t_player	*p;
 
+	ft_bzero(&game->p, sizeof(t_player));
 	p = &game->p;
 	p->pos_x = game->map->pos_x + 0.5; //x and y start position
 	p->pos_y = game->map->pos_y + 0.5;
@@ -93,6 +94,7 @@ int init_player(t_game *game)
     p->rotspeed = p->frame_time * 3.0; //the constant value is in radians/second
     return(EXIT_SUCCESS);
 }
+
 
 
 int init_raycast(t_game *game)
@@ -125,7 +127,7 @@ int	create_pixelmap(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-// int	init_map(t_data *data)
+// int	init_map(t_game *game)
 // {
 // 	int file_map[MAP_H][MAP_W]=
 // 	{
@@ -176,6 +178,6 @@ int	create_pixelmap(t_game *game)
 // 		// printf("\n");
 // 	}
 // 	final_map[y] = NULL;
-// 	data->world_map = final_map;
+// 	game->world_map = final_map;
 // 	return (EXIT_SUCCESS);
 // }
