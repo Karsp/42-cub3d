@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/07 18:41:07 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:19:45 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,27 @@ int	main(int argc, char **argv)
 		game.mlx = mlx_init(WIDTH , HEIGHT, "cub3dlanzas-", false);
 		if (!game.mlx)
 			c_error("MLX error\n");
-		game.img = mlx_new_image(game.mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
+		game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 		if (!game.img)
 			c_error("Image error\n");
-		game.img2 = mlx_new_image(game.mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
+		game.img2 = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 		if (!game.img2)
 			c_error("Image error\n");
-		game.img3 = mlx_new_image(game.mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
+		game.img3 = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 		if (!game.img3)
+			c_error("Image error\n");
+		game.img4 = mlx_new_image(game.mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
+		if (!game.img4)
+			c_error("Image error\n");
+		game.img5 = mlx_new_image(game.mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
+		if (!game.img5)
+			c_error("Image error\n");
+		game.img6 = mlx_new_image(game.mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
+		if (!game.img6)
 			c_error("Image error\n");
 		ft_printf("Acaba el parseo\n");
 		draw_map(&game);
+		draw_minimap(&game);
 		mlx_key_hook(game.mlx, &my_keyhook, &game);
 		if (game.mlx && game.mlx != NULL)
 			mlx_loop(game.mlx);

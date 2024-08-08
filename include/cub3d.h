@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/07 18:53:46 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:09:43 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
-# define GRIDSIZE 10
-# define MINMAP_SIZE 301
+# define M_GRIDSIZE 10
+# define GRIDSIZE 25
+# define MINMAP_SIZE 310
 
 typedef enum e_cardinal_direction
 {
@@ -186,6 +187,9 @@ typedef struct s_game
 	mlx_image_t		*img;
 	mlx_image_t		*img2;
 	mlx_image_t		*img3;
+	mlx_image_t		*img4;
+	mlx_image_t		*img5;
+	mlx_image_t		*img6;
 	//mlx_instance_t	*instances;
 }				t_game;
 
@@ -222,6 +226,7 @@ int		is_char(char c);
 // Drawing functions
 void	draw_square(t_square square, mlx_image_t img);
 void	draw_map(t_game *game);
+void	draw_minimap(t_game *game);
 
 // Auxiliar drawing functions
 int		get_size(t_map	*map);
