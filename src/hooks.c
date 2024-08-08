@@ -14,23 +14,68 @@
 
 void ft_hook(void* param)
 {
-	t_game* game = param;
+	t_game		*game;
+	t_player	*p;
 
+	game = param;
+	p = &game->p;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(game->mlx);
 		// my_close((t_game *)param);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
-		game->img->instances[0].y -= 5;
+	{
+		if(game->map->checked_map[(int)(p->pos_x + p->dir_x)][(int)(p->pos_y)] == '0') 
+			p->pos_x += p->dir_x;
+      	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
+			p->pos_y += p->dir_y;
+	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-		game->img->instances[0].y += 5;
+	{
+		if(game->map->checked_map[(int)(p->pos_x + p->dir_x)][(int)(p->pos_y)] == '0') 
+			p->pos_x -= p->dir_x;
+      	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
+			p->pos_y -= p->dir_y;
+	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		game->img->instances[0].x -= 5;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		game->img->instances[0].x += 5;
+	{
+	//both camera direction and camera plane must be rotated
+    //   double oldDirX = p->dir_x;
+    //   p->dir_x = p->dir_x - p->dir_y ;
+    //   p->dir_y = oldDirX  + p->dir_y;
+    //   double oldPlaneX = p->plane_x;
+    //   p->plane_x = p->plane_x - p->plane_y ;
+    //   p->plane_y = oldPlaneX  + p->plane_y;
+      double oldDirX = p->dir_x;
+      p->dir_x = p->dir_x * cos(-p->rotspeed) - p->dir_y * sin(-p->rotspeed);
+      p->dir_y = oldDirX * sin(-p->rotspeed) + p->dir_y * cos(-p->rotspeed);
+      double oldPlaneX = p->plane_x;
+      p->plane_x = p->plane_x * cos(-p->rotspeed) - p->plane_y * sin(-p->rotspeed);
+      p->plane_y = oldPlaneX * sin(-p->rotspeed) + p->plane_y * cos(-p->rotspeed);
+	}
 }
 
+// void ft_hook(void* param)
+// {
+// 	t_game* game = param;
+
+// 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+// 	{
+// 		mlx_close_window(game->mlx);
+// 		// my_close((t_game *)param);
+// 	}
+// 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+// 		game->img->instances[0].y -= 5;
+// 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+// 		game->img->instances[0].y += 5;
+// 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+// 		game->img->instances[0].x -= 5;
+// 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+// 		game->img->instances[0].x += 5;
+// }
 void my_keyhook(mlx_key_data_t keydata, void* param)
 {
 	(void)param;

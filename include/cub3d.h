@@ -21,17 +21,22 @@
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
+//Check if is legal
+# include <sys/time.h>
+
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 
-# define WIDTH 500
-# define HEIGHT 400
+# define WIDTH 1500
+# define HEIGHT 1400
 //textures
 # define texWidth 64
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
 # define GRIDSIZE 10
+
+# define MAX_FPS_AVG 10000
 
 typedef enum e_cardinal_direction
 {
@@ -109,6 +114,9 @@ typedef struct s_player
 	double  dir_y;
 	double  plane_x;
 	double  plane_y;
+	long	time;
+	long	old_time;
+	double	frame_time;
 	double	movespeed;
 	double	rotspeed;
 	bool	is_moving;
@@ -243,6 +251,8 @@ int		get_size(t_map	*map);
 int		get_rgba(int r, int g, int b, int a);
 
 // To delete
+long	ft_get_time(void);
+
 void	c_print_all(t_map *map);
 // void	ft_randomize(void *param);
 

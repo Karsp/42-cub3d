@@ -104,7 +104,7 @@ void	write_map(t_map *map)
 			count++;
 		}
 		posx = find_n(map->map[aux], map);
-		if (posx >= 0)
+		if (posx > 0)
 		{
 			map->pos_x = posx;
 			posx = 0;
