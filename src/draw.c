@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/09 12:25:40 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:36:53 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_draw_pixel_map(t_game *game)
 	{
 		while (x < map->num_cols)
 		{
-			draw_square((t_square){y * 50, x * 50, r_size, color}, *game->img);
+			draw_square((t_square){y * 50, x * 50, r_size, color}, game->img);
 			if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
 				c_error("Image to window error\n");
 			x++;

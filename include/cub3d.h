@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/09 12:23:45 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:36:09 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
-# define GRIDSIZE 10
+# define M_GRIDSIZE 10
+# define GRIDSIZE 25
+# define MINMAP_SIZE 310
 
 typedef enum e_cardinal_direction
 {
@@ -167,6 +169,8 @@ typedef struct s_map
 	char	*w_path;
 	int		f_color;
 	int		c_color;
+	int		p_color;
+	int		g_color;
 	char	dir;
 	int		info_map;
 	int		symbols;
@@ -182,6 +186,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
+	mlx_image_t		*img1;
 	mlx_image_t		*img2;
 	mlx_image_t		*img3;
 	char			*img_addr;
@@ -231,11 +236,17 @@ int		free_array(char **colors);
 int		ft_freeintarray(int **pixel_map);
 int		is_char(char c);
 
+// Game
+void	init_img(t_game *game);
+void	init_game(t_game *game);
+
 // Drawing functions
-void	draw_square(t_square square, mlx_image_t img);
+void	draw_square(t_square square, mlx_image_t *img);
 void	draw_map(t_game *game);
 void	generate_map(t_game *game);
 void	ft_draw_pixel_map(t_game *game);
+void	draw_minimap(t_game *game);
+void	draw_color(t_square square, mlx_image_t *img);
 
 
 // Auxiliar drawing functions
