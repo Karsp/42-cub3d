@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/09 12:03:12 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:18:30 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_symbol(char **c_map, int line, int col)
 	{
 		if (c_map[line - 1][col] == 'x' || c_map[line + 1][col] == 'x'\
 	|| c_map[line][col - 1] == 'x' || c_map[line][col + 1] == 'x')
-			c_error("Mapa no cerrado\n");
+			c_error("Mapa no cerrado o hay espacios en el mapa\n");
 	}
 }
 

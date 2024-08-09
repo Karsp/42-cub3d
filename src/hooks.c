@@ -6,22 +6,21 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:47:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/09 12:59:48 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:27:32 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	new_map_pos(t_game *game, t_moves move)
+void	new_map_pos(t_game *game, t_player *p)
 {
-	if (move == UP)
-		game->map->pos_y--;
-	if (move == DOWN)
-		game->map->pos_y++;
-	if (move == LEFT)
-		game->map->pos_x--;
-	if (move == RIGHT)
-		game->map->pos_y++;
+	unsigned long	rel;
+
+	rel = MINMAP_SIZE / WIDTH;
+	ft_printf("px: %d, py: %d, rel: %d\n", p->pos_x, p->pos_y, rel);
+	game->map->pos_x = p->pos_x;
+	game->map->pos_y = p->pos_y;
+	ft_printf("pos_x: %d, pos_y: %d\n", game->map->pos_x, game->map->pos_y);
 }
 
 /**
@@ -43,12 +42,10 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
 	{
 		if(game->map->checked_map[(int)(p->pos_x + p->dir_x)][(int)(p->pos_y)] == '0') 
-		{
 			p->pos_x += p->dir_x;
-			new_map_pos(game, UP);
-		}
 		if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
 			p->pos_y += p->dir_y;
+		// new_map_pos(game, p);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 	{
@@ -56,6 +53,7 @@ void ft_hook(void* param)
 			p->pos_x -= p->dir_x;
       	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
 			p->pos_y -= p->dir_y;
+		// new_map_pos(game, p);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 	{
@@ -65,6 +63,7 @@ void ft_hook(void* param)
       p->old_planex = p->plane_x;
       p->plane_x = p->plane_x * cos(p->rotspeed) - p->plane_y * sin(p->rotspeed);
       p->plane_y = p->old_planex * sin(p->rotspeed) + p->plane_y * cos(p->rotspeed);
+		// new_map_pos(game, p);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 	{
@@ -76,6 +75,7 @@ void ft_hook(void* param)
       p->plane_x = p->plane_x * cos(-p->rotspeed) - p->plane_y * sin(-p->rotspeed);
       p->plane_y = p->old_planex * sin(-p->rotspeed) + p->plane_y * cos(-p->rotspeed);
 	}
+	new_map_pos(game, p);
 }
 
 // This moves the image inside the window
