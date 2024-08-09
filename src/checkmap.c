@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/09 13:18:30 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:26:30 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,21 +110,20 @@ void	write_map(t_map *map)
 		{
 			map->pos_x = posx;
 			posx = 0;
-			map->pos_y = aux;
+			map->pos_y = aux + 1;
 		}
 		aux++;
 		count = 0;
 		i = 0;
 	}
+	ft_printf("write_map: pos_x: %d, pos_y: %d\n", map->pos_x, map->pos_y = aux);
 	if (map->symbols != 1)
 		c_error("Error en el símbolo del jugador\n");
 }
 
 void	c_check_map(t_map *map)
 {
-	ft_printf("Va a build\n");
 	build_map(map);
-	ft_printf("Va a write\n");
 	write_map(map);
 	c_print_all(map);
 	check_map(map);

@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:47:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/09 14:27:32 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:45:24 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void ft_hook(void* param)
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 	{
-		if(game->map->checked_map[(int)(p->pos_x + p->dir_x)][(int)(p->pos_y)] == '0') 
+		if(game->map->checked_map[(int)(p->pos_x - p->dir_x)][(int)(p->pos_y)] == '0') 
 			p->pos_x -= p->dir_x;
-      	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
+      	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y - p->dir_y)] == '0') 
 			p->pos_y -= p->dir_y;
 		// new_map_pos(game, p);
 	}

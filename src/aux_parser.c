@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/08 19:27:53 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:15:39 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ long	find_n(char *s, t_map *map) // Hacer funnción auxiliar para lo que hay den
 	}
 	ft_printf("symbols: %d\n", map->symbols);
 	if (map->symbols <= 1)
-		return (symbols);
+		return (symbols + 1);
 	else
 		c_error("Error en el número de puntos de inicio\n");
 	return (-1);

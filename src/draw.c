@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/09 13:37:41 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:01:04 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void	draw_minimap(t_game *game)
 	aux = -1;
 	count = -1;
 	square.size = M_GRIDSIZE;
-	y = map->pos_y - 14;
-	x = map->pos_x - 14;
+	y = map->pos_y - 15;
+	x = map->pos_x - 15;
 	game->map->p_color = get_rgba(255, 10, 10, 255);
 	draw_color((t_square){0, 0, MINMAP_SIZE, game->map->g_color}, game->img);
 	while (x < -1)

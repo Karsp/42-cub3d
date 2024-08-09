@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/08 11:13:18 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:10:35 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	generate_map(t_game *game)
 
     p = &game->p;
     r = &game->r;
+	ft_printf("generate_map: pos_x: %d, pos_y: %d\n", p->pos_x, p->pos_y);
 	while (++x < WIDTH)
 	{
 		//calculate ray position and direction
