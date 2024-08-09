@@ -21,11 +21,14 @@
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
+//Check if is legal
+# include <sys/time.h>
+
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 
-# define WIDTH 500
-# define HEIGHT 400
+# define WIDTH 1500
+# define HEIGHT 1400
 //textures
 # define texWidth 64
 # define texHeight 64
@@ -34,6 +37,8 @@
 # define M_GRIDSIZE 10
 # define GRIDSIZE 25
 # define MINMAP_SIZE 310
+
+# define MAX_FPS_AVG 10000
 
 typedef enum e_cardinal_direction
 {
@@ -87,20 +92,14 @@ typedef struct s_img
 	int		height;
 }				t_img;
 
-typedef struct s_color
+typedef struct s_fps
 {
-	int32_t	r;
-	int32_t	g;
-	int32_t	b;
-	int32_t	a;
-}	t_color;
-
-typedef struct s_settings
-{
-	double  time;
-	double  old_time;
-	double  fps;
-}   t_settings;
+	double	previous_frame_time;
+	double	current_frame_time;
+	double	fps_avg[MAX_FPS_AVG];
+	int		fps_index;
+	double	fps;
+}	t_fps;
 
 //Player struct
 typedef struct s_player
@@ -111,6 +110,11 @@ typedef struct s_player
 	double  dir_y;
 	double  plane_x;
 	double  plane_y;
+	double	old_dirx;
+	double	old_planex;
+	long	time;
+	long	old_time;
+	double	frame_time;
 	double	movespeed;
 	double	rotspeed;
 	bool	is_moving;
@@ -138,11 +142,10 @@ typedef struct s_raycast
 	int		draw_end;
 	t_direction dir;
 	int tex_x;
-	int32_t color;
+	int color;
 	double pos;
 	double step;
 	int		**pixel_map;
-	t_settings  *settings;
 }	t_raycast;
 
 // Struct for a rectangle
@@ -192,6 +195,7 @@ typedef struct s_game
 	char			*img_addr;
 	t_raycast		r;
 	t_player		p;
+	t_fps			fps;
 }				t_game;
 
 typedef struct s_colors
@@ -213,10 +217,14 @@ int		create_pixelmap(t_game *game);
 void	my_close(t_game *game);
 // Hooks.c
 void	ft_hook(void *param);
+void	ft_onloop(void *param);
 
-//void my_keyhook(mlx_key_data_t keydata, void* param);
+//settings FPS
+void	ft_init_fps(t_game *game);
+void	ft_calculate_fps(t_game *game);
+void	ft_render_fps(t_game *game);
 
-int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+
 
 
 int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
@@ -254,6 +262,8 @@ int		get_size(t_map	*map);
 int		get_rgba(int r, int g, int b, int a);
 
 // To delete
+long	ft_get_time(void);
+
 void	c_print_all(t_map *map);
 // void	ft_randomize(void *param);
 

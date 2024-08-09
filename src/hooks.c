@@ -12,37 +12,62 @@
 
 #include "../include/cub3d.h"
 
+/*@brief Main hook that handle movements on key pressed
+	Maybe we should make separate funcions for movements.
+*/
 void ft_hook(void* param)
 {
-	t_game* game = param;
+	t_game		*game;
+	t_player	*p;
 
+	game = param;
+	p = &game->p;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(game->mlx);
 		// my_close((t_game *)param);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
-		game->img->instances[0].y -= 5;
+	{
+		if(game->map->checked_map[(int)(p->pos_x + p->dir_x)][(int)(p->pos_y)] == '0') 
+			p->pos_x += p->dir_x;
+      	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
+			p->pos_y += p->dir_y;
+	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-		game->img->instances[0].y += 5;
+	{
+		if(game->map->checked_map[(int)(p->pos_x + p->dir_x)][(int)(p->pos_y)] == '0') 
+			p->pos_x -= p->dir_x;
+      	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
+			p->pos_y -= p->dir_y;
+	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		game->img->instances[0].x -= 5;
+	{
+		p->old_dirx = p->dir_x;
+      p->dir_x = p->dir_x * cos(p->rotspeed) - p->dir_y * sin(p->rotspeed);
+      p->dir_y = p->old_dirx * sin(p->rotspeed) + p->dir_y * cos(p->rotspeed);
+      p->old_planex = p->plane_x;
+      p->plane_x = p->plane_x * cos(p->rotspeed) - p->plane_y * sin(p->rotspeed);
+      p->plane_y = p->old_planex * sin(p->rotspeed) + p->plane_y * cos(p->rotspeed);
+	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		game->img->instances[0].x += 5;
+	{
+	//both camera direction and camera plane must be rotated
+      p->old_dirx = p->dir_x;
+      p->dir_x = p->dir_x * cos(-p->rotspeed) - p->dir_y * sin(-p->rotspeed);
+      p->dir_y = p->old_dirx * sin(-p->rotspeed) + p->dir_y * cos(-p->rotspeed);
+      p->old_planex = p->plane_x;
+      p->plane_x = p->plane_x * cos(-p->rotspeed) - p->plane_y * sin(-p->rotspeed);
+      p->plane_y = p->old_planex * sin(-p->rotspeed) + p->plane_y * cos(-p->rotspeed);
+	}
 }
 
-void my_keyhook(mlx_key_data_t keydata, void* param)
-{
-	(void)param;
-	// If we PRESS the 'J' key, print "Hello".
-	if (keydata.key == MLX_KEY_J && keydata.action == MLX_PRESS)
-		puts("Hello ");
-
-	// If we RELEASE the 'K' key, print "World".
-	if (keydata.key == MLX_KEY_K && keydata.action == MLX_RELEASE)
-		puts("World");
-
-	// If we HOLD the 'L' key, print "!".
-	if (keydata.key == MLX_KEY_L && keydata.action == MLX_REPEAT)
-		puts("!");
-}
+// This moves the image inside the window
+// 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+// 		game->img->instances[0].y -= 5;
+// 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+// 		game->img->instances[0].y += 5;
+// 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+// 		game->img->instances[0].x -= 5;
+// 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+// 		game->img->instances[0].x += 5;

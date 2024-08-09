@@ -12,40 +12,19 @@
 
 #include "../include/cub3d.h"
 
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+void	ft_onloop(void *param)
 {
-    return (r << 24 | g << 16 | b << 8 | a);
+	t_game	*game;
+
+	game = param;
+	if (create_pixelmap(game))
+		return ;
+	generate_map(game);
+	ft_draw_pixel_map(game);
+	ft_calculate_fps(game);
+	ft_render_fps(game);
+	ft_freeintarray(game->r.pixel_map);
 }
-
-// void ft_randomize(void* param)
-// {
-// 	t_data *data;
-
-// 	data = param;
-// 	for (uint32_t i = 0; i < data->img->width; ++i)
-// 	{
-// 		for (uint32_t y = 0; y < data->img->height; ++y)
-// 		{
-// 			uint32_t color = ft_pixel(
-// 				rand() % 0xFF, // R
-// 				rand() % 0xFF, // G
-// 				rand() % 0xFF, // B
-// 				rand() % 0xFF  // A
-// 			);
-// 			mlx_put_pixel(data->img, i, y, color);
-// 		}
-// 	}
-// }
-
-
-// static void	my_keyhook(mlx_key_data_t keydata, void *param)
-// {
-// 	// Segfault, solo por probar
-// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-// 	{
-// 		my_close((t_game *)param);
-// 	}
-// }
 
 int	main(int argc, char **argv)
 {
@@ -66,21 +45,22 @@ int	main(int argc, char **argv)
 		c_check_ext(name);
 		c_read_map(game.map, argv[1]);
 		c_check_map(game.map);
-	printf("map (%c)\n ", game.map->checked_map[0][0]);
 		// Init mlx, player and raycast structs
 		if (init_data(&game))
 			ft_putstr_fd((char *)mlx_strerror(mlx_errno),2);
 	// if (init_map(&game))
 		// return (EXIT_FAILURE);
+// printf("Main Mapposx %zu", game.map->pos_x);
 	generate_map(&game);
-
-		// ft_draw_pixel_map(&game);
+	ft_draw_pixel_map(&game);
+	ft_freeintarray(game.r.pixel_map);
 	// mlx_loop_hook(game.mlx, ft_hook, &game);
 		// mlx_key_hook(game.mlx, &my_keyhook, &game);
 	// if (game.mlx != NULL)
 	// 	mlx_loop(game.mlx);
 	// mlx_loop_hook(game.mlx, ft_randomize, &game);
-	// mlx_loop_hook(game.mlx, ft_hook, &game);
+	mlx_loop_hook(game.mlx, ft_hook, &game);
+	mlx_loop_hook(game.mlx, &ft_onloop, &game);
 	// mlx_key_hook(game.mlx, &my_keyhook, NULL);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);

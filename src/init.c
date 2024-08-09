@@ -12,23 +12,23 @@
 
 #include "../include/cub3d.h"
 
-// int init_mlx(t_game  *data)
+// int init_mlx(t_game  *game)
 // {
-// 	if (!(data->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true)))
+// 	if (!(game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true)))
 // 	{
-// 		puts(mlx_strerror(mlx_errno));
+// 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 // 		return(EXIT_FAILURE);
 // 	}
-// 	if (!(data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT)))
+// 	if (!(game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT)))
 // 	{
-// 		mlx_close_window(data->mlx);
-// 		puts(mlx_strerror(mlx_errno));
+// 		mlx_close_window(game->mlx);
+// 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 // 		return(EXIT_FAILURE);
 // 	}
-//     if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
+//     if (mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
 // 	{
-// 		mlx_close_window(data->mlx);
-// 		puts(mlx_strerror(mlx_errno));
+// 		mlx_close_window(game->mlx);
+// 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 // 		return(EXIT_FAILURE);
 // 	}
 // }
@@ -39,44 +39,63 @@ int init_data(t_game  *game)
 	init_raycast(game);
 	if (!(game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true)))
 	{
-		puts(mlx_strerror(mlx_errno));
+		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 		return(EXIT_FAILURE);
 	}
 	if (!(game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT)))
 	{
 		mlx_close_window(game->mlx);
-		puts(mlx_strerror(mlx_errno));
+		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 		return(EXIT_FAILURE);
 	}
-    if (mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
-	{
-		mlx_close_window(game->mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	printf("Fuera Posx %f posy %f\n", game->p.pos_x,game->p.pos_y);
+    // if (mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
+	// {
+	// 	mlx_close_window(game->mlx);
+	// 	ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
+	// 	return(EXIT_FAILURE);
+	// }
 //  game->time = 0; //time of current frame
 //  game->oldTime = 0; //time of previous frame
     return(EXIT_SUCCESS);
+}
+
+long	ft_get_time(void)
+{
+	struct timeval	time;
+	long			res;
+
+	gettimeofday(&time, NULL);
+	res = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (res);
 }
 
 int init_player(t_game *game)
 {
 	t_player	*p;
 
+	ft_bzero(&game->p, sizeof(t_player));
 	p = &game->p;
 	p->pos_x = game->map->pos_x + 0.5; //x and y start position
 	p->pos_y = game->map->pos_y + 0.5;
+
 	// Build a function to define direction. Use the 4 variables
 	p->dir_x = -1.0; //initial direction vector. Replace later with N S W or E
 	p->dir_y = 0.0;
 	p->plane_x = 0.0; //the 2d raycaster version of camera plane
 	p->plane_y = 0.66;
 
-	// printf("Dentro Posx %f posy %f\n", game->p.pos_x,game->p.pos_y);
-
+	//timing for input and FPS counter
+    p->time = (long)ft_get_time();
+    p->old_time = p->time;
+    p->frame_time = (p->time - p->old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
+    // printf("FPS: %f", 1.0 / p->frame_time); //FPS counter
+	//speed modifiers
+    p->movespeed = p->frame_time * 5.0; //the constant value is in squares/second
+    p->rotspeed = p->frame_time * 3.0; //the constant value is in radians/second
     return(EXIT_SUCCESS);
 }
+
+
 
 int init_raycast(t_game *game)
 {
@@ -108,7 +127,7 @@ int	create_pixelmap(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-// int	init_map(t_data *data)
+// int	init_map(t_game *game)
 // {
 // 	int file_map[MAP_H][MAP_W]=
 // 	{
@@ -159,6 +178,6 @@ int	create_pixelmap(t_game *game)
 // 		// printf("\n");
 // 	}
 // 	final_map[y] = NULL;
-// 	data->world_map = final_map;
+// 	game->world_map = final_map;
 // 	return (EXIT_SUCCESS);
 // }

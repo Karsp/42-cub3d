@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/09 12:36:53 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:40:20 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,27 @@ void	ft_draw_pixel_map(t_game *game)
 	size_t		x;
 	long		y;
 
-	t_map	*map;
-	int		color;
-	int		r_size;
-
-	y = 0;
-	x = 0;
-	map = game->map;
-	color = get_rgba(0, 10, 254, 255);
-	r_size = 50;//get_size(game->map);
-	while (map->map[y] != NULL)
+	y = -1;
+// create new image each time?
+	while (++y < HEIGHT)
 	{
-		while (x < map->num_cols)
+		x = -1;
+		while (++x < WIDTH)
 		{
-			draw_square((t_square){y * 50, x * 50, r_size, color}, game->img);
-			if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-				c_error("Image to window error\n");
-			x++;
+			if (game->r.pixel_map[y][x] > 0)
+				mlx_put_pixel(game->img, x, y, game->r.pixel_map[y][x]);
+			else if (y > HEIGHT / 2)
+				mlx_put_pixel(game->img, x, y, game->map->c_color);
+			else if (y < HEIGHT / 2)
+				mlx_put_pixel(game->img, x, y, game->map->f_color);
 		}
-		y++;
-		x = 0;
-	}}
+	}
+	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
+		c_error("Image to window error\n");
+	// mlx_delete_image(game->mlx, game->img);
+	}
+
+
 /**
  * @brief Function to draw a minimap centered in the player
  * @param game The game struct
