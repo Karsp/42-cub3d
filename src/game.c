@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:06:45 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/08 18:38:24 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:02:35 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ static void	my_keyhook(mlx_key_data_t keydata, void *param)
 		game->map->pos_y--;
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
 		game->map->pos_y++;
-	// draw_map(game);
 	mlx_delete_image(game->mlx, game->img1);
+	game->img1 = mlx_new_image(game->mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
+	if (!game->img1)
+		c_error("Image error\n");
 	draw_minimap(game);
 }
 
@@ -46,25 +48,16 @@ void	init_img(t_game *game)
 	game->img3 = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->img3)
 		c_error("Image error\n");
-	game->img4 = mlx_new_image(game->mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
-	if (!game->img4)
+	game->img1 = mlx_new_image(game->mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
+	if (!game->img1)
 		c_error("Image error\n");
-	game->img5 = mlx_new_image(game->mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
-	if (!game->img5)
-		c_error("Image error\n");
-	game->img6 = mlx_new_image(game->mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
-	if (!game->img6)
-		c_error("Image error\n");
-	// game->img1 = mlx_new_image(game->mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
-	// if (!game->img1)
-	// 	c_error("Image error\n");
 }
 
 void	init_game(t_game *game)
 {
 	/* game->mlx = mlx_init(WIDTH, HEIGHT, "cub3dlanzas-", false);
 	init_img(game); */
-	draw_map(game);
+	// draw_map(game);
 	draw_minimap(game);
 	mlx_key_hook(game->mlx, &my_keyhook, game);
 	if (game->mlx && game->mlx != NULL)

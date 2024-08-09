@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/08 19:15:01 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:03:12 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,5 @@ void	c_check_map(t_map *map)
 	ft_printf("Va a write\n");
 	write_map(map);
 	c_print_all(map);
-	ft_printf("Va a check_map\n");
 	check_map(map);
 }

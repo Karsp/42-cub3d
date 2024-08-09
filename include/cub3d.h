@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/08 18:51:42 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 10:35:02 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,5 +241,6 @@ int		get_rgba(int r, int g, int b, int a);
 
 // To delete
 void	c_print_all(t_map *map);
+void	draw_color(t_square square, mlx_image_t *img);
 
 #endif
