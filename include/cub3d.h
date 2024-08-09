@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/09 12:36:09 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:57:27 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ typedef enum e_cardinal_direction
 	WEST = 2,
 	EAST = 3
 }	t_direction;
+
+typedef enum e_moves
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+}	t_moves;
 
 enum my_keys
 {

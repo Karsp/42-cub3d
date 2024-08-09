@@ -3,18 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:47:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/07/30 14:47:06 by daviles-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:59:48 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-/*@brief Main hook that handle movements on key pressed
-	Maybe we should make separate funcions for movements.
-*/
+void	new_map_pos(t_game *game, t_moves move)
+{
+	if (move == UP)
+		game->map->pos_y--;
+	if (move == DOWN)
+		game->map->pos_y++;
+	if (move == LEFT)
+		game->map->pos_x--;
+	if (move == RIGHT)
+		game->map->pos_y++;
+}
+
+/**
+ * @brief Main hook that handle movements on key pressed
+ * Maybe we should make separate funcions for movements.
+ */
 void ft_hook(void* param)
 {
 	t_game		*game;
@@ -30,8 +43,11 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
 	{
 		if(game->map->checked_map[(int)(p->pos_x + p->dir_x)][(int)(p->pos_y)] == '0') 
+		{
 			p->pos_x += p->dir_x;
-      	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
+			new_map_pos(game, UP);
+		}
+		if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
 			p->pos_y += p->dir_y;
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
