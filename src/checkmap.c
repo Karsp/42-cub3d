@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 18:01:39 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:03:12 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void	write_map(t_map *map)
 	count = 0;
 	i = 0;
 	posx = 0;
+	ft_printf("write_map: aux: %d\n", aux);
+	ft_printf("map[0]: %s\n", map->map[aux]);
 	while (map->map[aux] != NULL)
 	{
 		while (i++ < map->num_cols && map->map[aux][count] != '\n' && map->map[aux][count] != '\0')
@@ -104,7 +106,7 @@ void	write_map(t_map *map)
 			count++;
 		}
 		posx = find_n(map->map[aux], map);
-		if (posx >= 0)
+		if (posx > 0)
 		{
 			map->pos_x = posx;
 			posx = 0;
@@ -120,7 +122,9 @@ void	write_map(t_map *map)
 
 void	c_check_map(t_map *map)
 {
+	ft_printf("Va a build\n");
 	build_map(map);
+	ft_printf("Va a write\n");
 	write_map(map);
 	c_print_all(map);
 	check_map(map);
