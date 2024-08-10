@@ -64,7 +64,6 @@ void	build_map(t_map *map)
 	size_t	aux;
 
 	aux = 0;
-	ft_printf("num_lines: %d, init_line: %d\n", map->num_lines, map->init_line);
 	map->checked_map = (char **)malloc((map->num_lines - map->init_line + 3) * sizeof(char *));
 	while (aux < map->num_lines - map->init_line + 2)
 	{
@@ -90,11 +89,9 @@ void	write_map(t_map *map)
 	aux = 0;
 	count = 0;
 	i = 0;
-	posx = 0;
-	ft_printf("write_map: aux: %d\n", aux);
-	ft_printf("map[0]: %s\n", map->map[aux]);
 	while (map->map[aux] != NULL)
 	{
+		posx = 0;
 		while (i++ < map->num_cols && map->map[aux][count] != '\n' && map->map[aux][count] != '\0')
 		{
 			if (is_char(map->map[aux][count]))
@@ -116,7 +113,6 @@ void	write_map(t_map *map)
 		count = 0;
 		i = 0;
 	}
-	ft_printf("write_map: pos_x: %d, pos_y: %d\n", map->pos_x, map->pos_y = aux);
 	if (map->symbols != 1)
 		c_error("Error en el símbolo del jugador\n");
 }

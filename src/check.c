@@ -40,12 +40,23 @@ void	c_check_ext(char *file)
  * @param map The map structure
  * @param file The name of the file (argv[1])
  */
-void	check_file(t_map *map, char *file)
+/* void	check_file(t_map *map, char *file)
 {
 	map->fd = open (file, O_RDONLY);
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
 	if (read(map->fd, 0, 1) == 0)
+		c_error("Empty file");
+} */
+
+void	check_file(t_map *map, char *file)// Versión para compilar en casa. Borrar
+{
+	char buffer[1];
+
+	map->fd = open (file, O_RDONLY);
+	if (map->fd == -1)
+		(perror("Open"), exit(errno));
+	if (read(map->fd, buffer, 1) == 0)
 		c_error("Empty file");
 }
 

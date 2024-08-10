@@ -20,12 +20,9 @@
  */
 long	find_n(char *s, t_map *map) // Hacer funnción auxiliar para lo que hay dentro de los if
 {
-	//char	*p;
-	//char	c;
 	long	pos;
 	int		symbols;	
 
-	//p = (char *)s;
 	pos = 0;
 	symbols = 0;
 	while (s[pos] != '\0')
@@ -56,9 +53,10 @@ long	find_n(char *s, t_map *map) // Hacer funnción auxiliar para lo que hay den
 		}
 		pos++;
 	}
-	ft_printf("symbols: %d\n", map->symbols);
-	if (map->symbols <= 1)
+	if (map->symbols <= 1 && symbols != 0)
 		return (symbols + 1);
+	else if (map->symbols <= 1 && symbols == 0)
+		return (symbols);
 	else
 		c_error("Error en el número de puntos de inicio\n");
 	return (-1);
