@@ -84,7 +84,7 @@ void	write_map(t_map *map)
 	size_t	aux;
 	size_t	count;
 	size_t	i;
-	long	posx;
+	double	posx;
 
 	aux = 0;
 	count = 0;

@@ -70,8 +70,8 @@ void	c_print_all(t_map *map)
 	size_t	aux;
 
 	aux = 0;
-	ft_printf("pos_x: %d\n", map->pos_x);
-	ft_printf("pos_y; %d\n", map->pos_y);
+	printf("pos_x: %f\n", map->pos_x);
+	printf("pos_y; %f\n", map->pos_y);
 	ft_printf("num_lines %d\n", map->num_lines);
 	ft_printf("num_cols %d\n", map->num_cols);
 	ft_printf("*n_path %s\n", map->n_path);

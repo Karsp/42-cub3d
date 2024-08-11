@@ -50,7 +50,7 @@ void	generate_map(t_game *game)
 
     p = &game->p;
     r = &game->r;
-	ft_printf("generate_map: pos_x: %d, pos_y: %d\n", p->pos_x, p->pos_y);
+	printf("generate_map: pos_x: %f, pos_y: %f\n", p->pos_x, p->pos_y);
 	while (++x < WIDTH)
 	{
 		//calculate ray position and direction

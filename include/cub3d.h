@@ -169,8 +169,8 @@ typedef struct s_square
 typedef struct s_map
 {
 	int		fd;
-	size_t	pos_x;
-	size_t	pos_y;
+	double	pos_x;
+	double	pos_y;
 	size_t	num_lines;
 	size_t	num_cols;
 	long	init_line;
