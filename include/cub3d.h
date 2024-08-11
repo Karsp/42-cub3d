@@ -56,7 +56,27 @@ typedef enum e_moves
 	RIGHT
 }	t_moves;
 
-enum my_keys
+typedef enum e_cardinal
+{
+	N = 1,
+	S = -1,
+	W = -1,
+	E = 1
+}	t_cardinal;
+
+/* typedef enum e_v_dir
+{
+	N = 1,
+	S = -1,
+}	t_v_dir;
+
+typedef enum e_h_dir
+{
+	W = -1,
+	E = 1
+}	t_h_dir; */
+
+/* enum my_keys
 {
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
@@ -81,7 +101,7 @@ enum my_keys
 	A_LEFT = 123,
 	A_RIGHT = 124,
 	ESC = 53,
-};
+}; */
 
 //test map
 # define MAP_W 24
