@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/09 17:01:04 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:36:10 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,21 +95,21 @@ void	draw_minimap(t_game *game)
 	int			y;
 	t_square	square;
 
-	ft_printf("Entra en minimap\n");
+	// ft_printf("Entra en minimap\n");
 	map = game->map;
 	aux = -1;
 	count = -1;
 	square.size = M_GRIDSIZE;
-	y = map->pos_y - 15;
-	x = map->pos_x - 15;
+	x = floor(map->pos_y - 16);
+	y = floor(map->pos_x - 16);
 	game->map->p_color = get_rgba(255, 10, 10, 255);
 	draw_color((t_square){0, 0, MINMAP_SIZE, game->map->g_color}, game->img);
-	while (x < -1)
+	while (x < 0)
 	{
 		x++;
 		count++;
 	}
-	while (y < -1)
+	while (y < 0)
 	{
 		y++;
 		aux++;
@@ -120,11 +120,13 @@ void	draw_minimap(t_game *game)
 	{
 		while (++count * M_GRIDSIZE < MINMAP_SIZE && ++x >= 0 && x < (int)(map->num_cols) - 1)
 		{
+			printf("draw_minimap: x: %f, y: %f\n", map->pos_y, map->pos_x);
 			if (map->checked_map[y] && map->checked_map[y][x] == '1')
 			{
 				square.color = map->f_color;
 				square.x = count;
 				square.y = aux;
+				// ft_printf("draw_minimap: x: %d, y: %d\n", square.x, square.y);
 				draw_square(square, game->img);
 			}
 			else if (map->checked_map[y] && map->checked_map[y][x] == '0')
@@ -132,6 +134,7 @@ void	draw_minimap(t_game *game)
 				square.color = map->c_color;
 				square.x = count;
 				square.y = aux;
+				// ft_printf("draw_minimap: x: %d, y: %d\n", square.x, square.y);
 				draw_square(square, game->img);
 			}
 			else if (map->checked_map[y] && map->checked_map[y][x] == 'x')
@@ -139,6 +142,7 @@ void	draw_minimap(t_game *game)
 				square.color = map->g_color;
 				square.x = count;
 				square.y = aux;
+				// ft_printf("draw_minimap: x: %d, y: %d\n", square.x, square.y);
 				draw_square(square, game->img);
 			}
 			else if (map->checked_map[y] && map->checked_map[y][x])
@@ -146,6 +150,7 @@ void	draw_minimap(t_game *game)
 				square.color = map->c_color;
 				square.x = count;
 				square.y = aux;
+				// ft_printf("draw_minimap: x: %d, y: %d\n", square.x, square.y);
 				draw_square(square, game->img);
 			}
 		}

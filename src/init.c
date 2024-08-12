@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:29:00 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/08 10:17:22 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:01:57 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int init_data(t_game  *game)
 {
 	init_player(game);
 	init_raycast(game);
-	if (!(game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true)))
+	if (!(game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false)))
 	{
 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 		return(EXIT_FAILURE);

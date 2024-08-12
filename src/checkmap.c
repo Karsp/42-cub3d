@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/09 17:26:30 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 10:14:45 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ void	write_map(t_map *map)
 		posx = find_n(map->map[aux], map);
 		if (posx > 0)
 		{
-			map->pos_x = posx;
+			map->pos_y = posx;
 			posx = 0;
-			map->pos_y = aux + 1;
+			map->pos_x = aux + 1;
 		}
 		aux++;
 		count = 0;
