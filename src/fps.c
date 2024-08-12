@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 18:29:51 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/12 16:37:29 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:06:40 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_calculate_fps(t_game *game)
 	game->fps.current_frame_time = ft_get_time();
 	frame_time = (game->fps.current_frame_time - game->fps.previous_frame_time)
 		/ 200;
-	game->p.movespeed = frame_time * 5;
+	game->p.movespeed = frame_time * 3;
 	game->p.rotspeed = frame_time * 0.5;
 	game->fps.fps = 1.0 / frame_time;
 	sum = 0;

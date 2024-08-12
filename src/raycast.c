@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/12 10:24:27 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:39:46 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,8 +246,12 @@ int	init_raycast(t_game *game)
 
     p = &game->p;
     r = &game->r;
-	if (create_pixelmap(game))
-		return(EXIT_FAILURE);
+	ft_printf("init_raycast: Llega\n");
+	if (!game->r.pixel_map)
+		ft_printf("init_raycast: No hay pixel_map\n");
+	// 	create_pixelmap(game);
+	// if(!game->r.pixel_map)
+	// 	return(EXIT_FAILURE);
 	while (++x < WIDTH)
 	{
 		get_ray_posdir(game, x);

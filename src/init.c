@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:29:00 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/12 12:01:57 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:49:07 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	create_pixelmap(t_game *game)
 {
 	int	i;
 
-	game->r.pixel_map = ft_calloc(sizeof(int *),HEIGHT + 1);
+	game->r.pixel_map = (int **)ft_calloc(sizeof(int *),HEIGHT + 1);
 	if (!game->r.pixel_map)
 		return (EXIT_FAILURE);
 	i = -1;
@@ -120,6 +120,8 @@ int	create_pixelmap(t_game *game)
 			return (EXIT_FAILURE);
 		}
 	}
+	ft_printf("Create_pixel_map: i: %d\n", i);
+	game->r.pixel_map[i] = NULL;
 	return (EXIT_SUCCESS);
 }
 

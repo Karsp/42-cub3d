@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/08 19:25:28 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:22:21 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,8 @@ void	c_read_map(t_map *map, char *file)
 		line = get_next_line(map->fd);
 		aux_line++;
 	}
+	if (line)
+		(free(line), line = NULL);
 	map->map[count] = NULL;
 	// close(map->fd);
 	// aux_line = 0;

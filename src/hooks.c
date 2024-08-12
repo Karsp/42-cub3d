@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:47:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/12 16:28:30 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:28:31 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void ft_hook(void* param)
 	p = &game->p;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
-		mlx_close_window(game->mlx);
+		if (game)
+			free_game(game);
+		// mlx_close_window(game->mlx);
 		// my_close((t_game *)param);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
@@ -76,6 +78,10 @@ void ft_hook(void* param)
       p->plane_y = p->old_planex * sin(-p->rotspeed) + p->plane_y * cos(-p->rotspeed);
 	}
 	new_map_pos(game, p);
+	// mlx_delete_image(game->mlx, game->img);
+	// game->img = mlx_new_image(game->mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
+	// if (!game->img)
+	// 	c_error("Image error\n");
 }
 
 // This moves the image inside the window

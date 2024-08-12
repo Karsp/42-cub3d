@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/09 12:57:27 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:53:07 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,6 +275,7 @@ int		is_char(char c);
 // Game
 void	init_img(t_game *game);
 void	init_game(t_game *game);
+void	free_game(t_game *game);
 
 // Drawing functions
 void	draw_square(t_square square, mlx_image_t *img);

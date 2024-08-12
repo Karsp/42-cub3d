@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/12 16:11:59 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:24:32 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	draw_minimap(t_game *game)
 	{
 		while (++count * M_GRIDSIZE < MINMAP_SIZE && ++x >= 0 && x < (int)(map->num_cols) - 1)
 		{
-			printf("draw_minimap: x: %f, y: %f\n", map->pos_y, map->pos_x);
+			// printf("draw_minimap: x: %f, y: %f\n", map->pos_y, map->pos_x);
 			if (map->checked_map[y] && map->checked_map[y][x] == '1')
 			{
 				square.color = map->f_color;

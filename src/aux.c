@@ -6,11 +6,12 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/08 10:18:08 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:14:57 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
 
 /**
  * @brief Function to free a 2D array os strings
@@ -21,8 +22,9 @@ int	free_array(char **colors)
 	int	i;
 
 	i = 0;
-	while (colors[i] != NULL)
+	while (colors && colors[i] != NULL)
 	{
+		ft_printf("Entra al while free_array\n");
 		(free(colors[i]), colors[i] = NULL);
 		i++;
 	}
@@ -40,14 +42,39 @@ int	ft_freeintarray(int **pixel_map)
 	int	i;
 
 	i = 0;
-	while (pixel_map[i] != NULL)
+	//while (pixel_map && pixel_map[i] != NULL)
+	while (i < HEIGHT)
 	{
+		// ft_printf("ft_freeintarray con i: %d\n", i);
 		(free(pixel_map[i]), pixel_map[i] = NULL);
 		i++;
 	}
-	if (pixel_map)
+	if (pixel_map != NULL)
 		(free(pixel_map), pixel_map = NULL);
+		// pixel_map = NULL;
 	return (1);
+}
+
+void	free_game(t_game *game)
+{
+	ft_printf("free_game: Cierra todo\n");
+	// if (game->map && game->map->read_map != NULL)
+	// 	(ft_printf("free read_map\n"), free(game->map->read_map));
+	if (game->map->map)
+		(ft_printf("free map\n"), free_array(game->map->map));
+	if (game->map->checked_map)
+		(ft_printf("free checked_map\n"), free_array(game->map->checked_map));
+	if (game->img_addr)
+		(ft_printf("free img_addr\n"), free(game->img_addr));
+	// if (game->r.pixel_map)
+	// 	ft_freeintarray(game->r.pixel_map);
+	if (game->img)
+		mlx_delete_image(game->mlx, game->img);
+	if (game->texture)
+		mlx_delete_texture(game->texture);
+	if (game->mlx)
+		mlx_terminate(game->mlx);
+	game = NULL;
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/12 13:09:44 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:26:38 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	build_map(t_map *map)
 		aux++;
 	}
 	map->checked_map[map->num_lines - map->init_line + 3] = NULL;
+	//map->checked_map[aux] = NULL;
 }
 
 /**
@@ -118,6 +119,7 @@ void	write_map(t_map *map)
 		count = 0;
 		i = 0;
 	}
+	map->checked_map[aux + 2] = NULL;
 	if (map->symbols != 1)
 		c_error("Error en el símbolo del jugador\n");
 }
