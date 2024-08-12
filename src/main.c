@@ -20,7 +20,7 @@ void	ft_onloop(void *param)
 	init_raycast(game);
 	ft_draw_pixel_map(game);
 	// printf("FPS len: %zu\n", ft_arraylen((void**)game->fps.fps_avg));
-	ft_freeintarray(game->r.pixel_map);
+	// ft_freeintarray(game->r.pixel_map);
 }
 
 int	main(int argc, char **argv)
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 		// printf("Map len: %zu\n", ft_arraylen((void**)game.map->checked_map));
 		init_raycast(&game);
 		ft_draw_pixel_map(&game);
-		ft_freeintarray(game.r.pixel_map);
+		// ft_freeintarray(game.r.pixel_map);
 		mlx_loop_hook(game.mlx, ft_hook, &game);
 		mlx_loop_hook(game.mlx, &ft_onloop, &game);
 		mlx_loop(game.mlx);

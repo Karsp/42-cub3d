@@ -246,8 +246,12 @@ int	init_raycast(t_game *game)
 
     p = &game->p;
     r = &game->r;
-	if (create_pixelmap(game))
-		return(EXIT_FAILURE);
+	ft_bzero(game->r.pixel_map, sizeof(game->r.pixel_map));
+	// ft_memset((void *)&game->r.pixel_map, 0, sizeof(game->r.pixel_map));
+	// if (game->r.pixel_map)
+		// ft_memset((void *)game->r.pixel_map, 0, sizeof(game->r.pixel_map));
+	// if (create_pixelmap(game))
+	// 	return(EXIT_FAILURE);
 	while (++x < WIDTH)
 	{
 		get_ray_posdir(game, x);

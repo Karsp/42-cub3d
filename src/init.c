@@ -27,6 +27,8 @@ int init_data(t_game  *game)
 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 		return(EXIT_FAILURE);
 	}
+	if (create_pixelmap(game))
+		return(EXIT_FAILURE);
     return(EXIT_SUCCESS);
 }
 
