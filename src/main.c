@@ -17,15 +17,11 @@ void	ft_onloop(void *param)
 	t_game	*game;
 
 	game = param;
-	// if (!game->r.pixel_map)
-	// 	if (create_pixelmap(game))
-	// 		return ;
 	init_raycast(game);
-
 	ft_draw_pixel_map(game);
-	ft_calculate_fps(game);
+	// ft_calculate_fps(game);
+	// printf("FPS len: %zu\n", ft_arraylen((void**)game->fps.fps_avg));
 	// ft_render_fps(game);
-	// mlx_delete_image(game->mlx, game->img);
 
 	ft_freeintarray(game->r.pixel_map);
 }
@@ -50,25 +46,18 @@ int	main(int argc, char **argv)
 		c_read_map(game.map, argv[1]);
 		c_check_map(game.map);
 		// ft_printf("Acaba el parseo\n");
-		// Init mlx, player and raycast structs
 		if (init_data(&game))
 			ft_putstr_fd((char *)mlx_strerror(mlx_errno),2);
+		// printf("Map len: %zu\n", ft_arraylen((void**)game.map->checked_map));
+		init_raycast(&game);
+		ft_draw_pixel_map(&game);
+		ft_freeintarray(game.r.pixel_map);
+		mlx_loop_hook(game.mlx, ft_hook, &game);
+		mlx_loop_hook(game.mlx, &ft_onloop, &game);
+		mlx_loop(game.mlx);
+		mlx_terminate(game.mlx);
 
-	init_raycast(&game);
-	ft_draw_pixel_map(&game);
-	
-	ft_freeintarray(game.r.pixel_map);
-	// mlx_loop_hook(game.mlx, ft_hook, &game);
-		// mlx_key_hook(game.mlx, &my_keyhook, &game);
-	// if (game.mlx != NULL)
-	// 	mlx_loop(game.mlx);
-	// mlx_loop_hook(game.mlx, ft_randomize, &game);
-	mlx_loop_hook(game.mlx, ft_hook, &game);
-	mlx_loop_hook(game.mlx, &ft_onloop, &game);
-	// mlx_key_hook(game.mlx, &my_keyhook, NULL);
-	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
-	return (EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
 	}
 	else
 		c_error("Bad number of args");

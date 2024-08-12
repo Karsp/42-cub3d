@@ -132,7 +132,7 @@ void	draw_minimap(t_game *game)
 	{
 		while (++count * M_GRIDSIZE < MINMAP_SIZE && ++x >= 0 && x < (int)(map->num_cols) - 1)
 		{
-			printf("draw_minimap: x: %f, y: %f\n", map->pos_y, map->pos_x);
+			// printf("draw_minimap: x: %f, y: %f\n", map->pos_y, map->pos_x);
 			if (map->checked_map[y] && map->checked_map[y][x] == '1')
 			{
 				square.color = map->f_color;

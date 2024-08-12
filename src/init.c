@@ -76,10 +76,10 @@ int init_player(t_game *game)
 
 	ft_bzero(&game->p, sizeof(t_player));
 	p = &game->p;
-	printf("init_player: gamepos_x: %f, gamepos_y: %f\n", game->map->pos_x, game->map->pos_y);
+	// printf("init_player: gamepos_x: %f, gamepos_y: %f\n", game->map->pos_x, game->map->pos_y);
 	p->pos_x = game->map->pos_x + 0.5; //x and y start position
 	p->pos_y = game->map->pos_y + 0.5;
-	printf("init_player2: pos_x: %f, pos_y: %f\n", p->pos_x, p->pos_y);
+	// printf("init_player2: pos_x: %f, pos_y: %f\n", p->pos_x, p->pos_y);
 
 	// Build a function to define direction. Use the 4 variables
 	p->dir_x = -1.0; //initial direction vector. Replace later with N S W or E
@@ -88,13 +88,14 @@ int init_player(t_game *game)
 	p->plane_y = 0.66;
 
 	//timing for input and FPS counter
-    p->time = (long)ft_get_time();
-    p->old_time = p->time;
-    p->frame_time = (p->time - p->old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
-    // printf("FPS: %f", 1.0 / p->frame_time); //FPS counter
+	double	frame_time;
+
 	//speed modifiers
-    p->movespeed = p->frame_time * 5.0; //the constant value is in squares/second
-    p->rotspeed = p->frame_time * 3.0; //the constant value is in radians/second
+	frame_time = 0.027000;
+	game->p.movespeed = 0.135000;
+	game->p.rotspeed = 0.081000;
+    // p->movespeed = p->frame_time * 5.0; //the constant value is in squares/second
+    // p->rotspeed = p->frame_time * 3.0; //the constant value is in radians/second
     return(EXIT_SUCCESS);
 }
 
