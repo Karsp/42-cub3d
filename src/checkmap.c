@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/12 10:14:45 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:09:44 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,12 @@ void	write_map(t_map *map)
 		while (i++ < map->num_cols && map->map[aux][count] != '\n' && map->map[aux][count] != '\0')
 		{
 			if (is_char(map->map[aux][count]))
-				map->checked_map[aux + 1][count + 1] = map->map[aux][count];
+			{
+				if (map->map[aux][count] != '0' && map->map[aux][count] != '1' && map->map[aux][count] != 'x')
+					map->checked_map[aux + 1][count + 1] = '0';//map->map[aux][count];
+				else
+					map->checked_map[aux + 1][count + 1] = map->map[aux][count];
+			}
 			else if (map->map[aux][count] == '\t')
 				c_error("No están permitidos los tabuladores en el mapa\n");
 			else if (map->map[aux][count] != ' ' && map->map[aux][count] != '\0' && map->map[aux][count] != '\n' && map->map[aux][count] != EOF)
