@@ -17,12 +17,18 @@ void	ft_onloop(void *param)
 	t_game	*game;
 
 	game = param;
+	// if (!game->r.pixel_map)
+	// 	if (create_pixelmap(game))
+	// 		return ;
 	if (create_pixelmap(game))
 		return ;
 	generate_map(game);
+
 	ft_draw_pixel_map(game);
 	ft_calculate_fps(game);
-	ft_render_fps(game);
+	// ft_render_fps(game);
+	// mlx_delete_image(game->mlx, game->img);
+
 	ft_freeintarray(game->r.pixel_map);
 }
 
@@ -45,13 +51,11 @@ int	main(int argc, char **argv)
 		c_check_ext(name);
 		c_read_map(game.map, argv[1]);
 		c_check_map(game.map);
-		ft_printf("Acaba el parseo\n");
+		// ft_printf("Acaba el parseo\n");
 		// Init mlx, player and raycast structs
 		if (init_data(&game))
 			ft_putstr_fd((char *)mlx_strerror(mlx_errno),2);
-	// if (init_map(&game))
-		// return (EXIT_FAILURE);
-// printf("Main Mapposx %zu", game.map->pos_x);
+
 	generate_map(&game);
 	ft_draw_pixel_map(&game);
 	ft_freeintarray(game.r.pixel_map);

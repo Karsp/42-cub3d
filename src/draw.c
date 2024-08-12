@@ -53,6 +53,11 @@
 	}
 } */
 
+
+/**
+ * @brief Function to render information on r.pixel_map. Also render minimap.
+ * @param game The game struct
+ */
 void	ft_draw_pixel_map(t_game *game)
 {
 	size_t		x;
@@ -60,6 +65,13 @@ void	ft_draw_pixel_map(t_game *game)
 
 	y = -1;
 // create new image each time?
+	// if (!game->img)
+	// 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	// if (!game->img)
+	// {
+	// 	mlx_close_window(game->mlx);
+	// 	ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
+	// }
 	while (++y < HEIGHT)
 	{
 		x = -1;

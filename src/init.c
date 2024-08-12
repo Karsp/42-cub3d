@@ -109,6 +109,10 @@ int init_raycast(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
+/*
+@brief Create an int** array to save color/textures information for render.
+@param Use malloc.
+*/
 int	create_pixelmap(t_game *game)
 {
 	int	i;
