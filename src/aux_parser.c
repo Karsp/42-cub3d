@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/06 17:43:25 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:15:39 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@
  */
 long	find_n(char *s, t_map *map) // Hacer funnción auxiliar para lo que hay dentro de los if
 {
-	//char	*p;
-	//char	c;
 	long	pos;
 	int		symbols;	
 
-	//p = (char *)s;
 	pos = 0;
 	symbols = 0;
 	while (s[pos] != '\0')
@@ -34,29 +31,31 @@ long	find_n(char *s, t_map *map) // Hacer funnción auxiliar para lo que hay den
 		{
 			map->dir = 'N';
 			map->symbols++;
-			symbols = pos + 1;
+			symbols = pos;
 		}
 		else if (s[pos] == 'S')
 		{
 			map->dir = 'S';
 			map->symbols++;
-			symbols = pos + 1;
+			symbols = pos;
 		}
 		else if (s[pos] == 'E')
 		{
 			map->dir = 'E';
 			map->symbols++;
-			symbols = pos + 1;
+			symbols = pos;
 		}
 		else if (s[pos] == 'W')
 		{
 			map->dir = 'W';
 			map->symbols++;
-			symbols = pos + 1;
+			symbols = pos;
 		}
 		pos++;
 	}
-	if (map->symbols <= 1)
+	if (map->symbols <= 1 && symbols != 0)
+		return (symbols + 1);
+	else if (map->symbols <= 1 && symbols == 0)
 		return (symbols);
 	else
 		c_error("Error en el número de puntos de inicio\n");

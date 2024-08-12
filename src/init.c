@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:29:00 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/08 10:17:22 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:01:57 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int init_data(t_game  *game)
 {
 	init_player(game);
 	init_raycast(game);
-	if (!(game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true)))
+	if (!(game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false)))
 	{
 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 		return(EXIT_FAILURE);
@@ -75,8 +75,10 @@ int init_player(t_game *game)
 
 	ft_bzero(&game->p, sizeof(t_player));
 	p = &game->p;
+	printf("init_player: gamepos_x: %f, gamepos_y: %f\n", game->map->pos_x, game->map->pos_y);
 	p->pos_x = game->map->pos_x + 0.5; //x and y start position
 	p->pos_y = game->map->pos_y + 0.5;
+	printf("init_player2: pos_x: %f, pos_y: %f\n", p->pos_x, p->pos_y);
 
 	// Build a function to define direction. Use the 4 variables
 	p->dir_x = -1.0; //initial direction vector. Replace later with N S W or E

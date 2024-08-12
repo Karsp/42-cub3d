@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/08 10:18:27 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:25:13 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,11 @@ int	get_size(t_map	*map)
 		c_check_ext(name);
 		c_read_map(game.map, argv[1]);
 		c_check_map(game.map);
-		// c_print_all(game.map);
-		game.mlx = mlx_init(game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE, "cub3dlanzas-", false);
-		if (!game.mlx)
-			c_error("MLX error\n");
-		game.img = mlx_new_image(game.mlx, game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE);//WIDTH, HEIGHT);
-		if (!game.img)
-			c_error("Image error\n");
-		game.img2 = mlx_new_image(game.mlx, game.map->num_cols * GRIDSIZE , (game.map->num_lines - game.map->init_line + 2) * GRIDSIZE);//WIDTH, HEIGHT);
-		if (!game.img2)
-			c_error("Image error\n");
-		ft_printf("Acaba el parseo\n");
-		draw_map(&game);
-		mlx_key_hook(game.mlx, &my_keyhook, &game);
-		if (game.mlx && game.mlx != NULL)
-			mlx_loop(game.mlx);
+		game.map->p_color = get_rgba(255, 10, 10, 255);
+		game.map->g_color = get_rgba(0, 0, 0, 255);
+		game.mlx = mlx_init(WIDTH, HEIGHT, "cub3dlanzas-", false);
+		init_img(&game);
+		init_game(&game);
 	}
 	else
 		c_error("Bad number of args");

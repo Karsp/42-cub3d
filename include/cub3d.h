@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/08 10:18:03 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:57:27 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@
 # define texHeight 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
-# define GRIDSIZE 10
+# define M_GRIDSIZE 10
+# define GRIDSIZE 25
+# define MINMAP_SIZE 310
 
 # define MAX_FPS_AVG 10000
 
@@ -46,7 +48,35 @@ typedef enum e_cardinal_direction
 	EAST = 3
 }	t_direction;
 
-enum my_keys
+typedef enum e_moves
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+}	t_moves;
+
+typedef enum e_cardinal
+{
+	N = 1,
+	S = -1,
+	W = -1,
+	E = 1
+}	t_cardinal;
+
+/* typedef enum e_v_dir
+{
+	N = 1,
+	S = -1,
+}	t_v_dir;
+
+typedef enum e_h_dir
+{
+	W = -1,
+	E = 1
+}	t_h_dir; */
+
+/* enum my_keys
 {
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
@@ -71,7 +101,7 @@ enum my_keys
 	A_LEFT = 123,
 	A_RIGHT = 124,
 	ESC = 53,
-};
+}; */
 
 //test map
 # define MAP_W 24
@@ -159,8 +189,8 @@ typedef struct s_square
 typedef struct s_map
 {
 	int		fd;
-	size_t	pos_x;
-	size_t	pos_y;
+	double	pos_x;
+	double	pos_y;
 	size_t	num_lines;
 	size_t	num_cols;
 	long	init_line;
@@ -170,6 +200,8 @@ typedef struct s_map
 	char	*w_path;
 	int		f_color;
 	int		c_color;
+	int		p_color;
+	int		g_color;
 	char	dir;
 	int		info_map;
 	int		symbols;
@@ -185,6 +217,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_texture_t	*texture;
 	mlx_image_t		*img;
+	mlx_image_t		*img1;
 	mlx_image_t		*img2;
 	mlx_image_t		*img3;
 	char			*img_addr;
@@ -239,11 +272,17 @@ int		free_array(char **colors);
 int		ft_freeintarray(int **pixel_map);
 int		is_char(char c);
 
+// Game
+void	init_img(t_game *game);
+void	init_game(t_game *game);
+
 // Drawing functions
-void	draw_square(t_square square, mlx_image_t img);
+void	draw_square(t_square square, mlx_image_t *img);
 void	draw_map(t_game *game);
 void	generate_map(t_game *game);
 void	ft_draw_pixel_map(t_game *game);
+void	draw_minimap(t_game *game);
+void	draw_color(t_square square, mlx_image_t *img);
 
 
 // Auxiliar drawing functions
