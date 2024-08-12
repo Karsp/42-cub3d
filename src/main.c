@@ -20,9 +20,7 @@ void	ft_onloop(void *param)
 	// if (!game->r.pixel_map)
 	// 	if (create_pixelmap(game))
 	// 		return ;
-	if (create_pixelmap(game))
-		return ;
-	generate_map(game);
+	init_raycast(game);
 
 	ft_draw_pixel_map(game);
 	ft_calculate_fps(game);
@@ -56,7 +54,7 @@ int	main(int argc, char **argv)
 		if (init_data(&game))
 			ft_putstr_fd((char *)mlx_strerror(mlx_errno),2);
 
-	generate_map(&game);
+	init_raycast(&game);
 	ft_draw_pixel_map(&game);
 	ft_freeintarray(game.r.pixel_map);
 	// mlx_loop_hook(game.mlx, ft_hook, &game);

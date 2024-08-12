@@ -36,18 +36,18 @@
 int init_data(t_game  *game)
 {
 	init_player(game);
-	init_raycast(game);
+	// init_raycast(game);
 	if (!(game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false)))
 	{
 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 		return(EXIT_FAILURE);
 	}
-	if (!(game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT)))
-	{
-		mlx_close_window(game->mlx);
-		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
-		return(EXIT_FAILURE);
-	}
+	// if (!(game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT)))
+	// {
+	// 	mlx_close_window(game->mlx);
+	// 	ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
+	// 	return(EXIT_FAILURE);
+	// }
     // if (mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
 	// {
 	// 	mlx_close_window(game->mlx);
@@ -97,17 +97,6 @@ int init_player(t_game *game)
     return(EXIT_SUCCESS);
 }
 
-
-
-int init_raycast(t_game *game)
-{
-	// t_raycast	*r;
-
-	// r = &game->r;
-	if (create_pixelmap(game))
-		return(EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
 
 /*
 @brief Create an int** array to save color/textures information for render.
