@@ -21,8 +21,6 @@
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
-//Check if is legal
-# include <sys/time.h>
 
 // # include <X11/X.h>
 // # include <X11/keysym.h>
@@ -140,8 +138,6 @@ typedef struct s_player
 	double  plane_y;
 	double	old_dirx;
 	double	old_planex;
-	long	time;
-	long	old_time;
 	double	frame_time;
 	double	movespeed;
 	double	rotspeed;

@@ -19,10 +19,7 @@ void	ft_onloop(void *param)
 	game = param;
 	init_raycast(game);
 	ft_draw_pixel_map(game);
-	// ft_calculate_fps(game);
 	// printf("FPS len: %zu\n", ft_arraylen((void**)game->fps.fps_avg));
-	// ft_render_fps(game);
-
 	ft_freeintarray(game->r.pixel_map);
 }
 
