@@ -66,12 +66,12 @@ void	ft_draw_pixel_map(t_game *game)
 	y = -1;
 // create new image each time?
 	// if (!game->img)
-	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	if (!game->img)
-	{
-		mlx_close_window(game->mlx);
-		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
-	}
+	// game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	// if (!game->img)
+	// {
+	// 	mlx_close_window(game->mlx);
+	// 	ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
+	// }
 	while (++y < HEIGHT)
 	{
 		x = -1;
@@ -88,7 +88,7 @@ void	ft_draw_pixel_map(t_game *game)
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
 		c_error("Image to window error\n");
 	draw_minimap(game);
-	mlx_delete_image(game->mlx, game->img);
+	// mlx_delete_image(game->mlx, game->img);
 	}
 
 

@@ -56,6 +56,7 @@ int	main(int argc, char **argv)
 
 	init_raycast(&game);
 	ft_draw_pixel_map(&game);
+	
 	ft_freeintarray(game.r.pixel_map);
 	// mlx_loop_hook(game.mlx, ft_hook, &game);
 		// mlx_key_hook(game.mlx, &my_keyhook, &game);

@@ -42,12 +42,13 @@ int init_data(t_game  *game)
 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 		return(EXIT_FAILURE);
 	}
-	// if (!(game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT)))
-	// {
-	// 	mlx_close_window(game->mlx);
-	// 	ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
-	// 	return(EXIT_FAILURE);
-	// }
+	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->img)
+	{
+		mlx_close_window(game->mlx);
+		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
+		return(EXIT_FAILURE);
+	}
     // if (mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
 	// {
 	// 	mlx_close_window(game->mlx);
