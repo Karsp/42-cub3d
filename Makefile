@@ -71,8 +71,8 @@ libmlx:
 	@echo "$(COLOR_BLUE) MLX done $(COLOR_RESET)"
 
 $(NAME):$(OBJ) $(LIBFT) 
+# @$(CC) -fsanitize=address $(OBJ) $(MLX_CFLAGS) $(HEADERS) $(LIBFT) -o $(NAME)
 	@$(CC) -fsanitize=address $(OBJ) $(MLX_CFLAGS) $(HEADERS) $(LIBFT) -o $(NAME)
-#	@$(CC) $(OBJ) $(MLX_CFLAGS) $(HEADERS) $(LIBFT) -o $(NAME)
 	@$(eval CHANGES_MADE=1)
 
 $(LIBFT):

@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/12 19:39:46 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 10:08:30 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,11 @@ int	init_raycast(t_game *game)
 		ft_printf("init_raycast: No hay pixel_map\n");
 	// 	create_pixelmap(game);
 	// if(!game->r.pixel_map)
+	ft_bzero(game->r.pixel_map, sizeof(game->r.pixel_map));
+	// ft_memset((void *)&game->r.pixel_map, 0, sizeof(game->r.pixel_map));
+	// if (game->r.pixel_map)
+		// ft_memset((void *)game->r.pixel_map, 0, sizeof(game->r.pixel_map));
+	// if (create_pixelmap(game))
 	// 	return(EXIT_FAILURE);
 	while (++x < WIDTH)
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fps.c                                              :+:      :+:    :+:   */
+/*   fps                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 18:29:51 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/12 17:06:40 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 10:09:55 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,46 +17,40 @@
 */
 void	ft_init_fps(t_game *game)
 {
-	int	i;
+	// int	i;
 
-	i = -1;
-	while (++i < MAX_FPS_AVG)
-		game->fps.fps_avg[i] = 0;
-	game->fps.current_frame_time = ft_get_time();
-	game->fps.previous_frame_time = ft_get_time();
-	game->fps.fps = 0;
-	game->fps.fps_index = 0;
+(void)game;
+	// i = -1;
+	// while (++i < MAX_FPS_AVG)
+	// 	game->fps.fps_avg[i] = 0;
+	// game->fps.current_frame_time = ft_get_time();
+	// game->fps.previous_frame_time = ft_get_time();
+	// game->fps.fps = 0;
+	// game->fps.fps_index = 0;
 }
 /*
 @brief FPS are used to set the speed of movement of the player.
 @param We can change the speed of rotation changing the divider 
 on frame_time (1000)
+FRAMETIME: 0.027000
+Movespeed: 0.135000
+Rotspeed: 0.081000
 */
 void	ft_calculate_fps(t_game *game)
 {
-	double	sum;
-	int		i;
 	double	frame_time;
 
-	game->fps.previous_frame_time = game->fps.current_frame_time;
-	game->fps.current_frame_time = ft_get_time();
-	frame_time = (game->fps.current_frame_time - game->fps.previous_frame_time)
-		/ 200;
-	game->p.movespeed = frame_time * 3;
-	game->p.rotspeed = frame_time * 0.5;
-	game->fps.fps = 1.0 / frame_time;
-	sum = 0;
-	game->fps.fps_avg[game->fps.fps_index++] = game->fps.fps;
-	if (game->fps.fps_index >= MAX_FPS_AVG)
-		game->fps.fps_index = 0;
-	i = -1;
-	while (++i < MAX_FPS_AVG)
-	{
-		if (game->fps.fps_avg[i] == 0)
-			break ;
-		sum += game->fps.fps_avg[i];
-	}
-	game->fps.fps = sum / i;
+	frame_time = 0.027000;
+	// frame_time = (game->fps.current_frame_time - game->fps.previous_frame_time)
+	// 	/ 1000;
+		printf("FRAMETIME: %f\n", frame_time);
+	// game->p.movespeed = frame_time * 5;
+	game->p.movespeed = 0.135000;
+		printf("Movespeed: %f\n", game->p.movespeed);
+	// game->p.rotspeed = frame_time * 3;
+	game->p.rotspeed = 0.081000;
+		printf("Rotspeed: %f\n", game->p.rotspeed);
+	
 }
 
 /* @brief We don't really need it, It was just for test.*/

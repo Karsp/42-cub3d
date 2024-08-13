@@ -21,8 +21,6 @@
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
-//Check if is legal
-# include <sys/time.h>
 
 // # include <X11/X.h>
 // # include <X11/keysym.h>
@@ -38,7 +36,7 @@
 # define GRIDSIZE 25
 # define MINMAP_SIZE 310
 
-# define MAX_FPS_AVG 10000
+// # define MAX_FPS_AVG 25
 
 typedef enum e_cardinal_direction
 {
@@ -120,14 +118,14 @@ typedef struct s_img
 	int		height;
 }				t_img;
 
-typedef struct s_fps
-{
-	double	previous_frame_time;
-	double	current_frame_time;
-	double	fps_avg[MAX_FPS_AVG];
-	int		fps_index;
-	double	fps;
-}	t_fps;
+// typedef struct s_fps
+// {
+// 	double	previous_frame_time;
+// 	double	current_frame_time;
+// 	double	fps_avg[MAX_FPS_AVG];
+// 	int		fps_index;
+// 	double	fps;
+// }	t_fps;
 
 //Player struct
 typedef struct s_player
@@ -140,8 +138,6 @@ typedef struct s_player
 	double  plane_y;
 	double	old_dirx;
 	double	old_planex;
-	long	time;
-	long	old_time;
 	double	frame_time;
 	double	movespeed;
 	double	rotspeed;
@@ -223,7 +219,7 @@ typedef struct s_game
 	char			*img_addr;
 	t_raycast		r;
 	t_player		p;
-	t_fps			fps;
+	// t_fps			fps;
 }				t_game;
 
 typedef struct s_colors
@@ -248,9 +244,9 @@ void	ft_hook(void *param);
 void	ft_onloop(void *param);
 
 //settings FPS
-void	ft_init_fps(t_game *game);
-void	ft_calculate_fps(t_game *game);
-void	ft_render_fps(t_game *game);
+// void	ft_init_fps(t_game *game);
+// void	ft_calculate_fps(t_game *game);
+// void	ft_render_fps(t_game *game);
 
 
 
