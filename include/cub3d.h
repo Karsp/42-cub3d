@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/13 12:25:28 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:31:13 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ void	c_error(char *message);
 long	find_n(char *s, t_map *map);
 void	c_check_ext(char *file);
 void	c_read_map(t_game *game, char *file);
-void	c_check_map(t_map *map);
+void	c_check_map(t_game *game);
 
 // Auxiliar functions
 int		free_array(char **colors);

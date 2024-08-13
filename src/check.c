@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/13 12:00:04 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:02:06 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ void	c_read_map(t_game *game, char *file)
 	{
 		if (aux_line >= map->init_line)
 		{
-			map->map[count] = (char *)malloc(ft_strlen(line) * sizeof(char));
+			// map->map[count] = (char *)malloc(ft_strlen(line) * sizeof(char));
 			map->map[count] = ft_strdup(line);
 			count++;
 		}

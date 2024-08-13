@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:47:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/12 18:28:31 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:31:05 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,27 @@ void ft_hook(void* param)
 {
 	t_game		*game;
 	t_player	*p;
+	// unsigned long	aux = 0;
 
 	game = param;
 	p = &game->p;
+
+	/* ft_printf("Hook map\n");
+	while (aux < (game->map->num_lines - game->map->init_line))
+	{
+		ft_printf("%s", game->map->map[aux]);
+		aux++;
+	}
+	ft_printf("\n");
+	aux = 0;
+	ft_printf("Hook checked_map\n");
+	while (aux < (game->map->num_lines - game->map->init_line + 2))
+	{
+		ft_printf("%s\n", game->map->checked_map[aux]);
+		aux++;
+	}
+	ft_printf("\n"); */
+
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		if (game)

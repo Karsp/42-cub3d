@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/13 11:14:52 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:57:33 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,13 @@ void	write_map(t_map *map)
 	map->checked_map[aux + 2] = NULL;
 	if (map->symbols != 1)
 		c_error("Error en el símbolo del jugador\n");
+	free_array(map->map);
 }
 
-void	c_check_map(t_map *map)
+void	c_check_map(t_game *game)
 {
-	build_map(map);
-	write_map(map);
-	c_print_all(map);
-	check_map(map);
+	build_map(game->map);
+	write_map(game->map);
+	c_print_all(game->map);
+	check_map(game->map);
 }

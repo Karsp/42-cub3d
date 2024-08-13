@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/13 10:20:46 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:20:22 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ int	init_raycast(t_game *game)
 		get_walldistance(game);
 		get_wallheight(game);
 		get_wallcolor(game);
-		// update_pixelmap(game, x);
+		update_pixelmap(game, x);
     }
 	return (EXIT_SUCCESS);
 }
