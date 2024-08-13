@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:34:29 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/13 15:58:48 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:24:00 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	ft_onloop(void *param)
 	t_game	*game;
 
 	game = param;
+	// if (create_pixelmap(game))
+	// 	return ;
+	// generate_map(game);
+	
 	init_raycast(game);
 	ft_draw_pixel_map(game);
 	// printf("FPS len: %zu\n", ft_arraylen((void**)game->fps.fps_avg));

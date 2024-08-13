@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:47:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/13 16:31:05 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:50:30 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	new_map_pos(t_game *game, t_player *p)
 {
-	unsigned long	rel;
+	// unsigned long	rel;
 
-	rel = MINMAP_SIZE / WIDTH;
+	// rel = MINMAP_SIZE / WIDTH;
 	// ft_printf("px: %d, py: %d, rel: %d\n", p->pos_x, p->pos_y, rel);
 	game->map->pos_x = p->pos_x;
 	game->map->pos_y = p->pos_y;

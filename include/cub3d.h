@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/13 16:31:13 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:26:41 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,7 @@ void	generate_map(t_game *game);
 void	ft_draw_pixel_map(t_game *game);
 void	draw_minimap(t_game *game);
 void	draw_color(t_square square, mlx_image_t *img);
+// void	get_wallcolor(t_game *game);
 
 
 // Auxiliar drawing functions

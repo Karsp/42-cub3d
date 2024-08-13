@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/12 19:24:32 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:22:00 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,13 @@ void	ft_draw_pixel_map(t_game *game)
 		x = -1;
 		while (++x < WIDTH)
 		{
+			
 			if (game->r.pixel_map[y][x] > 0)
-				mlx_put_pixel(game->img, x, y, game->r.pixel_map[y][x]);
+				(ft_printf("dram_pixel_map: Entra al if\n"), mlx_put_pixel(game->img, x, y, game->r.pixel_map[y][x]));
 			else if (y > HEIGHT / 2)
-				mlx_put_pixel(game->img, x, y, game->map->c_color);
+				(ft_printf("dram_pixel_map: Entra 1er else\n"), mlx_put_pixel(game->img, x, y, game->map->c_color));
 			else if (y < HEIGHT / 2)
-				mlx_put_pixel(game->img, x, y, game->map->f_color);
+				(ft_printf("dram_pixel_map: Entra 2º else\n"), mlx_put_pixel(game->img, x, y, game->map->f_color));
 		}
 	}
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
