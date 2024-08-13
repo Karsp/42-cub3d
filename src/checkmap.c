@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/12 19:26:38 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:14:52 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ void	check_map(t_map *map)
 {
 	size_t	line;
 	size_t	col;
-	char	**c_map;
+	// char	**c_map;
 
 	line = 1;
 	col = 1;
-	c_map = map->checked_map;
-	while (c_map[line + 1] != NULL)
+	// c_map = map->checked_map;
+	while (map->checked_map[line + 1] != NULL)
 	{
 		while (col < map->num_cols)
 		{
-			check_symbol(c_map, line, col);
+			check_symbol(map->checked_map, line, col);
 			col++;
 		}
 		line++;
@@ -72,8 +72,8 @@ void	build_map(t_map *map)
 		map->checked_map[aux][map->num_cols + 2] = '\0';
 		aux++;
 	}
-	map->checked_map[map->num_lines - map->init_line + 3] = NULL;
-	//map->checked_map[aux] = NULL;
+	// map->checked_map[map->num_lines - map->init_line + 2] = NULL;
+	map->checked_map[aux] = NULL;
 }
 
 /**

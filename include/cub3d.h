@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/12 17:53:07 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:25:28 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,29 +147,29 @@ typedef struct s_player
 //Raycast struct
 typedef struct s_raycast
 {
-	double  camera_x;
-	double  ray_dirx;
-	double  ray_diry;
-	int     map_x;
-	int     map_y;
-	double  side_dist_x;
-	double  side_dist_y;
-	double  delta_dist_x;
-	double  delta_dist_y;
-	int     step_x;
-	int     step_y;
-	int     side;
-	double	wall_dist;
-	double	wall_x;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
+	double		camera_x;
+	double		ray_dirx;
+	double		ray_diry;
+	int   		map_x;
+	int   		map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int   		step_x;
+	int   		step_y;
+	int   		side;
+	double		wall_dist;
+	double		wall_x;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
 	t_direction dir;
-	int tex_x;
-	int color;
-	double pos;
-	double step;
-	int		**pixel_map;
+	int 		tex_x;
+	int 		color;
+	double 		pos;
+	double 		step;
+	int			**pixel_map;//[HEIGHT][WIDTH];
 }	t_raycast;
 
 // Struct for a rectangle
@@ -260,7 +260,7 @@ void	c_error(char *message);
 // Parsing functions
 long	find_n(char *s, t_map *map);
 void	c_check_ext(char *file);
-void	c_read_map(t_map *v, char *file);
+void	c_read_map(t_game *game, char *file);
 void	c_check_map(t_map *map);
 
 // Auxiliar functions

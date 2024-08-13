@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/12 18:22:21 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:00:04 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ char	**extract_color_data(t_map *map, char *line, int start)
 	map->info_map++;
 	colors = ft_split(aux, ',');
 	check_colors(colors);
+	if (aux)
+		(free(aux), aux = NULL);
 	return (colors);
 }
 
@@ -222,6 +224,8 @@ void	init_map(t_map *map)
 			break ;
 	}
 	map->init_line = map_line;
+	if (line)
+			(free(line), line = NULL);
 	if (map->info_map < 6)
 		c_error("Mapa incompleto: faltan datos\n");
 }
@@ -231,12 +235,14 @@ void	init_map(t_map *map)
  * @param map The map structure
  * @param file The path to the .cub file
  */
-void	c_read_map(t_map *map, char *file)
+void	c_read_map(t_game *game, char *file)
 {
 	char	*line;
 	size_t	count;
 	long	aux_line;
+	t_map	*map;
 
+	map = game->map;
 	count = 0;
 	aux_line = 0;
 	check_file(map, file);
@@ -246,7 +252,7 @@ void	c_read_map(t_map *map, char *file)
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
 	init_map(map);
-	map->map = (char **)malloc((map->num_lines - map->init_line) * sizeof(char *));
+	map->map = (char **)malloc((map->num_lines - map->init_line + 1) * sizeof(char *));
 	close(map->fd);
 	map->fd = open (file, O_RDONLY);
 	if (map->fd == -1)

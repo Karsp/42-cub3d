@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/12 19:14:57 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:09:01 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int	free_array(char **colors)
 	i = 0;
 	while (colors && colors[i] != NULL)
 	{
-		ft_printf("Entra al while free_array\n");
+		ft_printf("free_array: Entra al while free_array con colors[%d]: %s\n", i, colors[i]);
 		(free(colors[i]), colors[i] = NULL);
 		i++;
 	}
+	ft_printf("free_array: Sale del while\n");
 	if (colors)
-		(free(colors), colors = NULL);
+		(ft_printf("free_array: Entra al if\n"), free(colors), colors = NULL);
+	ft_printf("free_array: Sale del if\n");
 	return (1);
 }
 
@@ -40,8 +42,10 @@ int	free_array(char **colors)
 int	ft_freeintarray(int **pixel_map)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	//while (pixel_map && pixel_map[i] != NULL)
 	while (i < HEIGHT)
 	{
@@ -64,10 +68,10 @@ void	free_game(t_game *game)
 		(ft_printf("free map\n"), free_array(game->map->map));
 	if (game->map->checked_map)
 		(ft_printf("free checked_map\n"), free_array(game->map->checked_map));
-	if (game->img_addr)
-		(ft_printf("free img_addr\n"), free(game->img_addr));
-	// if (game->r.pixel_map)
-	// 	ft_freeintarray(game->r.pixel_map);
+	// if (game->img_addr)
+	// 	(ft_printf("free img_addr\n"), free(game->img_addr));
+	if (game->r.pixel_map)
+		ft_freeintarray(game->r.pixel_map);
 	if (game->img)
 		mlx_delete_image(game->mlx, game->img);
 	if (game->texture)
@@ -75,6 +79,8 @@ void	free_game(t_game *game)
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 	game = NULL;
+	ft_printf("Acaba free_game\n");
+	exit(EXIT_SUCCESS);
 }
 
 /**
