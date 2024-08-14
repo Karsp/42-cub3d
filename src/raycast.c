@@ -101,6 +101,8 @@ void get_walldistance(t_game *game, t_player *p, t_raycast *r)
 
 /*
 @brief Calculating the Wall Height. calculate lowest and highest pixel to fill in current stripe.
+The value wallX represents the exact value where the wall was hit. 
+
 */
 void get_wallheight(t_player *p, t_raycast *r)
 {
@@ -122,7 +124,7 @@ void get_wallheight(t_player *p, t_raycast *r)
 		r->draw_end = HEIGHT - 1;
 
 	if (r->side == 0)
-		r->wall_x = p->pos_y + r->wall_dist * r->ray_diry; //it's called wallX, it's actually an y-coordinate of the wall if side==1, but it's always the x-coordinate of the texture
+		r->wall_x = p->pos_y + r->wall_dist * r->ray_diry;
 	else
 		r->wall_x = p->pos_x + r->wall_dist * r->ray_dirx;
 	r->wall_x -= floor(r->wall_x);
@@ -194,6 +196,7 @@ void get_wallcolor(t_game *game, t_raycast *r)
 
 /*
 @brief choose wall color
+texX is the x-coordinate of the texture, and this is calculated out of wallX
 */
 void update_pixelmap(t_game *game, int x)
 {
@@ -217,7 +220,6 @@ void update_pixelmap(t_game *game, int x)
 	// }
 	
 	r->dir = ft_get_direction(r);
-	// ft_printf("update: r->dir despu %d\n", r->dir);
 	r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
 		r->tex_x = TEXTURE_SIZE - r->tex_x - 1;

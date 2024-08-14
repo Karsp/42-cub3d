@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
+/*
+@brief Draw pixels of ceiling and floor on image.
+*/
 void	draw_f_c(t_game *game)
 {
 	size_t		x;
