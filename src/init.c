@@ -28,7 +28,7 @@ int init_data(t_game  *game)
 		return(EXIT_FAILURE);
 	}
 	// if (create_pixelmap(game))
-	// 	return(EXIT_FAILURE);
+		// return(EXIT_FAILURE);
     return(EXIT_SUCCESS);
 }
 
@@ -42,10 +42,15 @@ int init_player(t_game *game)
 	p->pos_y = game->map->pos_y + 0.5;
 
 	// Build a function to define direction. Use the 4 variables
-	p->dir_x = -1.0; //initial direction vector. Replace later with N S W or E
-	p->dir_y = 0.0;
-	p->plane_x = 0.0; //the 2d raycaster version of camera plane
-	p->plane_y = 0.66;
+	if (game->map->dir == 'N' || game->map->dir == 'S')
+		ft_init_lat(game);
+	else
+		ft_init_long(game);
+
+	// p->dir_x = -1.0; //initial direction vector. Replace later with N S W or E
+	// p->dir_y = 0.0;
+	// p->plane_x = 0.0; //the 2d raycaster version of camera plane
+	// p->plane_y = 0.66;
 
 	//speed modifiers
 	p->frame_time = 0.027000;
@@ -83,4 +88,63 @@ int	create_pixelmap(t_game *game)
 	ft_printf("Create_pixel_map: i: %d\n", i);
 	game->r.pixel_map[i] = NULL;
 	return (EXIT_SUCCESS);
+}
+
+/**
+ * @brief initialize the player position with the starting position and direction
+ * 	when the direction is EAST or WEST.
+ */
+void	ft_init_long(t_game *game)
+{
+	t_player	*p;
+
+	p = &game->p;
+	if (game->map->dir == 'E')
+	{
+		printf("EAST\n");
+		// p->dir_x = 1.0;
+		// p->dir_y = 0.0;
+		p->dir_x = 0.0;
+		p->dir_y = 1.0;
+		p->plane_x = 0.66;
+		p->plane_y = 0.0;
+	}
+	else //west
+	{
+		printf("WEST\n");
+		p->dir_x = 0.0;
+		p->dir_y = -1.0;
+		p->plane_x = 0.66;
+		p->plane_y = 0.0;
+	}
+}
+
+/**
+ * @brief initialize the player position with the starting position and direction
+ * 	when the direction is NORTH or SOUTH.
+ */
+void	ft_init_lat(t_game *game)
+{
+	t_player	*p;
+
+	p = &game->p;
+	if (game->map->dir == 'N')
+	{
+		printf("NORTH\n");
+		// p->dir_x = 0.0;
+		// p->dir_y = -1.0;
+		p->dir_x = -1.0;
+		p->dir_y = 0.0;
+		p->plane_x = 0.0;
+		p->plane_y = 0.66;
+
+	}
+	else //south
+	{
+		printf("SOUTH\n");
+		p->dir_x = 1.0;
+		p->dir_y = 0.0;
+		p->plane_x = 0.0;
+		p->plane_y = 0.66;
+	}
 }

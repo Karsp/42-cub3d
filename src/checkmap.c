@@ -112,8 +112,8 @@ void	write_map(t_map *map)
 		if (posx > 0)
 		{
 			map->pos_y = posx;
-			posx = 0;
 			map->pos_x = aux + 1;
+			posx = 0;
 		}
 		aux++;
 		count = 0;

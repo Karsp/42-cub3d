@@ -41,46 +41,26 @@ void ft_hook(void* param)
 
 	game = param;
 	p = &game->p;
-
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		if (game)
 			free_game(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_UP) || mlx_is_key_down(game->mlx, MLX_KEY_W))
+		ft_move_forwards(game, p);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN) || mlx_is_key_down(game->mlx, MLX_KEY_S))
+		ft_move_backwards(game, p);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT) || mlx_is_key_down(game->mlx, MLX_KEY_A))
 	{
-		if(game->map->checked_map[(int)(p->pos_x + p->dir_x)][(int)(p->pos_y)] == '0') 
-			p->pos_x += p->dir_x*SPEEDRATIO;
-		if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
-			p->pos_y += p->dir_y*SPEEDRATIO;
-		// new_map_pos(game, p);
+		if (game->map->dir == 'N' || game->map->dir == 'E')
+			ft_rotate_left(p);
+		else
+			ft_rotate_right(p);
 	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT) || mlx_is_key_down(game->mlx, MLX_KEY_D))
 	{
-		if(game->map->checked_map[(int)(p->pos_x - p->dir_x)][(int)(p->pos_y)] == '0') 
-			p->pos_x -= p->dir_x*SPEEDRATIO;
-      	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y - p->dir_y)] == '0') 
-			p->pos_y -= p->dir_y*SPEEDRATIO;
-		// new_map_pos(game, p);
-	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-	{
-		p->old_dirx = p->dir_x;
-		p->dir_x = p->dir_x * cos(p->rotspeed) - p->dir_y * sin(p->rotspeed);
-		p->dir_y = p->old_dirx * sin(p->rotspeed) + p->dir_y * cos(p->rotspeed);
-		p->old_planex = p->plane_x;
-		p->plane_x = p->plane_x * cos(p->rotspeed) - p->plane_y * sin(p->rotspeed);
-		p->plane_y = p->old_planex * sin(p->rotspeed) + p->plane_y * cos(p->rotspeed);
-		// new_map_pos(game, p);
-	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-	{
-	//both camera direction and camera plane must be rotated
-		p->old_dirx = p->dir_x;
-		p->dir_x = p->dir_x * cos(-p->rotspeed) - p->dir_y * sin(-p->rotspeed);
-		p->dir_y = p->old_dirx * sin(-p->rotspeed) + p->dir_y * cos(-p->rotspeed);
-		p->old_planex = p->plane_x;
-		p->plane_x = p->plane_x * cos(-p->rotspeed) - p->plane_y * sin(-p->rotspeed);
-		p->plane_y = p->old_planex * sin(-p->rotspeed) + p->plane_y * cos(-p->rotspeed);
-		// new_map_pos(game, p);
+		if (game->map->dir == 'N' || game->map->dir == 'E')
+			ft_rotate_right(p);
+		else
+			ft_rotate_left(p);
 	}
 	new_map_pos(game, p);
 	// mlx_delete_image(game->mlx, game->img);
@@ -88,13 +68,47 @@ void ft_hook(void* param)
 	// if (!game->img)
 	// 	free_game(game);
 }
+/*
+@brief Move player forward in map. Speed can be increased seting SPEEDRATIO on .h
+*/
+void	ft_move_forwards(t_game *game, t_player *p)
+{
+	if(game->map->checked_map[(int)(p->pos_x + p->dir_x)][(int)(p->pos_y)] == '0') 
+			p->pos_x += p->dir_x*SPEEDRATIO;
+		if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
+			p->pos_y += p->dir_y*SPEEDRATIO;
+}
 
-// This moves the image inside the window
-// 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
-// 		game->img->instances[0].y -= 5;
-// 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-// 		game->img->instances[0].y += 5;
-// 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-// 		game->img->instances[0].x -= 5;
-// 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-// 		game->img->instances[0].x += 5;
+void	ft_move_backwards(t_game *game, t_player *p)
+{
+	if(game->map->checked_map[(int)(p->pos_x - p->dir_x)][(int)(p->pos_y)] == '0') 
+		p->pos_x -= p->dir_x*SPEEDRATIO;
+	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y - p->dir_y)] == '0') 
+		p->pos_y -= p->dir_y*SPEEDRATIO;
+}
+
+/*
+@brief Rotated counterclockwise camera direction (p->dir) and camera plane
+*/
+void	ft_rotate_left(t_player *p)
+{
+	p->old_dirx = p->dir_x;
+	p->dir_x = p->dir_x * cos(p->rotspeed) - p->dir_y * sin(p->rotspeed);
+	p->dir_y = p->old_dirx * sin(p->rotspeed) + p->dir_y * cos(p->rotspeed);
+	p->old_planex = p->plane_x;
+	p->plane_x = p->plane_x * cos(p->rotspeed) - p->plane_y * sin(p->rotspeed);
+	p->plane_y = p->old_planex * sin(p->rotspeed) + p->plane_y * cos(p->rotspeed);
+}
+
+/*
+@brief Rotated clockwise camera direction (p->dir) and camera plane
+*/
+void	ft_rotate_right(t_player *p)
+{
+	p->old_dirx = p->dir_x;
+	p->dir_x = p->dir_x * cos(-p->rotspeed) - p->dir_y * sin(-p->rotspeed);
+	p->dir_y = p->old_dirx * sin(-p->rotspeed) + p->dir_y * cos(-p->rotspeed);
+	p->old_planex = p->plane_x;
+	p->plane_x = p->plane_x * cos(-p->rotspeed) - p->plane_y * sin(-p->rotspeed);
+	p->plane_y = p->old_planex * sin(-p->rotspeed) + p->plane_y * cos(-p->rotspeed);
+}

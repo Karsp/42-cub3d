@@ -55,26 +55,6 @@ typedef enum e_moves
 	RIGHT
 }	t_moves;
 
-typedef enum e_cardinal
-{
-	N = 1,
-	S = -1,
-	W = -1,
-	E = 1
-}	t_cardinal;
-
-/* typedef enum e_v_dir
-{
-	N = 1,
-	S = -1,
-}	t_v_dir;
-
-typedef enum e_h_dir
-{
-	W = -1,
-	E = 1
-}	t_h_dir; */
-
 /* enum my_keys
 {
 	ON_KEYDOWN = 2,
@@ -165,7 +145,7 @@ typedef struct s_raycast
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
-	t_direction dir;
+	int			dir;
 	int 		tex_x;
 	int 		color;
 	double 		pos;
@@ -233,8 +213,19 @@ typedef struct s_colors
 // Init.c
 int		init_data(t_game *game);
 int 	init_player(t_game *game);
-int 	init_raycast(t_game *game);
 int		create_pixelmap(t_game *game);
+void	ft_init_long(t_game *game);
+void	ft_init_lat(t_game *game);
+
+// Raycast.c
+int 	init_raycast(t_game *game);
+int		ft_get_direction(t_raycast *ray);
+void get_ray_posdir(int x, t_player *p, t_raycast *r);
+void get_walldistance(t_game *game, t_player *p, t_raycast *r);
+void get_wallheight(t_player *p, t_raycast *r);
+void get_ray_step_sidedist(t_player *p, t_raycast *r);
+void get_wallcolor(t_game *game, t_raycast *r);
+void update_pixelmap(t_game *game, int x);
 
 // int	init_map(t_data *data);
 
@@ -243,7 +234,10 @@ void	my_close(t_game *game);
 // Hooks.c
 void	ft_hook(void *param);
 void	ft_onloop(void *param);
-
+void	ft_rotate_left(t_player *p);
+void	ft_rotate_right(t_player *p);
+void	ft_move_forwards(t_game *game, t_player *p);
+void	ft_move_backwards(t_game *game, t_player *p);
 //settings FPS
 // void	ft_init_fps(t_game *game);
 // void	ft_calculate_fps(t_game *game);
@@ -290,7 +284,6 @@ int		get_size(t_map	*map);
 int		get_rgba(int r, int g, int b, int a);
 
 // To delete
-long	ft_get_time(void);
 
 void	c_print_all(t_map *map);
 // void	ft_randomize(void *param);

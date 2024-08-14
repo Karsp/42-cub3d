@@ -14,7 +14,7 @@
 
 /*@brief Returns the direction of the wall that was hit by the ray.
 @returns  The number of the correct texture*/
-t_direction	ft_get_cardinal_direction(t_raycast *ray)
+int	ft_get_direction(t_raycast *ray)
 {
 	if (ray->side == 0)
 	{
@@ -216,7 +216,7 @@ void update_pixelmap(t_game *game, int x)
 	// 		r->pixel_map[cont][cont2] = 0;
 	// }
 	
-	r->dir = ft_get_cardinal_direction(r);
+	r->dir = ft_get_direction(r);
 	// ft_printf("update: r->dir despu %d\n", r->dir);
 	r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
