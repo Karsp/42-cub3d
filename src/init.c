@@ -32,6 +32,10 @@ int init_data(t_game  *game)
 	// ft_printf("init_data: n_texture: %s\n", game->map->n_path);
 	if (!game->no_texture)
 		c_error("NO texture can't be loaded\n");
+		// Convert texture to a displayable image
+	game->no_image = mlx_texture_to_image(game->mlx, game->no_texture);
+	if (!game->no_image)
+		c_error("NO image can't be loaded\n");
 	game->so_texture = mlx_load_png(game->map->s_path);
 	if (!game->so_texture)
 		c_error("SO texture can't be loaded\n");

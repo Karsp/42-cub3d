@@ -147,7 +147,7 @@ typedef struct s_raycast
 	int			draw_end;
 	int			dir;
 	int 		tex_x;
-	int 		color;
+	int		color;
 	double 		pos;
 	double 		step;
 	int			**pixel_map;//[HEIGHT][WIDTH];
@@ -195,6 +195,7 @@ typedef struct s_game
 	t_map			*map;
 	mlx_t			*mlx;
 	mlx_texture_t	*no_texture;
+	mlx_image_t		*no_image;
 	mlx_texture_t	*so_texture;
 	mlx_texture_t	*e_texture;
 	mlx_texture_t	*w_texture;

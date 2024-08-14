@@ -195,6 +195,14 @@ void get_wallcolor(t_game *game, t_raycast *r)
 	}
 }
 
+
+static uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y)
+{
+	return (*(uint8_t *)((img->pixels + \
+	(y * img->width) + (x * img->bytes_per_pixel / 8))));
+}
+
+
 /*
 @brief choose wall color
 texX is the x-coordinate of the texture, and this is calculated out of wallX
@@ -223,6 +231,28 @@ void update_pixelmap(t_game *game, int x)
 	r->dir = ft_get_direction(r);
 //Color
 
+	// r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
+	// if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
+	// 	r->tex_x = TEXTURE_SIZE - r->tex_x - 1;
+	// r->step = 1.0 * TEXTURE_SIZE / r->line_height;
+	// r->pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
+
+	// // 		printf("X: %d\n",x);
+	// //   printf("DrawStart: %d   DrawEnd: %d\n",r->draw_start, r->draw_end);
+	// while (r->draw_start < r->draw_end)
+	// {
+
+	// 	r->pos += r->step;
+	// 	if (r->dir == NORTH || r->dir == SOUTH)				// add some shading to the north and south walls
+	// 		r->color = 0x7F7F7F;
+	// 	// ft_printf("Update: r->color %d\n", r->color);
+	// 	if (r->color > 0)				// your pixel map (int** in this case)
+	// 		mlx_put_pixel(game->img, x, r->draw_start, r->color);
+	// 		// r->pixel_map[r->draw_start][x] = r->color;
+	// 	r->draw_start++;
+	// }
+
+// //TEXTURE
 	r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
 		r->tex_x = TEXTURE_SIZE - r->tex_x - 1;
@@ -235,37 +265,22 @@ void update_pixelmap(t_game *game, int x)
 	{
 
 		r->pos += r->step;
-		if (r->dir == NORTH || r->dir == SOUTH)				// add some shading to the north and south walls
-			r->color = 0x7F7F7F;
+		if (r->dir == NORTH)
+			r->color = get_pixel_img(game->no_texture, r->tex_x, r->draw_start);
+		else if (r->dir == SOUTH)				
+			r->color = get_pixel_img(game->so_texture, r->tex_x, r->draw_start);
+		// else if (r->dir == EAST)				
+		// 	r->color = get_pixel_img(game->e_texture, r->tex_x, r->draw_start);
+		// else if (r->dir == WEST)				
+		// 	r->color = get_pixel_img(game->w_texture, r->tex_x, r->draw_start);
 		// ft_printf("Update: r->color %d\n", r->color);
 		if (r->color > 0)				// your pixel map (int** in this case)
 			mlx_put_pixel(game->img, x, r->draw_start, r->color);
 			// r->pixel_map[r->draw_start][x] = r->color;
 		r->draw_start++;
 	}
-
-// //TEXTURE
-// 	//x coordinate on the texture
-//       r->tex_x = (int)(r->wall_x * (double)(texWidth));
-//       if(r->side == 0 && r->ray_dirx > 0) r->tex_x = texWidth - r->tex_x - 1;
-//       if(r->side == 1 && r->ray_diry < 0) r->tex_x = texWidth - r->tex_x - 1;
-// // How much to increase the texture coordinate per screen pixel
-//       r->step = 1.0 * texHeight / r->line_height;
-//       // Starting texture coordinate
-//       double texPos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
-// 	  for(int y = r->draw_start; y<r->draw_end; y++)
-//       {
-//         // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-//         int texY = (int)texPos & (texHeight - 1);
-//         texPos += r->step;
-//         r->color = game->NO_texture->texture.pixels[texHeight * texY + r->tex_x];
-//         //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-//         if(r->side == 1) r->color = (r->color >> 1) & 8355711;
-//         mlx_put_pixel(game->img, x, r->draw_start, r->color);
-// 		// buffer[y][x] = r->color;
-//       }
+	  
 }
-
 
 /*
 @brief Main function of Raycast. Separate in steps.
