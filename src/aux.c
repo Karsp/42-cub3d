@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 12:12:03 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:19:31 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,15 @@ void	free_game(t_game *game)
 	// 	ft_freeintarray(game->r.pixel_map);
 	if (game->img)
 		mlx_delete_image(game->mlx, game->img);
-	if (game->texture)
-		mlx_delete_texture(game->texture);
+	if (game->NO_texture)
+		// mlx_delete_texture(game->NO_texture);
+		mlx_delete_xpm42(game->NO_texture);
+	if (game->SO_texture)
+		mlx_delete_xpm42(game->SO_texture);
+	if (game->E_texture)
+		mlx_delete_xpm42(game->E_texture);
+	if (game->W_texture)
+		mlx_delete_xpm42(game->W_texture);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 	game = NULL;

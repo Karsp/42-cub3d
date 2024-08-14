@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 12:10:17 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:02:28 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,62 @@ char	**extract_color_data(t_map *map, char *line, int start)
  * @param line The currently read line
  * @return The malloced str with the data
  */
+/* char	*extract_data(t_map *map, char *line, int start)
+{
+	char	*aux;
+	char	* texture = NULL;
+	int		count;
+
+	count = -1;
+	aux = line;
+	while (++count < start)
+		aux++;
+	while (*aux == ' ' || *aux == '\t')
+		aux++;
+	count = 0;
+	if (*aux != '\0' && *aux != '\n')
+	{
+		// ft_printf("extract_data: Entra al if con línea: -- %s --\n", aux);
+		map->info_map++;
+		//return (ft_substr(line, start, ft_strlen(line) - start + 1));
+		texture = (char *)malloc((ft_strlen(aux) + 2) * sizeof(char *));
+		texture[0] = 34;
+		while (*aux != '\0' && *aux != '\n')
+		{
+			texture[++count] = *aux;
+			aux++;
+		}
+		texture[++count] = 34;
+		texture[++count] = '\0';
+		//return (ft_substr(aux, 0, ft_strlen(aux)));
+		return (texture);
+	}
+	else
+		c_error("Texture error\n");
+	return (EXIT_SUCCESS);
+} */
 char	*extract_data(t_map *map, char *line, int start)
 {
-	map->info_map++;
-	return (ft_substr(line, start, ft_strlen(line) - start + 1));
+	char	*aux;
+	// char	* texture = NULL;
+	int		count;
+
+	count = -1;
+	aux = line;
+	while (++count < start)
+		aux++;
+	while (*aux == ' ' || *aux == '\t')
+		aux++;
+	// count = 0;
+	if (*aux != '\0' && *aux != '\n')
+	{
+		// ft_printf("extract_data: Entra al if con línea: -- %s --\n", aux);
+		map->info_map++;
+		return (ft_substr(aux, 0, ft_strlen(aux)));
+	}
+	else
+		c_error("Texture error\n");
+	return (EXIT_SUCCESS);
 }
 
 /**

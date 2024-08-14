@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 12:10:53 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:45:30 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,6 @@ void	c_check_map(t_game *game)
 {
 	build_map(game->map);
 	write_map(game->map);
-	// c_print_all(game->map);
+	c_print_all(game->map);
 	check_map(game->map);
 }

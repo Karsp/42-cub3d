@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:34:29 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 12:35:21 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:13:56 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int argc, char **argv)
 	}
 	else
 		c_error("Bad number of args");
-	if (game.img != NULL && game.mlx != NULL && game.texture != NULL)
+	if (game.img != NULL && game.mlx != NULL)// && game.texture != NULL)
 		my_close(&game);
 	return (EXIT_SUCCESS);
 }
