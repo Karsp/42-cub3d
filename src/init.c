@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:29:00 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 14:00:20 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:18:54 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,24 @@ int init_data(t_game  *game)
 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 		return(EXIT_FAILURE);
 	}
+	// Borrable, para probar si se llega al archivo
+/* 	char buffer[1];
+	int	fd;
+	fd = open (game->map->n_path, O_RDONLY);
+	if (fd == -1)
+		(perror("Open"), exit(errno));
+	if (read(fd, buffer, 1) == 0)
+		c_error("Empty file"); */
+	// Hasta aquí
+	ft_printf("init_data: abriendo NO_texture: %s  - ", game->map->n_path);
+	game->NO_texture = mlx_load_xpm42(game->map->n_path);
+	ft_printf("init_data: abriendo SO_texture: %s  - ", game->map->s_path);
+	// game->SO_texture = mlx_load_png(game->map->s_path);
+	game->SO_texture = mlx_load_xpm42(game->map->s_path);
+	ft_printf("init_data: abriendo E_texture: %s  - ", game->map->e_path);
+	game->E_texture = mlx_load_xpm42(game->map->e_path);
+	ft_printf("init_data: abriendo W_texture: %s  - ", game->map->w_path);
+	game->W_texture = mlx_load_xpm42(game->map->w_path);
 	// if (create_pixelmap(game))
 	// 	return(EXIT_FAILURE);
     return(EXIT_SUCCESS);

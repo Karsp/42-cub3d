@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 14:13:07 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:18:37 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef enum e_h_dir
 # define MAP_H 24
 
 
-typedef struct s_img
+typedef struct s_imgline
 {
 	void	*mlx_img;
 	char	*addr;
@@ -208,11 +208,15 @@ typedef struct s_map
 }			t_map;
 
 // General struct. Contains map, player, raycast settings and MLX pointers
+// mlx_texture_t	*SO_texture;
 typedef struct s_game
 {
 	t_map			*map;
 	mlx_t			*mlx;
-	mlx_texture_t	*texture;
+	xpm_t			*NO_texture;
+	xpm_t			*SO_texture;
+	xpm_t			*E_texture;
+	xpm_t			*W_texture;
 	mlx_image_t		*img;
 	mlx_image_t		*img1;
 	mlx_image_t		*img2;
