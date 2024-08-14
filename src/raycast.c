@@ -56,6 +56,39 @@ void get_ray_posdir(int x, t_player *p, t_raycast *r)
 	r->delta_dist_x = fabs(1 /r->ray_dirx);  //length of ray from one x or y-side to next x or y-side
 	r->delta_dist_y = fabs(1 / r->ray_diry);
 }
+/*
+@brief Caltulate Step and initial Side Distance
+*/
+void get_ray_step_sidedist(t_player *p, t_raycast *r)
+{
+	// t_raycast	*r;
+    // t_player    *p;
+
+    // p = &game->p;
+	// r = &game->r;
+//Caltulate Step and initial Side Distance
+	if (r->ray_dirx < 0)
+	{
+		r->step_x = -1;       //what direction to step in x or y-direction (either +1 or -1)
+		r->side_dist_x = (p->pos_x - r->map_x) * r->delta_dist_x;       //length of ray from initial position to next x or y-side
+	}
+	else
+	{
+		r->step_x = 1;
+		r->side_dist_x = (r->map_x + 1.0 - p->pos_x) * r->delta_dist_x;
+	}
+	if (r->ray_diry < 0)
+	{
+		r->step_y = -1;
+		r->side_dist_y = (p->pos_y - r->map_y) * r->delta_dist_y;
+	}
+	else
+	{
+		r->step_y = 1;
+		r->side_dist_y = (r->map_y + 1.0 - p->pos_y) * r->delta_dist_y;
+	}
+}
+
 
 /*
 @brief Calculate Wall distance - Performing DDA to determine the distance to the next grid line  
@@ -123,6 +156,7 @@ void get_wallheight(t_player *p, t_raycast *r)
 	if (r->draw_end >= HEIGHT)
 		r->draw_end = HEIGHT - 1;
 
+//calculate value of wallX
 	if (r->side == 0)
 		r->wall_x = p->pos_y + r->wall_dist * r->ray_diry;
 	else
@@ -130,41 +164,8 @@ void get_wallheight(t_player *p, t_raycast *r)
 	r->wall_x -= floor(r->wall_x);
 	
 
-
 }
 
-/*
-@brief Caltulate Step and initial Side Distance
-*/
-void get_ray_step_sidedist(t_player *p, t_raycast *r)
-{
-	// t_raycast	*r;
-    // t_player    *p;
-
-    // p = &game->p;
-	// r = &game->r;
-//Caltulate Step and initial Side Distance
-	if (r->ray_dirx < 0)
-	{
-		r->step_x = -1;       //what direction to step in x or y-direction (either +1 or -1)
-		r->side_dist_x = (p->pos_x - r->map_x) * r->delta_dist_x;       //length of ray from initial position to next x or y-side
-	}
-	else
-	{
-		r->step_x = 1;
-		r->side_dist_x = (r->map_x + 1.0 - p->pos_x) * r->delta_dist_x;
-	}
-	if (r->ray_diry < 0)
-	{
-		r->step_y = -1;
-		r->side_dist_y = (p->pos_y - r->map_y) * r->delta_dist_y;
-	}
-	else
-	{
-		r->step_y = 1;
-		r->side_dist_y = (r->map_y + 1.0 - p->pos_y) * r->delta_dist_y;
-	}
-}
 
 /*
 @brief choose wall color
@@ -218,8 +219,10 @@ void update_pixelmap(t_game *game, int x)
 	// 	while (++cont2 < WIDTH)
 	// 		r->pixel_map[cont][cont2] = 0;
 	// }
-	
+
 	r->dir = ft_get_direction(r);
+//Color
+
 	r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
 		r->tex_x = TEXTURE_SIZE - r->tex_x - 1;
@@ -232,8 +235,6 @@ void update_pixelmap(t_game *game, int x)
 	{
 
 		r->pos += r->step;
-		// (*data)->color = ((*data)->texture_buffer)[(*data)->dir][TEXTURE_SIZE * ((int)(*data)->pos & (TEXTURE_SIZE - 1)) + (*data)->tex_x];
-		// r->color = (r->texture_buffer)[r->dir][TEXTURE_SIZE * ((int)r->pos & (TEXTURE_SIZE - 1)) + r->tex_x];
 		if (r->dir == NORTH || r->dir == SOUTH)				// add some shading to the north and south walls
 			r->color = 0x7F7F7F;
 		// ft_printf("Update: r->color %d\n", r->color);
@@ -242,6 +243,27 @@ void update_pixelmap(t_game *game, int x)
 			// r->pixel_map[r->draw_start][x] = r->color;
 		r->draw_start++;
 	}
+
+// //TEXTURE
+// 	//x coordinate on the texture
+//       r->tex_x = (int)(r->wall_x * (double)(texWidth));
+//       if(r->side == 0 && r->ray_dirx > 0) r->tex_x = texWidth - r->tex_x - 1;
+//       if(r->side == 1 && r->ray_diry < 0) r->tex_x = texWidth - r->tex_x - 1;
+// // How much to increase the texture coordinate per screen pixel
+//       r->step = 1.0 * texHeight / r->line_height;
+//       // Starting texture coordinate
+//       double texPos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
+// 	  for(int y = r->draw_start; y<r->draw_end; y++)
+//       {
+//         // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+//         int texY = (int)texPos & (texHeight - 1);
+//         texPos += r->step;
+//         r->color = game->NO_texture->texture.pixels[texHeight * texY + r->tex_x];
+//         //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+//         if(r->side == 1) r->color = (r->color >> 1) & 8355711;
+//         mlx_put_pixel(game->img, x, r->draw_start, r->color);
+// 		// buffer[y][x] = r->color;
+//       }
 }
 
 

@@ -58,18 +58,10 @@ int init_player(t_game *game)
 	p = &game->p;
 	p->pos_x = game->map->pos_x + 0.5; //x and y start position
 	p->pos_y = game->map->pos_y + 0.5;
-
-	// Build a function to define direction. Use the 4 variables
 	if (game->map->dir == 'N' || game->map->dir == 'S')
 		ft_init_lat(game);
 	else
 		ft_init_long(game);
-
-	// p->dir_x = -1.0; //initial direction vector. Replace later with N S W or E
-	// p->dir_y = 0.0;
-	// p->plane_x = 0.0; //the 2d raycaster version of camera plane
-	// p->plane_y = 0.66;
-
 	//speed modifiers
 	p->frame_time = 0.027000;
 	//p->movespeed = 0.135000;
@@ -120,8 +112,6 @@ void	ft_init_long(t_game *game)
 	if (game->map->dir == 'E')
 	{
 		printf("EAST\n");
-		// p->dir_x = 1.0;
-		// p->dir_y = 0.0;
 		p->dir_x = 0.0;
 		p->dir_y = 1.0;
 		p->plane_x = 0.66;
@@ -149,8 +139,6 @@ void	ft_init_lat(t_game *game)
 	if (game->map->dir == 'N')
 	{
 		printf("NORTH\n");
-		// p->dir_x = 0.0;
-		// p->dir_y = -1.0;
 		p->dir_x = -1.0;
 		p->dir_y = 0.0;
 		p->plane_x = 0.0;
