@@ -1,10 +1,11 @@
-NO ./textures/north_texture.png
-SO ./textures/south_texture.png
-EA ./textures/east_texture.png
+NO           ./textures/north_texture.png
+SO    	./textures/south_texture.png
+EA  ./textures/east_texture.png
 WE ./textures/west_texture.png
 
-F 204,204,204
-C 153,204,255
+
+F          -0, 204,  204
+C 153,204,     255
 
 1111111111111111111111111111111111111111
 1000000000000000000000000000000000000001

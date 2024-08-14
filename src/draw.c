@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/13 19:22:00 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:16:41 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,14 @@ void	ft_draw_pixel_map(t_game *game)
 		{
 			
 			if (game->r.pixel_map[y][x] > 0)
-				(ft_printf("dram_pixel_map: Entra al if\n"), mlx_put_pixel(game->img, x, y, game->r.pixel_map[y][x]));
+				// (ft_printf("dram_pixel_map: Entra al if\n"), mlx_put_pixel(game->img, x, y, game->r.pixel_map[y][x]));
+				mlx_put_pixel(game->img, x, y, game->r.pixel_map[y][x]);
 			else if (y > HEIGHT / 2)
-				(ft_printf("dram_pixel_map: Entra 1er else\n"), mlx_put_pixel(game->img, x, y, game->map->c_color));
+				// (ft_printf("dram_pixel_map: Entra 1er else\n"), mlx_put_pixel(game->img, x, y, game->map->c_color));
+				mlx_put_pixel(game->img, x, y, game->map->c_color);
 			else if (y < HEIGHT / 2)
-				(ft_printf("dram_pixel_map: Entra 2º else\n"), mlx_put_pixel(game->img, x, y, game->map->f_color));
+				// (ft_printf("dram_pixel_map: Entra 2º else\n"), mlx_put_pixel(game->img, x, y, game->map->f_color));
+				mlx_put_pixel(game->img, x, y, game->map->f_color);
 		}
 	}
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)

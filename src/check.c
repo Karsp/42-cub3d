@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/13 16:02:06 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:45:54 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,21 @@ void	check_colors(char **colors)
 	int	aux;
 
 	count = 0;
-	aux = -1;
+	aux = 0;
 	while (colors[count])
 		count++;
 	if (count != 3)
-		c_error("Error en el número de colores\n");
+		c_error("Color number error\n");
 	count = -1;
 	while (++count < 3)
 	{
-		while (colors[count] && colors[count][++aux] != '\0' && aux < 3 && colors[count][aux] != '\n' )
+		while (colors[count][aux] == ' ')
+			aux++;
+		// ft_printf("check_colors: aux %d\n", aux);
+		while (colors[count] && colors[count][++aux] != '\0' && colors[count][aux] != '\n' )
 			if (colors[count][aux] < 48 || colors[count][aux] > 57)
 				c_error("Error en los colores number\n");
-		aux = -1;
+		aux = 0;
 	}
 }
 
@@ -90,11 +93,15 @@ void	check_colors(char **colors)
 char	**extract_color_data(t_map *map, char *line, int start)
 {
 	char	*aux;
+	char	*aux2;
 	char	**colors;
 
 	aux = ft_substr(line, start, ft_strlen(line) - start + 1);
+	aux2 = aux;
+	while (*aux2 == ' ')
+		aux2++;
 	map->info_map++;
-	colors = ft_split(aux, ',');
+	colors = ft_split(aux2,',');
 	check_colors(colors);
 	if (aux)
 		(free(aux), aux = NULL);
