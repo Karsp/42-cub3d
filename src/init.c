@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:29:00 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 12:29:30 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:00:20 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ int init_player(t_game *game)
 
 	//speed modifiers
 	p->frame_time = 0.027000;
-	p->movespeed = 0.135000;
-	// p->rotspeed = 0.0405000;
-	p->rotspeed = 0.081000;
+	//p->movespeed = 0.135000;
+	p->movespeed = 0.0405000;
+	p->rotspeed = 0.04515000;
+	// p->rotspeed = 0.081000;
     // p->movespeed = p->frame_time * 5.0; //the constant value is in squares/second
     // p->rotspeed = p->frame_time * 3.0; //the constant value is in radians/second
     return(EXIT_SUCCESS);

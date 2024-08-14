@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 11:18:14 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:13:07 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define M_GRIDSIZE 10
 # define GRIDSIZE 25
 # define MINMAP_SIZE 310
+# define SPEEDRATIO 0.35
 
 // # define MAX_FPS_AVG 25
 
