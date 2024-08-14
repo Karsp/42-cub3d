@@ -6,13 +6,13 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:34:29 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 10:54:44 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:35:21 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	ft_onloop(void *param)
+/* void	ft_onloop(void *param)
 {
 	t_game	*game;
 
@@ -25,7 +25,7 @@ void	ft_onloop(void *param)
 	ft_draw_pixel_map(game);
 	// printf("FPS len: %zu\n", ft_arraylen((void**)game->fps.fps_avg));
 	// ft_freeintarray(game->r.pixel_map);
-}
+} */
 
 int	main(int argc, char **argv)
 {
@@ -35,6 +35,7 @@ int	main(int argc, char **argv)
 	// int		loquesea[HEIGHT][WIDTH];
 
 	//if args OK
+	// ft_printf("Se inicia el cub3d\n");
 	if (argc == 2)
 	{
 		//Parseo
@@ -83,14 +84,16 @@ int	main(int argc, char **argv)
 		// if (game.mlx != NULL)
 		// 	mlx_loop(game.mlx);
 		// mlx_loop_hook(game.mlx, ft_randomize, &game);
-		mlx_loop_hook(game.mlx, &ft_onloop, &game);
+		init_raycast(&game);
+		ft_draw_pixel_map(&game);
+		// mlx_loop_hook(game.mlx, &ft_onloop, &game);
 		mlx_loop_hook(game.mlx, ft_hook, &game);
 		// mlx_key_hook(game.mlx, &my_keyhook, NULL);
 		if (game.mlx != NULL)
 		{
-			ft_printf("main: pasa al if del loop\n");
+			// ft_printf("main: pasa al if del loop\n");
 			mlx_loop(game.mlx);
-			ft_printf("main: pasa al terminate\n");
+			// ft_printf("main: pasa al terminate\n");
 			mlx_terminate(game.mlx);
 		}
 		// if (game.mlx)

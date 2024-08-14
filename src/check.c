@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 10:45:54 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:10:17 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,7 @@ void	c_read_map(t_game *game, char *file)
 	line = get_next_line(map->fd);
 	if (!line)
 		c_error("Error de lectura del mapa");
-	ft_printf("map->init_line: %d\n", map->init_line);
+	// ft_printf("map->init_line: %d\n", map->init_line);
 	while (line)
 	{
 		if (aux_line >= map->init_line)

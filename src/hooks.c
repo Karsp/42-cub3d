@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:47:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/13 18:50:30 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:39:24 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	new_map_pos(t_game *game, t_player *p)
 
 	// rel = MINMAP_SIZE / WIDTH;
 	// ft_printf("px: %d, py: %d, rel: %d\n", p->pos_x, p->pos_y, rel);
+	init_raycast(game);
+	ft_draw_pixel_map(game);
 	game->map->pos_x = p->pos_x;
 	game->map->pos_y = p->pos_y;
 	// ft_printf("pos_x: %d, pos_y: %d\n", game->map->pos_x, game->map->pos_y);
@@ -65,7 +67,7 @@ void ft_hook(void* param)
 			p->pos_x += p->dir_x;
 		if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->dir_y)] == '0') 
 			p->pos_y += p->dir_y;
-		// new_map_pos(game, p);
+		new_map_pos(game, p);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 	{
@@ -73,7 +75,7 @@ void ft_hook(void* param)
 			p->pos_x -= p->dir_x;
       	if(game->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y - p->dir_y)] == '0') 
 			p->pos_y -= p->dir_y;
-		// new_map_pos(game, p);
+		new_map_pos(game, p);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 	{
@@ -83,7 +85,7 @@ void ft_hook(void* param)
       p->old_planex = p->plane_x;
       p->plane_x = p->plane_x * cos(p->rotspeed) - p->plane_y * sin(p->rotspeed);
       p->plane_y = p->old_planex * sin(p->rotspeed) + p->plane_y * cos(p->rotspeed);
-		// new_map_pos(game, p);
+		new_map_pos(game, p);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 	{
@@ -94,8 +96,13 @@ void ft_hook(void* param)
       p->old_planex = p->plane_x;
       p->plane_x = p->plane_x * cos(-p->rotspeed) - p->plane_y * sin(-p->rotspeed);
       p->plane_y = p->old_planex * sin(-p->rotspeed) + p->plane_y * cos(-p->rotspeed);
+	  new_map_pos(game, p);
 	}
-	new_map_pos(game, p);
+	// new_map_pos(game, p);
+	// mlx_delete_image(game->mlx, game->img);
+	// game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	// if (!game->img)
+	// 	free_game(game);
 	// mlx_delete_image(game->mlx, game->img);
 	// game->img = mlx_new_image(game->mlx, MINMAP_SIZE, MINMAP_SIZE);//WIDTH, HEIGHT);
 	// if (!game->img)
