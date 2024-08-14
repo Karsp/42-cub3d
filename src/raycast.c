@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/13 19:24:35 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:33:11 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,9 +195,9 @@ void get_wallcolor(t_game *game, t_raycast *r)
 /*
 @brief choose wall color
 */
-void update_pixelmap(int x, t_raycast *r)
+void update_pixelmap(t_game *game, int x)
 {
-	// t_raycast	*r;
+	t_raycast	*r;
     // t_player    *p;
 	// int	cont;
 	// int	cont2;
@@ -205,7 +205,7 @@ void update_pixelmap(int x, t_raycast *r)
 	// cont = -1;
 	// cont2 = -1;
     // p = &game->p;
-	// r = &game->r;
+	r = &game->r;
 	//update pixel map	
 	// ft_printf("update: r->dir antes %d\n", r->dir);
 	
@@ -236,7 +236,8 @@ void update_pixelmap(int x, t_raycast *r)
 			r->color = 0x7F7F7F;
 		// ft_printf("Update: r->color %d\n", r->color);
 		if (r->color > 0)				// your pixel map (int** in this case)
-			r->pixel_map[r->draw_start][x] = r->color;
+			mlx_put_pixel(game->img, x, r->draw_start, r->color);
+			// r->pixel_map[r->draw_start][x] = r->color;
 		r->draw_start++;
 	}
 }
@@ -264,10 +265,10 @@ int	init_raycast(t_game *game)
     r = &game->r;
 	// r->dir = 1;
 	ft_printf("init_raycast: Llega\n");
-	if (!game->r.pixel_map)
-		ft_printf("init_raycast: No hay pixel_map\n");
-	else
-		ft_printf("init_raycast: Deberia haber pixel_map\n");
+	// if (!game->r.pixel_map)
+	// 	ft_printf("init_raycast: No hay pixel_map\n");
+	// else
+	// 	ft_printf("init_raycast: Deberia haber pixel_map\n");
 	// 	create_pixelmap(game);
 	// if(!game->r.pixel_map)
 	// ft_bzero(game->r.pixel_map, sizeof(game->r.pixel_map));
@@ -276,6 +277,7 @@ int	init_raycast(t_game *game)
 		// ft_memset((void *)game->r.pixel_map, 0, sizeof(game->r.pixel_map));
 	// if (create_pixelmap(game))
 	// 	return(EXIT_FAILURE);
+	draw_f_c(game);
 	while (++x < WIDTH)
 	{
 		get_ray_posdir(x, p, r);
@@ -285,8 +287,9 @@ int	init_raycast(t_game *game)
 		get_wallheight(p, r);
 		// ft_printf("init_raycast: r->line_height despues %d\n", r->line_height);
 		get_wallcolor(game, r);
-		update_pixelmap(x, r);
+		update_pixelmap(game, x);
     }
+	draw_minimap(game);
 	return (EXIT_SUCCESS);
 }
 

@@ -6,11 +6,31 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 10:16:41 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:32:52 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	draw_f_c(t_game *game)
+{
+	size_t		x;
+	long		y;
+
+	// ft_printf("Llega a draw_f_c\n");
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+		{
+			if (y > HEIGHT / 2)
+				mlx_put_pixel(game->img, x, y, game->map->c_color);
+			else if (y < HEIGHT / 2)
+				mlx_put_pixel(game->img, x, y, game->map->f_color);
+		}
+	}
+}
 
 /**
  * @brief Function to draw a 2D map
@@ -60,7 +80,7 @@
  */
 void	ft_draw_pixel_map(t_game *game)
 {
-	size_t		x;
+	/* size_t		x;
 	long		y;
 
 	y = -1;
@@ -88,10 +108,11 @@ void	ft_draw_pixel_map(t_game *game)
 				// (ft_printf("dram_pixel_map: Entra 2º else\n"), mlx_put_pixel(game->img, x, y, game->map->f_color));
 				mlx_put_pixel(game->img, x, y, game->map->f_color);
 		}
-	}
+	} */
+	// draw_f_c(game);
+	// draw_minimap(game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
 		c_error("Image to window error\n");
-	draw_minimap(game);
 	// mlx_delete_image(game->mlx, game->img);
 	}
 

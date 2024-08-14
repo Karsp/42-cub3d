@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:29:00 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/13 12:56:15 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:25:14 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int init_data(t_game  *game)
 		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
 		return(EXIT_FAILURE);
 	}
-	if (create_pixelmap(game))
-		return(EXIT_FAILURE);
+	// if (create_pixelmap(game))
+	// 	return(EXIT_FAILURE);
     return(EXIT_SUCCESS);
 }
 

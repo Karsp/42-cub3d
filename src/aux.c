@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/13 16:41:36 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:25:59 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ void	free_game(t_game *game)
 	// 	(ft_printf("free map\n"), free_array(game->map->map));//(&aux->map->map));
 	if (game->img_addr)
 		(ft_printf("free img_addr\n"), free(game->img_addr));
-	if (game->r.pixel_map[0][0] != '\0')
-		ft_freeintarray(game->r.pixel_map);
+	// if (game->r.pixel_map[0][0] != '\0')
+	// 	ft_freeintarray(game->r.pixel_map);
 	if (game->img)
 		mlx_delete_image(game->mlx, game->img);
 	if (game->texture)
