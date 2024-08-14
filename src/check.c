@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 17:02:28 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:55:53 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,9 +163,9 @@ char	*extract_data(t_map *map, char *line, int start)
 	// count = 0;
 	if (*aux != '\0' && *aux != '\n')
 	{
-		// ft_printf("extract_data: Entra al if con línea: -- %s --\n", aux);
+		ft_printf("extract_data: Entra al if con línea: --%s--\n", aux);
 		map->info_map++;
-		return (ft_substr(aux, 0, ft_strlen(aux)));
+		return (ft_substr(aux, 0, ft_strlen(aux) - 1));
 	}
 	else
 		c_error("Texture error\n");
@@ -207,7 +207,11 @@ void	check_line(t_map *map, char *line)
 		free_array(colors);
 	}
 	else if (ft_strncmp(line, "NO ", 3) == 0)
-		map->n_path = extract_data(map, line, 3);
+	{
+		// map->info_map++;
+		ft_printf("check_line: map->n_path %s", map->n_path = extract_data(map, line, 3));
+		// ft_printf("check_line: map->n_path %s", map->n_path);//extract_data(map, line, 3);
+	}
 	else if (ft_strncmp(line, "SO ", 3) == 0)
 		map->s_path = extract_data(map, line, 3);
 	else if (ft_strncmp(line, "WE ", 3) == 0)

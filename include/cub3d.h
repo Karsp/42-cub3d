@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 17:18:37 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:54:05 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,14 +209,15 @@ typedef struct s_map
 
 // General struct. Contains map, player, raycast settings and MLX pointers
 // mlx_texture_t	*SO_texture;
+//xpm_t			*so_texture;
 typedef struct s_game
 {
 	t_map			*map;
 	mlx_t			*mlx;
-	xpm_t			*NO_texture;
-	xpm_t			*SO_texture;
-	xpm_t			*E_texture;
-	xpm_t			*W_texture;
+	mlx_texture_t	*no_texture;
+	mlx_texture_t	*so_texture;
+	mlx_texture_t	*e_texture;
+	mlx_texture_t	*w_texture;
 	mlx_image_t		*img;
 	mlx_image_t		*img1;
 	mlx_image_t		*img2;

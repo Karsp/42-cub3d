@@ -1,11 +1,14 @@
-NO            	./textures/north_texture.xpm
-SO    	./src/assets/wolf/bluestone.xpm
-EA  ./assets/wolf/greystone.xpm
-WE ./assets/wolf/mossy.xpm
+NO            	./src/assets/Texture1.png
+SO    	./src/assets/Texture2.png
+EA  ./src/assets/Texture3.png
+WE ./src/assets/Texture4.png
 
 
 F          0, 204,  204
 C 153,204,     255
+
+
+
 
 1111111111111111111111111111111111111111
 1000000000000000000000000000000000000001

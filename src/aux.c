@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 17:19:31 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:00:28 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,15 @@ void	free_game(t_game *game)
 	// 	ft_freeintarray(game->r.pixel_map);
 	if (game->img)
 		mlx_delete_image(game->mlx, game->img);
-	if (game->NO_texture)
+	if (game->no_texture)
 		// mlx_delete_texture(game->NO_texture);
-		mlx_delete_xpm42(game->NO_texture);
-	if (game->SO_texture)
-		mlx_delete_xpm42(game->SO_texture);
-	if (game->E_texture)
-		mlx_delete_xpm42(game->E_texture);
-	if (game->W_texture)
-		mlx_delete_xpm42(game->W_texture);
+		mlx_delete_xpm42(game->no_texture);
+	if (game->so_texture)
+		mlx_delete_xpm42(game->so_texture);
+	if (game->e_texture)
+		mlx_delete_xpm42(game->e_texture);
+	if (game->w_texture)
+		mlx_delete_xpm42(game->w_texture);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 	game = NULL;
@@ -158,10 +158,10 @@ void	c_print_all(t_map *map)
 	printf("pos_y; %f\n", map->pos_y);
 	ft_printf("num_lines %d\n", map->num_lines);
 	ft_printf("num_cols %d\n", map->num_cols);
-	ft_printf("*n_path %s\n", map->n_path);
-	ft_printf("*s_path %s\n", map->s_path);
-	ft_printf("*e_path %s\n", map->e_path);
-	ft_printf("*w_path %s\n", map->w_path);
+	ft_printf("*n_path %s--\n", map->n_path);
+	ft_printf("*s_path %s--\n", map->s_path);
+	ft_printf("*e_path %s--\n", map->e_path);
+	ft_printf("*w_path %s--\n", map->w_path);
 	ft_printf("f_color %d\n", map->f_color);
 	ft_printf("c_color %d\n", map->c_color);
 	ft_printf("dir %c\n", map->dir);
