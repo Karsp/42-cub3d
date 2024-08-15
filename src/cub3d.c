@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/15 11:44:56 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:57:10 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	get_size(t_map	*map)
 	game.map = (t_map *)malloc(sizeof(t_map));
 	game.map->num_lines = 0;
 	game.map->num_cols = 0;
-	game.map->info_map = 0;
+	game.map->i_map = 0;
 	if (argc == 2)
 	{
 		name = argv[1];

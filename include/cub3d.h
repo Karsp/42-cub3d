@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 15:29:43 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:57:10 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ typedef struct s_square
 	int					color;
 }		t_square;
 
-// Struct for the map values. info_map to chek if there's all of the needed data
+// Struct for the map values. i_map to chek if there's all of the needed data
 typedef struct s_map
 {
 	int		fd;
@@ -180,7 +180,7 @@ typedef struct s_map
 	int		p_color;
 	int		g_color;
 	char	dir;
-	int		info_map;
+	int		i_map;
 	int		symbols;
 	char	*read_map;
 	char	**map;
@@ -249,6 +249,7 @@ int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
 void	c_error(t_game *game, char *message);
 
 // Parsing functions
+void	init_map(t_game *game);
 long	find_n(t_game *game, char *s);
 void	c_check_ext(t_game *game, char *file);
 void	c_read_map(t_game *game, char *file);
@@ -256,11 +257,16 @@ void	c_check_map(t_game *game);
 void	build_map(t_map *map);
 void	write_map(t_game *game);
 void	check_map(t_game *game);
+void	check_file(t_game *game, char *file);
+void	c_check_ext(t_game *game, char *file);
+void	check_fcolors(t_game *game, char *line);
+void	check_ccolors(t_game *game, char *line);
 
 // Auxiliar functions
 int		free_array(char **colors);
 int		ft_freeintarray(int **pixel_map);
 int		is_char(char c);
+void	map_size(t_game *game);
 
 // Game
 void	init_img(t_game *game);

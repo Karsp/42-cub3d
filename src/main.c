@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:34:29 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 11:52:59 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:57:10 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	launch_game(t_game *game, char *name)
 	game->map = (t_map *)malloc(sizeof(t_map));
 	game->map->num_lines = 0;
 	game->map->num_cols = 0;
-	game->map->info_map = 0;
+	game->map->i_map = 0;
 	game->r.pixel_map = NULL;
 	c_check_ext(game, name);
 	c_read_map(game, name);

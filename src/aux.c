@@ -6,11 +6,41 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 19:09:58 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:57:10 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+
+/**
+ * @brief Function to check the size of the map
+ * @param game The game structure
+ */
+void	map_size(t_game *game)
+{
+	char	*aux;
+	size_t	num_cols;
+	t_map	*map;
+
+	map = game->map;
+	num_cols = 0;
+	aux = get_next_line(map->fd);
+	if (!aux)
+		c_error(game, "Map reading error\n");
+	while (aux)
+	{
+		map->num_lines++;
+		if (ft_strncmp(aux, " ", 1) == 0 || ft_strncmp(aux, "1", 1) == 0)
+		{
+			num_cols = ft_strlen(aux);
+			if (num_cols > map->num_cols)
+				map->num_cols = num_cols + 2;
+		}
+		(free(aux), aux = NULL);
+		aux = get_next_line(map->fd);
+	}
+}
 
 int	free_maps(t_game *game)
 {
@@ -164,7 +194,7 @@ void	c_print_all(t_map *map)
 	ft_printf("f_color %d\n", map->f_color);
 	ft_printf("c_color %d\n", map->c_color);
 	ft_printf("dir %c\n", map->dir);
-	ft_printf("info_map %d\n", map->info_map);
+	ft_printf("i_map %d\n", map->i_map);
 	ft_printf("map\n");
 /* 	while (aux < (map->num_lines - map->init_line))
 	{
