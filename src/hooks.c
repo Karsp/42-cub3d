@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:47:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 14:11:52 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:04:09 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	new_map_pos(t_game *game, t_player *p)
 	if (!game->img)
 		free_game(game);
 	init_raycast(game);
-	ft_draw_pixel_map(game);
+	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
+		c_error(game, "Image to window error\n");
 	game->map->pos_x = p->pos_x;
 	game->map->pos_y = p->pos_y;
 	// ft_printf("pos_x: %d, pos_y: %d\n", game->map->pos_x, game->map->pos_y);

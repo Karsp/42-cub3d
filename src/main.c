@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:34:29 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 16:57:10 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:03:10 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	launch_game(t_game *game, char *name)
 	if (init_data(game))
 		ft_putstr_fd((char *)mlx_strerror(mlx_errno), 2);
 	init_raycast(game);
-	ft_draw_pixel_map(game);
+	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
+		c_error(game, "Image to window error\n");
+	// ft_draw_pixel_map(game);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 10:59:09 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:32:56 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,7 +294,7 @@ int	init_raycast(t_game *game)
 	// if (game->r.pixel_map)
 		// ft_memset((void *)game->r.pixel_map, 0, sizeof(game->r.pixel_map));
 	// if (create_pixelmap(game))
-	// 	return(EXIT_FAILURE);
+	// 	return (EXIT_FAILURE);
 	draw_f_c(game);
 	while (++x < WIDTH)
 	{

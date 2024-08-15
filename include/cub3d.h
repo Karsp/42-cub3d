@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 16:57:10 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:47:31 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,17 @@ typedef struct s_square
 	int					color;
 }		t_square;
 
+typedef struct s_aux_draw
+{
+	size_t		aux;
+	size_t		count;
+	size_t		count2;
+	size_t		x2;
+	int			x;
+	int			y;
+}			t_aux_draw;
+
+
 // Struct for the map values. i_map to chek if there's all of the needed data
 typedef struct s_map
 {
@@ -218,9 +229,7 @@ typedef struct s_colors
 // Init.c
 int		init_data(t_game *game);
 int		init_player(t_game *game);
-int		create_pixelmap(t_game *game);
-void	ft_init_long(t_game *game);
-void	ft_init_lat(t_game *game);
+// int		create_pixelmap(t_game *game);
 
 // Raycast.c
 int		init_raycast(t_game *game);
@@ -277,7 +286,7 @@ void	free_game(t_game *game);
 void	draw_square(t_square square, mlx_image_t *img);
 void	draw_map(t_game *game);
 void	generate_map(t_game *game);
-void	ft_draw_pixel_map(t_game *game);
+// void	ft_draw_pixel_map(t_game *game);
 void	draw_minimap(t_game *game);
 void	draw_color(t_square square, mlx_image_t *img);
 void	draw_f_c(t_game *game);
