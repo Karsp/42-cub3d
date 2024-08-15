@@ -150,9 +150,9 @@ int	is_char(char c)
  */
 void	c_print_all(t_map *map)
 {
-	size_t	aux;
+	// size_t	aux;
 
-	aux = 0;
+	// aux = 0;
 	printf("pos_x: %f\n", map->pos_x);
 	printf("pos_y; %f\n", map->pos_y);
 	ft_printf("num_lines %d\n", map->num_lines);

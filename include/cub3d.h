@@ -25,8 +25,8 @@
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 
-# define WIDTH 1500
-# define HEIGHT 1400
+# define WIDTH 1900
+# define HEIGHT 1000
 //textures
 # define texWidth 64
 # define texHeight 64
@@ -147,6 +147,7 @@ typedef struct s_raycast
 	int			draw_end;
 	int			dir;
 	int 		tex_x;
+	int 		tex_y;
 	int		color;
 	double 		pos;
 	double 		step;
@@ -232,7 +233,8 @@ void get_wallheight(t_player *p, t_raycast *r);
 void get_ray_step_sidedist(t_player *p, t_raycast *r);
 void get_wallcolor(t_game *game, t_raycast *r);
 void update_pixelmap(t_game *game, int x);
-
+int	get_color(t_game *game, t_raycast *r);
+uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y);
 // int	init_map(t_data *data);
 
 // Clean.c
