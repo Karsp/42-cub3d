@@ -10,6 +10,7 @@
         "ranges": "c",
         "libft.h": "c",
         "initializer_list": "c",
-        "utility": "c"
+        "utility": "c",
+        "algorithm": "c"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/15 16:18:43 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:29:04 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,20 @@ void	c_check_ext(t_game *game, char *file)
 }
 
 /**
- * @brief Function to parse the map
+ * @brief Function to write the map into the map structure
  * @param game The game structure
- * @param file The path to the .cub file
+ * @param The path to the map file
  */
-void	c_read_map(t_game *game, char *file)
+void	get_map(t_game *game, char *file)
 {
 	char	*line;
-	size_t	count;
-	long	aux_line;
 	t_map	*map;
+	long	aux_line;
+	size_t	count;
 
-	map = game->map;
-	count = -1;
 	aux_line = 0;
-	check_file(game, file);
-	map_size(game);
-	close(map->fd);
-	map->fd = open (file, O_RDONLY);
-	if (map->fd == -1)
-		(perror("Open"), exit(errno));
-	init_map(game);
-	map->map = (char **)malloc((map->num_lines - map->init_line + 1) * sizeof(char *));
-	close(map->fd);
+	count = -1;
+	map = game->map;
 	map->fd = open (file, O_RDONLY);
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
@@ -67,15 +58,29 @@ void	c_read_map(t_game *game, char *file)
 	if (line)
 		(free(line), line = NULL);
 	map->map[++count] = NULL;
-	ft_printf("map\n");
-	size_t	aux = 0;
-	aux = 0;
-	while (aux < (map->num_lines - map->init_line + 2))
-	{
-		ft_printf("-- %s\n", map->map[aux]);
-		aux++;
-	}
-	ft_printf("\n");
+}
+
+/**
+ * @brief Function to parse the map
+ * @param game The game structure
+ * @param file The path to the .cub file
+ */
+void	c_read_map(t_game *game, char *file)
+{
+	t_map	*map;
+
+	map = game->map;
+	check_file(game, file);
+	map_size(game);
+	close(map->fd);
+	map->fd = open (file, O_RDONLY);
+	if (map->fd == -1)
+		(perror("Open"), exit(errno));
+	init_map(game);
+	map->map = (char **)malloc((map->num_lines - map->init_line + 1) \
+	* sizeof(char *));
+	close(map->fd);
+	get_map(game, file);
 }
 
 void	c_check_map(t_game *game)
