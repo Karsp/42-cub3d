@@ -1,7 +1,7 @@
-NO ./textures/north_texture.png
-SO ./textures/south_texture.png
-EA ./textures/east_texture.png
-WE ./textures/west_texture.png
+NO            	./src/assets/Texture1.png
+SO    	./src/assets/Texture2.png
+EA  ./src/assets/Texture3.png
+WE ./src/assets/Texture4.png
 
 F 204,204,204
 C 153,204,255

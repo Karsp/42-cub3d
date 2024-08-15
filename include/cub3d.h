@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 19:26:34 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:46:53 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 
-# define WIDTH 1500
-# define HEIGHT 1400
+# define WIDTH 1900
+# define HEIGHT 1000
 //textures
 # define TEXWIDTH 64
 # define TEXHEIGHT 64
@@ -145,7 +145,8 @@ typedef struct s_raycast
 	int			draw_end;
 	int			dir;
 	int			tex_x;
-	int			color;
+	int			tex_y;
+	uint8_t		color;
 	double		pos;
 	double		step;
 	int			**pixel_map;
@@ -237,7 +238,8 @@ void	get_wallheight(t_player *p, t_raycast *r);
 void	get_ray_step_sidedist(t_player *p, t_raycast *r);
 void	get_wallcolor(t_game *game, t_raycast *r);
 void	update_pixelmap(t_game *game, int x);
-
+uint8_t	get_color(t_game *game, t_raycast *r);
+uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y);
 // Clean.c
 void	my_close(t_game *game);
 
