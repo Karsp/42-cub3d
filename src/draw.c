@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 11:32:52 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:44:56 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ void	draw_f_c(t_game *game)
 			{
 				if (mlx_image_to_window(game->mlx, game->img, 320 + aux * GRIDSIZE, \
 				320 + count * GRIDSIZE) < 0)
-					c_error("Image to window error\n");
+					c_error(game, "Image to window error\n");
 			}
 			else if (map->checked_map[count][aux] == '0')
 			{
 				if (mlx_image_to_window(game->mlx, game->img2, 320 + aux * GRIDSIZE, \
 				320 + count * GRIDSIZE) < 0)
-					c_error("Image to window error\n");
+					c_error(game, "Image to window error\n");
 			}
 			else if (map->checked_map[count][aux] != ' ' && map->checked_map[count][aux] != 'x')
 				if (mlx_image_to_window(game->mlx, game->img3, 320 + aux * GRIDSIZE, \
 				320 + count * GRIDSIZE) < 0)
-					c_error("Image to window error\n");
+					c_error(game, "Image to window error\n");
 		}
 		aux = -1;
 	}
@@ -114,7 +114,7 @@ void	ft_draw_pixel_map(t_game *game)
 	// draw_f_c(game);
 	// draw_minimap(game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-		c_error("Image to window error\n");
+		c_error(game, "Image to window error\n");
 	// mlx_delete_image(game->mlx, game->img);
 	}
 
@@ -201,5 +201,5 @@ void	draw_minimap(t_game *game)
 	square.y = 15;
 	draw_square(square, game->img);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-		c_error("Image to window error\n");
+		c_error(game, "Image to window error\n");
 }

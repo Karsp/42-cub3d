@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 12:05:04 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:59:09 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,24 @@ static uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y)
 	(y * img->width) + (x * img->bytes_per_pixel / 8))));
 }
 
+void	calc_tex(t_game *game, char *dir)
+{
+	t_raycast	*r;
+	int			text_size;
+
+	r = &game->r;
+	r->dir = ft_get_direction(r);
+// //TEXTURE
+	if (ft_strncmp(dir, "NO", 2))
+		text_size = game->no_texture->height;
+	if (ft_strncmp(dir, "SO", 2))
+		text_size = game->so_texture->height;
+	r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
+	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
+		r->tex_x = TEXTURE_SIZE - r->tex_x - 1;
+	r->step = 1.0 * TEXTURE_SIZE / r->line_height;
+	r->pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
+}
 
 /*
 @brief choose wall color
@@ -210,73 +228,34 @@ texX is the x-coordinate of the texture, and this is calculated out of wallX
 void update_pixelmap(t_game *game, int x)
 {
 	t_raycast	*r;
-    // t_player    *p;
-	// int	cont;
-	// int	cont2;
 
-	// cont = -1;
-	// cont2 = -1;
-    // p = &game->p;
 	r = &game->r;
-	//update pixel map	
-	// ft_printf("update: r->dir antes %d\n", r->dir);
-	
-	/// ME QUEDO PROBANDO ESTO
-	// while (++cont < HEIGHT)
-	// {
-	// 	while (++cont2 < WIDTH)
-	// 		r->pixel_map[cont][cont2] = 0;
-	// }
-
 	r->dir = ft_get_direction(r);
-//Color
-
-	// r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
-	// if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
-	// 	r->tex_x = TEXTURE_SIZE - r->tex_x - 1;
-	// r->step = 1.0 * TEXTURE_SIZE / r->line_height;
-	// r->pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
-
-	// // 		printf("X: %d\n",x);
-	// //   printf("DrawStart: %d   DrawEnd: %d\n",r->draw_start, r->draw_end);
-	// while (r->draw_start < r->draw_end)
-	// {
-
-	// 	r->pos += r->step;
-	// 	if (r->dir == NORTH || r->dir == SOUTH)				// add some shading to the north and south walls
-	// 		r->color = 0x7F7F7F;
-	// 	// ft_printf("Update: r->color %d\n", r->color);
-	// 	if (r->color > 0)				// your pixel map (int** in this case)
-	// 		mlx_put_pixel(game->img, x, r->draw_start, r->color);
-	// 		// r->pixel_map[r->draw_start][x] = r->color;
-	// 	r->draw_start++;
-	// }
-
+	/*
 // //TEXTURE
 	r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
 		r->tex_x = TEXTURE_SIZE - r->tex_x - 1;
 	r->step = 1.0 * TEXTURE_SIZE / r->line_height;
-	r->pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
-
-	// 		printf("X: %d\n",x);
-	//   printf("DrawStart: %d   DrawEnd: %d\n",r->draw_start, r->draw_end);
+	r->pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step; */
 	while (r->draw_start < r->draw_end)
 	{
-
 		r->pos += r->step;
+		// ft_printf("update_pixelmap pos: %d, step: %d\n", r->pos, r->step);
 		if (r->dir == NORTH)
+		{
+			calc_tex(game, "NO");
 			r->color = get_pixel_img(game->no_texture, r->tex_x, r->draw_start);
-		else if (r->dir == SOUTH)				
+			// ft_printf("update_pixelmap: north r_color: %d\n", r->color);
+		}
+		else if (r->dir == SOUTH)		
+		{		
+			calc_tex(game, "SO");
 			r->color = get_pixel_img(game->so_texture, r->tex_x, r->draw_start);
-		// else if (r->dir == EAST)				
-		// 	r->color = get_pixel_img(game->e_texture, r->tex_x, r->draw_start);
-		// else if (r->dir == WEST)				
-		// 	r->color = get_pixel_img(game->w_texture, r->tex_x, r->draw_start);
-		// ft_printf("Update: r->color %d\n", r->color);
+			// ft_printf("update_pixelmap: south r_color: %d\n", r->color);
+		}
 		if (r->color > 0)				// your pixel map (int** in this case)
 			mlx_put_pixel(game->img, x, r->draw_start, r->color);
-			// r->pixel_map[r->draw_start][x] = r->color;
 		r->draw_start++;
 	}
 	  

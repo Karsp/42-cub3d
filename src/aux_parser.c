@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/09 17:15:39 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:17:52 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,19 @@
  * @param c The character to check
  * @return The position in the line or -1 if there's no c in s
  */
-long	find_n(char *s, t_map *map) // Hacer funnción auxiliar para lo que hay dentro de los if
+long	find_n(t_game *game, char *s) // Hacer funnción auxiliar para lo que hay dentro de los if
 {
 	long	pos;
-	int		symbols;	
+	int		symbols;
+	t_map	*map;	
 
+	map = game->map;
 	pos = 0;
 	symbols = 0;
+	ft_printf("find_n: %s\n", s);
+	write(1, &s[pos], 1);
+	ft_printf("findN: yes: %d\n", s[pos] != '\0');
+	write(1, "yesssss\n", 8);
 	while (s[pos] != '\0')
 	{
 		if (s[pos] == 'N')
@@ -58,7 +64,7 @@ long	find_n(char *s, t_map *map) // Hacer funnción auxiliar para lo que hay den
 	else if (map->symbols <= 1 && symbols == 0)
 		return (symbols);
 	else
-		c_error("Error en el número de puntos de inicio\n");
+		c_error(game, "Error en el número de puntos de inicio\n");
 	return (-1);
 }
 

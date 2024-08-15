@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:21:53 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/09 12:25:13 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:44:56 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	get_size(t_map	*map)
 		init_game(&game);
 	}
 	else
-		c_error("Bad number of args");
+		c_error(game, "Bad number of args");
 	if (game.img != NULL && game.mlx != NULL && game.texture != NULL)
 		my_close(&game);
 	return (EXIT_SUCCESS);

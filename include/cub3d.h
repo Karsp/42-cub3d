@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 18:54:05 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:29:43 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define WIDTH 1500
 # define HEIGHT 1400
 //textures
-# define texWidth 64
-# define texHeight 64
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
 # define NUM_TEXTURES 4
 # define TEXTURE_SIZE 64
 # define M_GRIDSIZE 10
@@ -45,7 +45,7 @@ typedef enum e_cardinal_direction
 	SOUTH = 1,
 	WEST = 2,
 	EAST = 3
-}	t_direction;
+}			t_direction;
 
 typedef enum e_moves
 {
@@ -53,7 +53,7 @@ typedef enum e_moves
 	DOWN,
 	LEFT,
 	RIGHT
-}	t_moves;
+}			t_moves;
 
 /* enum my_keys
 {
@@ -111,19 +111,19 @@ typedef struct s_imgline
 //Player struct
 typedef struct s_player
 {
-	double  pos_x;
-	double  pos_y;
-	double  dir_x;
-	double  dir_y;
-	double  plane_x;
-	double  plane_y;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	double	old_dirx;
 	double	old_planex;
 	double	frame_time;
 	double	movespeed;
 	double	rotspeed;
 	bool	is_moving;
-}	t_player;
+}				t_player;
 
 //Raycast struct
 typedef struct s_raycast
@@ -131,26 +131,26 @@ typedef struct s_raycast
 	double		camera_x;
 	double		ray_dirx;
 	double		ray_diry;
-	int   		map_x;
-	int   		map_y;
+	int			map_x;
+	int			map_y;
 	double		side_dist_x;
 	double		side_dist_y;
 	double		delta_dist_x;
 	double		delta_dist_y;
-	int   		step_x;
-	int   		step_y;
-	int   		side;
+	int			step_x;
+	int			step_y;
+	int			side;
 	double		wall_dist;
 	double		wall_x;
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
 	int			dir;
-	int 		tex_x;
-	int		color;
-	double 		pos;
-	double 		step;
-	int			**pixel_map;//[HEIGHT][WIDTH];
+	int			tex_x;
+	int			color;
+	double		pos;
+	double		step;
+	int			**pixel_map;
 }	t_raycast;
 
 // Struct for a rectangle
@@ -185,7 +185,7 @@ typedef struct s_map
 	char	*read_map;
 	char	**map;
 	char	**checked_map;
-}			t_map;
+}				t_map;
 
 // General struct. Contains map, player, raycast settings and MLX pointers
 // mlx_texture_t	*SO_texture;
@@ -206,7 +206,6 @@ typedef struct s_game
 	char			*img_addr;
 	t_raycast		r;
 	t_player		p;
-	// t_fps			fps;
 }				t_game;
 
 typedef struct s_colors
@@ -218,25 +217,24 @@ typedef struct s_colors
 
 // Init.c
 int		init_data(t_game *game);
-int 	init_player(t_game *game);
+int		init_player(t_game *game);
 int		create_pixelmap(t_game *game);
 void	ft_init_long(t_game *game);
 void	ft_init_lat(t_game *game);
 
 // Raycast.c
-int 	init_raycast(t_game *game);
+int		init_raycast(t_game *game);
 int		ft_get_direction(t_raycast *ray);
-void get_ray_posdir(int x, t_player *p, t_raycast *r);
-void get_walldistance(t_game *game, t_player *p, t_raycast *r);
-void get_wallheight(t_player *p, t_raycast *r);
-void get_ray_step_sidedist(t_player *p, t_raycast *r);
-void get_wallcolor(t_game *game, t_raycast *r);
-void update_pixelmap(t_game *game, int x);
-
-// int	init_map(t_data *data);
+void	get_ray_posdir(int x, t_player *p, t_raycast *r);
+void	get_walldistance(t_game *game, t_player *p, t_raycast *r);
+void	get_wallheight(t_player *p, t_raycast *r);
+void	get_ray_step_sidedist(t_player *p, t_raycast *r);
+void	get_wallcolor(t_game *game, t_raycast *r);
+void	update_pixelmap(t_game *game, int x);
 
 // Clean.c
 void	my_close(t_game *game);
+
 // Hooks.c
 void	ft_hook(void *param);
 void	ft_onloop(void *param);
@@ -244,25 +242,20 @@ void	ft_rotate_left(t_player *p);
 void	ft_rotate_right(t_player *p);
 void	ft_move_forwards(t_game *game, t_player *p);
 void	ft_move_backwards(t_game *game, t_player *p);
-//settings FPS
-// void	ft_init_fps(t_game *game);
-// void	ft_calculate_fps(t_game *game);
-// void	ft_render_fps(t_game *game);
-
-
-
 
 int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
-// int		c_strlen(const char *s);
 
 // Errors management
-void	c_error(char *message);
+void	c_error(t_game *game, char *message);
 
 // Parsing functions
-long	find_n(char *s, t_map *map);
-void	c_check_ext(char *file);
+long	find_n(t_game *game, char *s);
+void	c_check_ext(t_game *game, char *file);
 void	c_read_map(t_game *game, char *file);
 void	c_check_map(t_game *game);
+void	build_map(t_map *map);
+void	write_map(t_game *game);
+void	check_map(t_game *game);
 
 // Auxiliar functions
 int		free_array(char **colors);
@@ -282,8 +275,6 @@ void	ft_draw_pixel_map(t_game *game);
 void	draw_minimap(t_game *game);
 void	draw_color(t_square square, mlx_image_t *img);
 void	draw_f_c(t_game *game);
-// void	get_wallcolor(t_game *game);
-
 
 // Auxiliar drawing functions
 int		get_size(t_map	*map);
@@ -292,6 +283,5 @@ int		get_rgba(int r, int g, int b, int a);
 // To delete
 
 void	c_print_all(t_map *map);
-// void	ft_randomize(void *param);
 
 #endif
