@@ -210,11 +210,11 @@ int	get_color(t_game *game, t_raycast *r)
 	if (r->side == 0 && r->ray_dirx > 0)
 		color = *(game->no_texture->pixels + (texHeight * r->tex_y + r->tex_x));
 	else if (r->side == 0 && r->ray_dirx < 0)
-		color = *(game->no_texture->pixels + (texHeight * r->tex_y + r->tex_x));
+		color = *(game->so_texture->pixels + (texHeight * r->tex_y + r->tex_x));
 	else if (r->side == 1 && r->ray_dirx > 0)
-		color = *(game->no_texture->pixels + (texHeight * r->tex_y + r->tex_x));
+		color = *(game->e_texture->pixels + (texHeight * r->tex_y + r->tex_x));
 	else if (r->side == 1 && r->ray_dirx < 0)
-		color = *(game->no_texture->pixels + (texHeight * r->tex_y + r->tex_x));
+		color = *(game->w_texture->pixels + (texHeight * r->tex_y + r->tex_x));
 	return (color);
 }
 
@@ -241,13 +241,18 @@ void update_pixelmap(t_game *game, int x)
 		// Cast the texture coordinate to integer, and mask with (texHeight — 1) in case of overflow
 		r->tex_y= (int)r->pos & (texHeight - 1);
 		r->pos += r->step;
+	// Get color gets smaller texture than get pixel
 		// r->color = get_color(game,r);
-		r->color = game->no_texture->pixels[texHeight * r->tex_y + r->tex_x];
-
-		if(r->side == 1)
-			r->color = (r->color >> 1) & 8355711;
-		if (r->color > 0)				// your pixel map (int** in this case)
+		r->color = get_pixel_img(game->so_texture, r->tex_x, r->tex_y);
+		// if (r->dir == NORTH)				// add some shading to the north and south walls
+		// 	r->color = get_color(game, r);
+		// if (r->dir == SOUTH)				// add some shading to the north and south walls
+		// 	r->color = 0x7F7F7F;
+		// if(r->side == 1)
+		// 	r->color = (r->color >> 1) & 8355711;
+		// if (r->color > 0)				// your pixel map (int** in this case)
 			mlx_put_pixel(game->img, x, y, r->color);
+			// mlx_put_pixel(game->img, x, y, r->color);
 			// r->pixel_map[r->draw_start][x] = r->color;
 		// r->draw_start++;
 		y++;
