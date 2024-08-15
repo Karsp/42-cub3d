@@ -6,10 +6,9 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 18:47:31 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:26:34 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -85,7 +84,6 @@ typedef enum e_moves
 //test map
 # define MAP_W 24
 # define MAP_H 24
-
 
 typedef struct s_imgline
 {
@@ -171,7 +169,6 @@ typedef struct s_aux_draw
 	int			x;
 	int			y;
 }			t_aux_draw;
-
 
 // Struct for the map values. i_map to chek if there's all of the needed data
 typedef struct s_map
