@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/15 15:17:52 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:52:05 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ long	find_n(t_game *game, char *s) // Hacer funnción auxiliar para lo que hay d
 	map = game->map;
 	pos = 0;
 	symbols = 0;
-	ft_printf("find_n: %s\n", s);
-	write(1, &s[pos], 1);
-	ft_printf("findN: yes: %d\n", s[pos] != '\0');
-	write(1, "yesssss\n", 8);
 	while (s[pos] != '\0')
 	{
 		if (s[pos] == 'N')

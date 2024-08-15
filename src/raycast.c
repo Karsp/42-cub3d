@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 19:48:01 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:50:17 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ uint8_t	get_color(t_game *game, t_raycast *r)
 	uint8_t	color;
 	int index;
 
-	index = (texHeight * r->tex_y + r->tex_x) * 4; // Assuming RGBA format (4 bytes per pixel)
+	index = (TEXHEIGHT * r->tex_y + r->tex_x) * 4; // Assuming RGBA format (4 bytes per pixel)
 	color = 0;
 	if (r->side == 0 && r->ray_dirx > 0)
     	color = *(uint32_t *)(game->no_texture->pixels + index);
@@ -233,18 +233,18 @@ void update_pixelmap(t_game *game, int x)
     //x coordinate on the texture
     // if(side == 0 && rayDirX > 0) texX = texWidth — texX — 1; //touches x axis (south)
     // if(side == 1 && rayDirY < 0) texX = texWidth — texX — 1; //touches y axis (west)
-	r->tex_x = (int)(r->wall_x * texWidth);
+	r->tex_x = (int)(r->wall_x * TEXWIDTH);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
-		r->tex_x = texWidth - r->tex_x - 1;
+		r->tex_x = TEXWIDTH - r->tex_x - 1;
 	// How much to increase the texture coordinate per screen pixel
-	r->step = 1.0 * texHeight / r->line_height;
+	r->step = 1.0 * TEXWIDTH / r->line_height;
 	// Starting texture coordinate pos = texpos
 	r->pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
 	y = r->draw_start;
 	while (y < r->draw_end)
 	{
 		// Cast the texture coordinate to integer, and mask with (texHeight — 1) in case of overflow
-		r->tex_y= (int)r->pos & (texHeight - 1);
+		r->tex_y= (int)r->pos & (TEXHEIGHT - 1);
 		r->pos += r->step;
 	// Get color gets smaller texture than get pixel
 		r->color = get_color(game,r);

@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:27:36 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/15 15:32:10 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:53:57 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	check_symbol(t_game *game, int line, int col)
 	char	**c_map;
 
 	c_map = game->map->checked_map;
-	ft_printf("%c", c_map[line][col]);
 	if (c_map[line][col] == 'N' || c_map[line][col] == 'S'\
 	|| c_map[line][col] == 'W' || c_map[line][col] == 'E'\
 	|| c_map[line][col] == '0')
@@ -55,8 +54,6 @@ void	check_map(t_game *game)
 			check_symbol(game, line, col);
 			col++;
 		}
-
-		ft_printf("\n");
 		line++;
 		col = 0;
 	}
