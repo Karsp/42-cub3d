@@ -148,7 +148,7 @@ typedef struct s_raycast
 	int			dir;
 	int 		tex_x;
 	int 		tex_y;
-	int		color;
+	uint8_t		color;
 	double 		pos;
 	double 		step;
 	int			**pixel_map;//[HEIGHT][WIDTH];
@@ -233,7 +233,7 @@ void get_wallheight(t_player *p, t_raycast *r);
 void get_ray_step_sidedist(t_player *p, t_raycast *r);
 void get_wallcolor(t_game *game, t_raycast *r);
 void update_pixelmap(t_game *game, int x);
-int	get_color(t_game *game, t_raycast *r);
+uint8_t	get_color(t_game *game, t_raycast *r);
 uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y);
 // int	init_map(t_data *data);
 
