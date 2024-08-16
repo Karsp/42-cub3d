@@ -6,12 +6,18 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 13:17:50 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/12 11:51:05 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:52:41 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+/**
+ * @brief Function to draw a square (for the minimap)
+ * @param square A struct with the data of the square (init position, size
+ * and color)
+ * @param img The image where the square will be drawn
+ */
 void	draw_square(t_square square, mlx_image_t *img)
 {
 	unsigned short int	i;
@@ -27,7 +33,8 @@ void	draw_square(t_square square, mlx_image_t *img)
 		{
 			if (j == square.size - 1 || i < square.size - 1)
 				aux = 100;
-			mlx_put_pixel(img, j + (square.x * M_GRIDSIZE), i + (square.y * M_GRIDSIZE), square.color + aux);
+			mlx_put_pixel(img, j + (square.x * M_GRIDSIZE), i \
+			+ (square.y * M_GRIDSIZE), square.color + aux);
 			j++;
 		}
 		aux = 0;
@@ -35,6 +42,11 @@ void	draw_square(t_square square, mlx_image_t *img)
 	}
 }
 
+/**
+ * @brief Function to fill the square with black
+ * @param square The struct with the data of the square (init position and size)
+ * @param img The image where the square will be drawn
+ */
 void	draw_color(t_square square, mlx_image_t *img)
 {
 	unsigned short int	i;

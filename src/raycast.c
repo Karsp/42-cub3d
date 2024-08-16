@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 19:50:17 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 13:26:51 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,24 +202,52 @@ uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y)
 	(y * img->width) + (x * img->bytes_per_pixel / 8))));
 }
 
+
+/* uint8_t	get_texture_color(mlx_texture_t *texture, int y, int x)
+{
+	int		texture_pos;
+	uint8_t	*pixel;
+
+	if (x < 0 || x >= (int)texture->width || y < 0
+		|| y >= (int)texture->height)
+		return (0);
+	texture_pos = y * texture->width + x;
+	texture_pos *= texture->bytes_per_pixel;
+	pixel = &texture->pixels[texture_pos];
+	return (pixel[0] << 24 | pixel[1] << 16 | pixel[2] << 8 | pixel[3]);
+} */
+
+
+
+
 uint8_t	get_color(t_game *game, t_raycast *r)
 {
 	uint8_t	color;
-	int index;
+	// int index;
+	// uint32_t	color_idx;
 
-	index = (TEXHEIGHT * r->tex_y + r->tex_x) * 4; // Assuming RGBA format (4 bytes per pixel)
+	// index = (TEXHEIGHT * r->tex_y + r->tex_x) * 4; // Assuming RGBA format (4 bytes per pixel)
 	color = 0;
 	if (r->side == 0 && r->ray_dirx > 0)
-    	color = *(uint32_t *)(game->no_texture->pixels + index);
+	{
+		// color = get_texture_color(game->no_texture, r->tex_y, r->tex_x);
+		// color = game->no_texture->pixels[color_idx];
+		color =	mlx_get_pixel(game->no_image, r->tex_x, r->tex_y, game->no_texture->bytes_per_pixel);
+		// ft_printf("get_color: color no %d\n", color);
+    	// color = *(uint32_t *)(game->no_texture->pixels + index);
 		// color = *(game->no_texture->pixels + (texHeight * r->tex_y + r->tex_x));
+	}
 	else if (r->side == 0 && r->ray_dirx < 0)
-    	color = *(uint32_t *)(game->so_texture->pixels + index);
+		color =	mlx_get_pixel(game->so_image, r->tex_x, r->tex_y, game->so_texture->bytes_per_pixel);
+    	// color = *(uint32_t *)(game->so_texture->pixels + index);
 		// color = *(game->so_texture->pixels + (texHeight * r->tex_y + r->tex_x));
 	else if (r->side == 1 && r->ray_dirx > 0)
-    	color = *(uint32_t *)(game->e_texture->pixels + index);
+		color =	mlx_get_pixel(game->e_image, r->tex_x, r->tex_y, game->e_texture->bytes_per_pixel);
+    	// color = *(uint32_t *)(game->e_texture->pixels + index);
 		// color = *(game->e_texture->pixels + (texHeight * r->tex_y + r->tex_x));
 	else if (r->side == 1 && r->ray_dirx < 0)
-    	color = *(uint32_t *)(game->w_texture->pixels + index);
+		color =	mlx_get_pixel(game->w_image, r->tex_x, r->tex_y, game->w_texture->bytes_per_pixel);
+    	// color = *(uint32_t *)(game->w_texture->pixels + index);
 		// color = *(game->w_texture->pixels + (texHeight * r->tex_y + r->tex_x));
 	return (color);
 }
@@ -248,6 +276,7 @@ void update_pixelmap(t_game *game, int x)
 		r->pos += r->step;
 	// Get color gets smaller texture than get pixel
 		r->color = get_color(game,r);
+		// ft_printf("update pixel map: color %d\n", r->color);
 		// r->color = get_pixel_img(game->so_texture, r->tex_x, r->tex_y);
 		// if (r->dir == NORTH)				// add some shading to the north and south walls
 		// 	r->color = get_color(game, r);

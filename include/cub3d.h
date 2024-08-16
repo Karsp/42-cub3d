@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 19:46:53 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:42:27 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,11 @@ typedef struct s_game
 	mlx_texture_t	*no_texture;
 	mlx_image_t		*no_image;
 	mlx_texture_t	*so_texture;
+	mlx_image_t		*so_image;
 	mlx_texture_t	*e_texture;
+	mlx_image_t		*e_image;
 	mlx_texture_t	*w_texture;
+	mlx_image_t		*w_image;
 	mlx_image_t		*img;
 	mlx_image_t		*img1;
 	mlx_image_t		*img2;
@@ -240,6 +243,7 @@ void	get_wallcolor(t_game *game, t_raycast *r);
 void	update_pixelmap(t_game *game, int x);
 uint8_t	get_color(t_game *game, t_raycast *r);
 uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y);
+
 // Clean.c
 void	my_close(t_game *game);
 
@@ -251,7 +255,7 @@ void	ft_rotate_right(t_player *p);
 void	ft_move_forwards(t_game *game, t_player *p);
 void	ft_move_backwards(t_game *game, t_player *p);
 
-int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
+int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint8_t BPP);
 
 // Errors management
 void	c_error(t_game *game, char *message);
@@ -272,7 +276,6 @@ void	check_ccolors(t_game *game, char *line);
 
 // Auxiliar functions
 int		free_array(char **colors);
-int		ft_freeintarray(int **pixel_map);
 int		is_char(char c);
 void	map_size(t_game *game);
 

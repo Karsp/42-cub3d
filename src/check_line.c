@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:04:05 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/15 16:57:10 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:46:53 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	check_colors(t_game *game, char **colors)
 	{
 		while (colors[count][aux] == ' ')
 			aux++;
-		while (colors[count] && colors[count][++aux] != '\0' && colors[count][aux] != '\n' )
+		while (colors[count] && colors[count][++aux] != '\0'
+		&& colors[count][aux] != '\n' )
 			if (colors[count][aux] < 48 || colors[count][aux] > 57)
 				c_error(game, "Error in colors\n");
 		aux = 0;
@@ -60,7 +61,7 @@ char	**extract_color_data(t_game *game, char *line, int start)
 	while (*aux2 == ' ')
 		aux2++;
 	map->i_map++;
-	colors = ft_split(aux2,',');
+	colors = ft_split(aux2, ',');
 	check_colors(game, colors);
 	if (aux)
 		(free(aux), aux = NULL);
