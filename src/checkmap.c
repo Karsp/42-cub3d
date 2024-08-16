@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/15 17:29:04 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:16:03 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@ void	c_check_ext(t_game *game, char *file)
 {
 	char	*file_ext;
 
+	(void)game;
 	file_ext = ft_strrchr(file, '.');
 	if (!file_ext || ft_strncmp(file_ext, ".cub", ft_strlen(file)) != 0)
-		c_error(game, "Error: Bad extension");
+	{
+		ft_printf("Error - Bad extension");
+		exit(EXIT_FAILURE);
+	}
 }
 
 /**
