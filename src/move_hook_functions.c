@@ -27,6 +27,34 @@ void	ft_move_forwards(t_game *g, t_player *p)
 }
 
 /**
+ * @brief Move player at left in map. Speed can be increased seting SPEEDRATIO
+ * @param g The game struct
+ * @param p The player struct
+ */
+void	ft_move_left(t_game *g, t_player *p)
+{
+	if (g->map->checked_map[(int)(p->pos_x - p->plane_x)][(int)(p->pos_y)] == '0')
+		p->pos_x -= p->plane_x * SPEEDRATIO;
+	if (g->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y - p->plane_y)]
+		== '0')
+		p->pos_y -= p->plane_y * SPEEDRATIO;
+}
+
+/**
+ * @brief Move player at left in map. Speed can be increased seting SPEEDRATIO
+ * @param g The game struct
+ * @param p The player struct
+ */
+void	ft_move_right(t_game *g, t_player *p)
+{
+	if (g->map->checked_map[(int)(p->pos_x + p->plane_x)][(int)(p->pos_y)] == '0')
+		p->pos_x += p->plane_x * SPEEDRATIO;
+	if (g->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y + p->plane_y)]
+		== '0')
+		p->pos_y += p->plane_y * SPEEDRATIO;
+}
+
+/**
  * @brief Move player backward in map. Speed can be increased seting SPEEDRATIO
  * @param g The game struct
  * @param p The player struct

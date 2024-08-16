@@ -50,6 +50,7 @@ int	main(int argc, char **argv)
 		if (game.mlx != NULL)
 		{
 			mlx_loop(game.mlx);
+			free_game(&game);
 			mlx_terminate(game.mlx);
 		}
 		return (EXIT_SUCCESS);

@@ -43,8 +43,12 @@ void	ft_move_hooks(t_game *game, t_player *p)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_S))
 		ft_move_backwards(game, p);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		ft_move_left(game, p);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+			ft_move_right(game, p);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT)
-		|| mlx_is_key_down(game->mlx, MLX_KEY_A))
+		|| mlx_is_key_down(game->mlx, MLX_KEY_Q))
 	{
 		if (game->map->dir == 'N' || game->map->dir == 'E')
 			ft_rotate_left(p);
@@ -52,7 +56,7 @@ void	ft_move_hooks(t_game *game, t_player *p)
 			ft_rotate_right(p);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
-		|| mlx_is_key_down(game->mlx, MLX_KEY_D))
+		|| mlx_is_key_down(game->mlx, MLX_KEY_E))
 	{
 		if (game->map->dir == 'N' || game->map->dir == 'E')
 			ft_rotate_right(p);

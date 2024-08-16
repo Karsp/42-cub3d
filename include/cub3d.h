@@ -189,7 +189,9 @@ void		ft_rotate_left(t_player *p);
 void		ft_rotate_right(t_player *p);
 void		ft_move_forwards(t_game *game, t_player *p);
 void		ft_move_backwards(t_game *game, t_player *p);
-
+void		ft_move_left(t_game *g, t_player *p);
+void		ft_move_right(t_game *g, t_player *p);
+int			ft_get_playerdir(t_player *player);
 
 // Errors management
 void	c_error(t_game *game, char *message);
