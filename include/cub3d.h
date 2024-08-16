@@ -27,17 +27,10 @@
 
 # define WIDTH 1900
 # define HEIGHT 1000
-//textures
-# define texWidth 64
-# define texHeight 64
-# define NUM_TEXTURES 4
-# define TEXTURE_SIZE 64
 # define M_GRIDSIZE 10
 # define GRIDSIZE 25
 # define MINMAP_SIZE 310
 # define SPEEDRATIO 0.35
-
-// # define MAX_FPS_AVG 25
 
 typedef enum e_cardinal_direction
 {
@@ -46,67 +39,6 @@ typedef enum e_cardinal_direction
 	WEST = 2,
 	EAST = 3
 }	t_direction;
-
-typedef enum e_moves
-{
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT
-}	t_moves;
-
-/* enum my_keys
-{
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_LCLICK = 1,
-	ON_RCLICK = 2,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17,
-	J = 38,
-	M = 46,
-	SPACE = 49,
-	L_SHIFT = 257,
-	R_SHIFT = 258,
-	W = 13,
-	S = 1,
-	A = 0,
-	D = 2,
-	A_UP = 126,
-	A_DOWN = 125,
-	A_LEFT = 123,
-	A_RIGHT = 124,
-	ESC = 53,
-}; */
-
-//test map
-# define MAP_W 24
-# define MAP_H 24
-
-
-typedef struct s_imgline
-{
-	void	*mlx_img;
-	char	*addr;
-	int		bpp;
-	int		ln_len;
-	int		endian;
-	char	*path;
-	int		width;
-	int		height;
-}				t_img;
-
-// typedef struct s_fps
-// {
-// 	double	previous_frame_time;
-// 	double	current_frame_time;
-// 	double	fps_avg[MAX_FPS_AVG];
-// 	int		fps_index;
-// 	double	fps;
-// }	t_fps;
 
 //Player struct
 typedef struct s_player
@@ -154,7 +86,6 @@ typedef struct s_raycast
 	uint32_t	color;
 	double 		pos;
 	double 		step;
-	int			**pixel_map;//[HEIGHT][WIDTH];
 }	t_raycast;
 
 // Struct for a rectangle
@@ -192,8 +123,6 @@ typedef struct s_map
 }			t_map;
 
 // General struct. Contains map, player, raycast settings and MLX pointers
-// mlx_texture_t	*SO_texture;
-//xpm_t			*so_texture;
 typedef struct s_game
 {
 	t_map			*map;
@@ -210,7 +139,6 @@ typedef struct s_game
 	char			*img_addr;
 	t_raycast		r;
 	t_player		p;
-	// t_fps			fps;
 }				t_game;
 
 typedef struct s_colors
@@ -221,44 +149,35 @@ typedef struct s_colors
 }				t_colors;
 
 // Init.c
-int		init_data(t_game *game);
-int 	init_player(t_game *game);
-int		create_pixelmap(t_game *game);
-void	ft_init_long(t_game *game);
-void	ft_init_lat(t_game *game);
+int			init_data(t_game *game);
+int			init_player(t_game *game);
+int			create_pixelmap(t_game *game);
+void		ft_init_long(t_game *game);
+void		ft_init_lat(t_game *game);
 
 // Raycast.c
-int 	init_raycast(t_game *game);
-int		ft_get_direction(t_raycast *ray);
-void get_ray_posdir(int x, t_player *p, t_raycast *r);
-void get_walldistance(t_game *game, t_player *p, t_raycast *r);
-void get_wallheight(t_player *p, t_raycast *r);
-void get_ray_step_sidedist(t_player *p, t_raycast *r);
-void get_wallcolor(t_game *game, t_raycast *r);
-void update_pixelmap(t_game *game, int x);
-uint32_t	get_color(t_game *game, t_raycast *r);
-uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y);
-// int	init_map(t_data *data);
+int			init_raycast(t_game *game);
+void		get_ray_posdir(int x, t_player *p, t_raycast *r);
+void		get_ray_step_sidedist(t_player *p, t_raycast *r);
+void		get_walldistance(t_game *game, t_player *p, t_raycast *r);
+void		get_wallheight(t_player *p, t_raycast *r);
+
+// render_walls
+int			ft_get_direction(t_raycast *ray);
+void		render_walls(t_game *game, int x);
+uint32_t	get_wallcolor(t_game *game, t_raycast *r);
+void		update_texture_vars(t_game *game, t_raycast *r);
 
 // Clean.c
-void	my_close(t_game *game);
+void		my_close(t_game *game);
 // Hooks.c
-void	ft_hook(void *param);
-void	ft_onloop(void *param);
-void	ft_rotate_left(t_player *p);
-void	ft_rotate_right(t_player *p);
-void	ft_move_forwards(t_game *game, t_player *p);
-void	ft_move_backwards(t_game *game, t_player *p);
-//settings FPS
-// void	ft_init_fps(t_game *game);
-// void	ft_calculate_fps(t_game *game);
-// void	ft_render_fps(t_game *game);
+void		ft_hook(void *param);
+void		ft_onloop(void *param);
+void		ft_rotate_left(t_player *p);
+void		ft_rotate_right(t_player *p);
+void		ft_move_forwards(t_game *game, t_player *p);
+void		ft_move_backwards(t_game *game, t_player *p);
 
-
-
-
-int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
-// int		c_strlen(const char *s);
 
 // Errors management
 void	c_error(char *message);
@@ -287,7 +206,6 @@ void	ft_draw_pixel_map(t_game *game);
 void	draw_minimap(t_game *game);
 void	draw_color(t_square square, mlx_image_t *img);
 void	draw_f_c(t_game *game);
-// void	get_wallcolor(t_game *game);
 
 
 // Auxiliar drawing functions
@@ -295,8 +213,9 @@ int		get_size(t_map	*map);
 int		get_rgba(int r, int g, int b, int a);
 
 // To delete
+// int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
+// int		c_strlen(const char *s);
 
 void	c_print_all(t_map *map);
-// void	ft_randomize(void *param);
 
 #endif
