@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/16 20:02:12 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:30:26 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,18 @@ void	get_walldistance(t_game *game, t_player *p, t_raycast *r)
 			r->map_y += r->step_y;
 			r->side = 1;
 		}
-		if (game->map->checked_map[r->map_x][r->map_y] && game->map->checked_map[r->map_x][r->map_y] == '1')
-			break;
-		else if (!game->map->checked_map[r->map_x] || !game->map->checked_map[r->map_x][r->map_y])
-			ft_putstr_fd("Ray is out of the map\n", 2);
+		if (game->map->checked_map[r->map_x][r->map_y]
+		&& game->map->checked_map[r->map_x][r->map_y] == '1')
+			break ;
+		else if (!game->map->checked_map[r->map_x]
+			|| !game->map->checked_map[r->map_x][r->map_y])
+			c_error(game, "Ray is out of the map\n");
+			// ft_putstr_fd("Ray is out of the map\n", 2);
 	}
 	if (r->side == 0)
-		r->wall_dist = (r->map_x - p->pos_x + (1 - r->step_x) / 2) / r->ray_dirx;
+		r->w_dist = (r->map_x - p->pos_x + (1 - r->step_x) / 2) / r->ray_dirx;
 	else
-		r->wall_dist = (r->map_y - p->pos_y + (1 - r->step_y) / 2) / r->ray_diry;
+		r->w_dist = (r->map_y - p->pos_y + (1 - r->step_y) / 2) / r->ray_diry;
 
 }
 
@@ -106,7 +109,7 @@ void	get_walldistance(t_game *game, t_player *p, t_raycast *r)
  */
 void	get_wallheight(t_player *p, t_raycast *r)
 {
-	r->line_height = (int)(HEIGHT / r->wall_dist);
+	r->line_height = (int)(HEIGHT / r->w_dist);
 	r->draw_start = (-1 * r->line_height) / 2 + HEIGHT / 2;
 	if (r->draw_start < 0)
 		r->draw_start = 0;
@@ -115,9 +118,9 @@ void	get_wallheight(t_player *p, t_raycast *r)
 	if (r->draw_end >= HEIGHT)
 		r->draw_end = HEIGHT - 1;
 	if (r->side == 0)
-		r->wall_x = p->pos_y + r->wall_dist * r->ray_diry;
+		r->wall_x = p->pos_y + r->w_dist * r->ray_diry;
 	else
-		r->wall_x = p->pos_x + r->wall_dist * r->ray_dirx;
+		r->wall_x = p->pos_x + r->w_dist * r->ray_dirx;
 	r->wall_x -= floor(r->wall_x);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/16 20:10:51 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:31:26 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	free_array(char **colors)
 	i = 0;
 	while (colors && colors[i] != NULL)
 	{
-		ft_printf("free_array: i %d\n", i);
 		(free(colors[i]), colors[i] = NULL);
 		i++;
 	}
