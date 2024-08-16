@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:13:04 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/13 17:16:08 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:05:04 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,64 @@
 
 /*@brief Returns the direction of the wall that was hit by the ray.
 @returns  The number of the correct texture*/
-t_direction	ft_get_cardinal_direction(t_raycast *ray)
+int	ft_get_direction(t_raycast *ray)
 {
 	if (ray->side == 0)
 	{
 		if (ray->ray_dirx < 0)
-			return (WEST);
+			return (NORTH);
 		else
-			return (EAST);
+			return (SOUTH);
 	}
 	else
 	{
 		if (ray->ray_diry > 0)
-			return (SOUTH);
+			return (EAST);
 		else
-			return (NORTH);
+			return (WEST);
 	}
 }
-
+void	update_texture_vars(t_game *game, t_raycast *r)
+{
+	if(r->dir == NORTH)
+	{
+		r->tex_width = game->no_texture->width;
+		r->tex_height = game->no_texture->height;
+		r->tex_bpp = game->no_texture->bytes_per_pixel;
+	}
+	else if(r->dir == SOUTH)
+	{
+		r->tex_width = game->so_texture->width;
+		r->tex_height = game->so_texture->height;
+		r->tex_bpp = game->so_texture->bytes_per_pixel;
+	}
+	else if(r->dir == EAST)
+	{
+		r->tex_width = game->e_texture->width;
+		r->tex_height = game->e_texture->height;
+		r->tex_bpp = game->e_texture->bytes_per_pixel;
+	}
+	else if(r->dir == WEST)
+	{
+		r->tex_width = game->w_texture->width;
+		r->tex_height = game->w_texture->height;
+		r->tex_bpp = game->w_texture->bytes_per_pixel;
+	}
+}
 
 /*
 @brief  Calculate ray position and direction.
 Calculating the Delta Distance
 
 */
-void get_ray_posdir(t_game *game, int x)
+void get_ray_posdir(int x, t_player *p, t_raycast *r)
 {
-	t_raycast	*r;
-    t_player    *p;
+	// t_raycast	*r;
+    // t_player    *p;
 
-    p = &game->p;
-	r = &game->r;
+	(void)p;
+    // p = &game->p;
+	// r = &game->r;
 	//calculate ray position and direction
 	r->camera_x = 2 * x / (double)WIDTH - 1; //x-coordinate in camera space
 	r->ray_dirx = p->dir_x + p->plane_x * r->camera_x;
@@ -55,18 +82,51 @@ void get_ray_posdir(t_game *game, int x)
 	r->delta_dist_x = fabs(1 /r->ray_dirx);  //length of ray from one x or y-side to next x or y-side
 	r->delta_dist_y = fabs(1 / r->ray_diry);
 }
+/*
+@brief Caltulate Step and initial Side Distance
+*/
+void get_ray_step_sidedist(t_player *p, t_raycast *r)
+{
+	// t_raycast	*r;
+    // t_player    *p;
+
+    // p = &game->p;
+	// r = &game->r;
+//Caltulate Step and initial Side Distance
+	if (r->ray_dirx < 0)
+	{
+		r->step_x = -1;       //what direction to step in x or y-direction (either +1 or -1)
+		r->side_dist_x = (p->pos_x - r->map_x) * r->delta_dist_x;       //length of ray from initial position to next x or y-side
+	}
+	else
+	{
+		r->step_x = 1;
+		r->side_dist_x = (r->map_x + 1.0 - p->pos_x) * r->delta_dist_x;
+	}
+	if (r->ray_diry < 0)
+	{
+		r->step_y = -1;
+		r->side_dist_y = (p->pos_y - r->map_y) * r->delta_dist_y;
+	}
+	else
+	{
+		r->step_y = 1;
+		r->side_dist_y = (r->map_y + 1.0 - p->pos_y) * r->delta_dist_y;
+	}
+}
+
 
 /*
 @brief Calculate Wall distance - Performing DDA to determine the distance to the next grid line  
 We also take note of the side of the wall we hit (0 for x, 1 for y).
 */
-void get_walldistance(t_game *game)
+void get_walldistance(t_game *game, t_player *p, t_raycast *r)
 {
-	t_raycast	*r;
-    t_player    *p;
+	// t_raycast	*r;
+    // t_player    *p;
 
-    p = &game->p;
-	r = &game->r;
+    // p = &game->p;
+	// r = &game->r;
 	// Calculate Wall distance - Performing DDA to determine the distance to the next grid line  We also take note of the side of the wall we hit (0 for x, 1 for y).
 	while (42) // hit == 0
 	{
@@ -100,14 +160,16 @@ void get_walldistance(t_game *game)
 
 /*
 @brief Calculating the Wall Height. calculate lowest and highest pixel to fill in current stripe.
-*/
-void get_wallheight(t_game *game)
-{
-	t_raycast	*r;
-    t_player    *p;
+The value wallX represents the exact value where the wall was hit. 
 
-    p = &game->p;
-	r = &game->r;
+*/
+void get_wallheight(t_player *p, t_raycast *r)
+{
+	// t_raycast	*r;
+    // t_player    *p;
+
+    // p = &game->p;
+	// r = &game->r;
 	//Calculating the Wall Height
 	//Calculate height of line to draw on screen
 	r->line_height = (int)(HEIGHT / r->wall_dist);
@@ -120,59 +182,27 @@ void get_wallheight(t_game *game)
 	if (r->draw_end >= HEIGHT)
 		r->draw_end = HEIGHT - 1;
 
+//calculate value of wallX
 	if (r->side == 0)
-		r->wall_x = p->pos_y + r->wall_dist * r->ray_diry; //it's called wallX, it's actually an y-coordinate of the wall if side==1, but it's always the x-coordinate of the texture
+		r->wall_x = p->pos_y + r->wall_dist * r->ray_diry;
 	else
 		r->wall_x = p->pos_x + r->wall_dist * r->ray_dirx;
 	r->wall_x -= floor(r->wall_x);
 	
 
-
 }
 
-/*
-@brief Caltulate Step and initial Side Distance
-*/
-void get_ray_step_sidedist(t_game *game)
-{
-	t_raycast	*r;
-    t_player    *p;
-
-    p = &game->p;
-	r = &game->r;
-//Caltulate Step and initial Side Distance
-	if (r->ray_dirx < 0)
-	{
-		r->step_x = -1;       //what direction to step in x or y-direction (either +1 or -1)
-		r->side_dist_x = (p->pos_x - r->map_x) * r->delta_dist_x;       //length of ray from initial position to next x or y-side
-	}
-	else
-	{
-		r->step_x = 1;
-		r->side_dist_x = (r->map_x + 1.0 - p->pos_x) * r->delta_dist_x;
-	}
-	if (r->ray_diry < 0)
-	{
-		r->step_y = -1;
-		r->side_dist_y = (p->pos_y - r->map_y) * r->delta_dist_y;
-	}
-	else
-	{
-		r->step_y = 1;
-		r->side_dist_y = (r->map_y + 1.0 - p->pos_y) * r->delta_dist_y;
-	}
-}
 
 /*
 @brief choose wall color
 */
-void get_wallcolor(t_game *game)
+void get_wallcolor(t_game *game, t_raycast *r)
 {
-	t_raycast	*r;
-    t_player    *p;
+	// t_raycast	*r;
+    // t_player    *p;
 
-    p = &game->p;
-	r = &game->r;
+    // p = &game->p;
+	// r = &game->r;
 	// choose wall color
       if(game->map->checked_map[r->map_x][r->map_y] == '1')
       {
@@ -191,40 +221,72 @@ void get_wallcolor(t_game *game)
 	}
 }
 
-/*
-@brief choose wall color
-*/
+
+uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y)
+{
+	return (*(uint8_t *)((img->pixels + \
+	(y * img->width) + (x * img->bytes_per_pixel / 8))));
+}
+
+uint32_t	get_color(t_game *game, t_raycast *r)
+{
+	uint8_t	*color;
+	int index;
+
+	index = (r->tex_height * r->tex_y + r->tex_x) * r->tex_bpp; // Assuming RGBA format (4 bytes per pixel)
+	color = 0;
+	if (r->side == 0 && r->ray_dirx > 0) //south
+    	color = game->so_texture->pixels + index;
+	else if (r->side == 0 && r->ray_dirx < 0) //north
+    	color = game->no_texture->pixels + index;
+	else if (r->side == 1 && r->ray_diry > 0) //east
+    	color = game->e_texture->pixels + index;
+	else if (r->side == 1 && r->ray_diry < 0) //west
+    	color = game->w_texture->pixels + index;
+	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | color[3]);
+}
+
 void update_pixelmap(t_game *game, int x)
 {
 	t_raycast	*r;
-    t_player    *p;
+	int			y;
 
-    p = &game->p;
 	r = &game->r;
-	//update pixel map	
-	r->dir = ft_get_cardinal_direction(r);
-	r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
+	r->dir = ft_get_direction(r);
+	update_texture_vars(game, r);
+    //x coordinate on the texture
+    // if(side == 0 && rayDirX > 0) texX = r->tex_width — texX — 1; //touches x axis (south)
+    // if(side == 1 && rayDirY < 0) texX = r->tex_width — texX — 1; //touches y axis (west)
+	r->tex_x = (int)(r->wall_x * r->tex_width);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
-		r->tex_x = TEXTURE_SIZE - r->tex_x - 1;
-	r->step = 1.0 * TEXTURE_SIZE / r->line_height;
+		r->tex_x = r->tex_width - r->tex_x - 1;
+	// How much to increase the texture coordinate per screen pixel
+	r->step = 1.0 * r->tex_height / r->line_height;
+	// Starting texture coordinate pos = texpos
 	r->pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
-
-	// 		printf("X: %d\n",x);
-	//   printf("DrawStart: %d   DrawEnd: %d\n",r->draw_start, r->draw_end);
-	while (r->draw_start < r->draw_end)
+	y = r->draw_start;
+	while (y < r->draw_end)
 	{
-
+		// Cast the texture coordinate to integer, and mask with (r->tex_height — 1) in case of overflow
+		r->tex_y= (int)r->pos & (r->tex_height - 1);
 		r->pos += r->step;
-		// (*data)->color = ((*data)->texture_buffer)[(*data)->dir][TEXTURE_SIZE * ((int)(*data)->pos & (TEXTURE_SIZE - 1)) + (*data)->tex_x];
-		// r->color = (r->texture_buffer)[r->dir][TEXTURE_SIZE * ((int)r->pos & (TEXTURE_SIZE - 1)) + r->tex_x];
-		if (r->dir == NORTH || r->dir == SOUTH)				// add some shading to the north and south walls
-			r->color = 0x7F7F7F;
-		if (r->color > 0)				// your pixel map (int** in this case)
-			r->pixel_map[r->draw_start][x] = r->color;
-		r->draw_start++;
+	// Get color gets smaller texture than get pixel
+		r->color = get_color(game,r);
+		// r->color = get_pixel_img(game->so_texture, r->tex_x, r->tex_y);
+		// if (r->dir == NORTH)				// add some shading to the north and south walls
+		// 	r->color = get_color(game, r);
+		// if (r->dir == SOUTH)				// add some shading to the north and south walls
+		// 	r->color = 0x7F7F7F;
+		// if(r->side == 1)
+		// 	r->color = (r->color >> 1) & 8355711;
+		// if (r->color > 0)				// your pixel map (int** in this case)
+			mlx_put_pixel(game->img, x, y, r->color);
+			// mlx_put_pixel(game->img, x, y, r->color);
+			// r->pixel_map[r->draw_start][x] = r->color;
+		// r->draw_start++;
+		y++;
 	}
 }
-
 
 /*
 @brief Main function of Raycast. Separate in steps.
@@ -246,11 +308,12 @@ int	init_raycast(t_game *game)
 
     p = &game->p;
     r = &game->r;
-	ft_printf("init_raycast: Llega\n");
-	if (!game->r.pixel_map)
-		ft_printf("init_raycast: No hay pixel_map\n");
-	else
-		ft_printf("init_raycast: Deberia haber pixel_map\n");
+	// r->dir = 1;
+	// ft_printf("init_raycast: Llega\n");
+	// if (!game->r.pixel_map)
+	// 	ft_printf("init_raycast: No hay pixel_map\n");
+	// else
+	// 	ft_printf("init_raycast: Deberia haber pixel_map\n");
 	// 	create_pixelmap(game);
 	// if(!game->r.pixel_map)
 	// ft_bzero(game->r.pixel_map, sizeof(game->r.pixel_map));
@@ -259,15 +322,19 @@ int	init_raycast(t_game *game)
 		// ft_memset((void *)game->r.pixel_map, 0, sizeof(game->r.pixel_map));
 	// if (create_pixelmap(game))
 	// 	return(EXIT_FAILURE);
+	draw_f_c(game);
 	while (++x < WIDTH)
 	{
-		get_ray_posdir(game, x);
-		get_ray_step_sidedist(game);
-		get_walldistance(game);
-		get_wallheight(game);
-		get_wallcolor(game);
+		get_ray_posdir(x, p, r);
+		get_ray_step_sidedist(p, r);
+		get_walldistance(game, p, r);
+		// ft_printf("init_raycast: r->line_height antes   %d\n", r->line_height);
+		get_wallheight(p, r);
+		// ft_printf("init_raycast: r->line_height despues %d\n", r->line_height);
+		get_wallcolor(game, r);
 		update_pixelmap(game, x);
     }
+	draw_minimap(game);
 	return (EXIT_SUCCESS);
 }
 

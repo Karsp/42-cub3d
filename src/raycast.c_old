@@ -1,26 +1,45 @@
-//Color
+uint8_t	get_color(t_game *game, t_raycast *r)
+{
+	uint8_t	*color;
+	int index;
 
-	// r->tex_x = (int)(r->wall_x * TEXTURE_SIZE);
-	// if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
-	// 	r->tex_x = TEXTURE_SIZE - r->tex_x - 1;
-	// r->step = 1.0 * TEXTURE_SIZE / r->line_height;
-	// r->pos = (r->draw_start - HEIGHT / 2 + r->line_height / 2) * r->step;
+	// index = (texHeight * r->tex_y + r->tex_x) * 4; // Assuming RGBA format (4 bytes per pixel)
+	index = (texHeight * r->tex_y + r->tex_x); // Assuming RGBA format (4 bytes per pixel)
+	color = 0;
+	if (r->side == 0 && r->ray_dirx > 0)
+    	color = (uint8_t *)(game->no_texture->pixels + index * game->no_texture->bytes_per_pixel);
+	else if (r->side == 0 && r->ray_dirx < 0)
+    	color = (uint8_t *)(game->so_texture->pixels + index * game->so_texture->bytes_per_pixel);
+	else if (r->side == 1 && r->ray_dirx > 0)
+    	color = (uint8_t *)(game->e_texture->pixels + index * game->e_texture->bytes_per_pixel);
+	else if (r->side == 1 && r->ray_dirx < 0)
+    	color = (uint8_t *)(game->w_texture->pixels + index * game->w_texture->bytes_per_pixel);
+	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | color[3]);
+}
 
-	// // 		printf("X: %d\n",x);
-	// //   printf("DrawStart: %d   DrawEnd: %d\n",r->draw_start, r->draw_end);
-	// while (r->draw_start < r->draw_end)
-	// {
 
-	// 	r->pos += r->step;
-	// 	if (r->dir == NORTH || r->dir == SOUTH)				// add some shading to the north and south walls
-	// 		r->color = 0x7F7F7F;
-	// 	// ft_printf("Update: r->color %d\n", r->color);
-	// 	if (r->color > 0)				// your pixel map (int** in this case)
-	// 		mlx_put_pixel(game->img, x, r->draw_start, r->color);
-	// 		// r->pixel_map[r->draw_start][x] = r->color;
-	// 	r->draw_start++;
-	// }
 
+uint8_t	get_color(t_game *game, t_raycast *r)
+{
+	uint8_t	color;
+	int index;
+
+	index = (texHeight * r->tex_y + r->tex_x) * 4; // Assuming RGBA format (4 bytes per pixel)
+	color = 0;
+	if (r->side == 0 && r->ray_dirx > 0)
+    	color = *(uint32_t *)(game->no_texture->pixels + index);
+		// color = *(game->no_texture->pixels + (texHeight * r->tex_y + r->tex_x));
+	else if (r->side == 0 && r->ray_dirx < 0)
+    	color = *(uint32_t *)(game->so_texture->pixels + index);
+		// color = *(game->so_texture->pixels + (texHeight * r->tex_y + r->tex_x));
+	else if (r->side == 1 && r->ray_dirx > 0)
+    	color = *(uint32_t *)(game->e_texture->pixels + index);
+		// color = *(game->e_texture->pixels + (texHeight * r->tex_y + r->tex_x));
+	else if (r->side == 1 && r->ray_dirx < 0)
+    	color = *(uint32_t *)(game->w_texture->pixels + index);
+		// color = *(game->w_texture->pixels + (texHeight * r->tex_y + r->tex_x));
+	return (color);
+}
 
 
 void update_pixelmap(t_game *game, int x)

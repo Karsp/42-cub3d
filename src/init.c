@@ -33,9 +33,9 @@ int init_data(t_game  *game)
 	if (!game->no_texture)
 		c_error("NO texture can't be loaded\n");
 		// Convert texture to a displayable image
-	game->no_image = mlx_texture_to_image(game->mlx, game->no_texture);
-	if (!game->no_image)
-		c_error("NO image can't be loaded\n");
+	// game->n_xmp_t = mlx_load_xpm42("./src/assets/wolf/bluestone.xpm42");
+	// if (!game->n_xmp_t)
+	// 	c_error("NO XPM can't be loaded\n");
 	game->so_texture = mlx_load_png(game->map->s_path);
 	if (!game->so_texture)
 		c_error("SO texture can't be loaded\n");

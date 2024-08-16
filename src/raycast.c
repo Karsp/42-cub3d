@@ -19,16 +19,16 @@ int	ft_get_direction(t_raycast *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dirx < 0)
-			return (WEST);
+			return (NORTH);
 		else
-			return (EAST);
+			return (SOUTH);
 	}
 	else
 	{
 		if (ray->ray_diry > 0)
-			return (SOUTH);
+			return (EAST);
 		else
-			return (NORTH);
+			return (WEST);
 	}
 }
 
@@ -202,26 +202,22 @@ uint8_t	get_pixel_img(mlx_texture_t *img, int x, int y)
 	(y * img->width) + (x * img->bytes_per_pixel / 8))));
 }
 
-uint8_t	get_color(t_game *game, t_raycast *r)
+uint32_t	get_color(t_game *game, t_raycast *r)
 {
-	uint8_t	color;
+	uint8_t	*color;
 	int index;
 
 	index = (texHeight * r->tex_y + r->tex_x) * 4; // Assuming RGBA format (4 bytes per pixel)
 	color = 0;
-	if (r->side == 0 && r->ray_dirx > 0)
-    	color = *(uint32_t *)(game->no_texture->pixels + index);
-		// color = *(game->no_texture->pixels + (texHeight * r->tex_y + r->tex_x));
-	else if (r->side == 0 && r->ray_dirx < 0)
-    	color = *(uint32_t *)(game->so_texture->pixels + index);
-		// color = *(game->so_texture->pixels + (texHeight * r->tex_y + r->tex_x));
-	else if (r->side == 1 && r->ray_dirx > 0)
-    	color = *(uint32_t *)(game->e_texture->pixels + index);
-		// color = *(game->e_texture->pixels + (texHeight * r->tex_y + r->tex_x));
-	else if (r->side == 1 && r->ray_dirx < 0)
-    	color = *(uint32_t *)(game->w_texture->pixels + index);
-		// color = *(game->w_texture->pixels + (texHeight * r->tex_y + r->tex_x));
-	return (color);
+	if (r->side == 0 && r->ray_dirx > 0) //south
+    	color = game->so_texture->pixels + index;
+	else if (r->side == 0 && r->ray_dirx < 0) //north
+    	color = game->no_texture->pixels + index;
+	else if (r->side == 1 && r->ray_diry > 0) //east
+    	color = game->e_texture->pixels + index;
+	else if (r->side == 1 && r->ray_diry < 0) //west
+    	color = game->w_texture->pixels + index;
+	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | color[3]);
 }
 
 void update_pixelmap(t_game *game, int x)
@@ -230,6 +226,7 @@ void update_pixelmap(t_game *game, int x)
 	int			y;
 
 	r = &game->r;
+	r->dir = ft_get_direction(r);
     //x coordinate on the texture
     // if(side == 0 && rayDirX > 0) texX = texWidth — texX — 1; //touches x axis (south)
     // if(side == 1 && rayDirY < 0) texX = texWidth — texX — 1; //touches y axis (west)
