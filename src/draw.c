@@ -6,20 +6,20 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/14 11:32:52 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:12:10 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-/*
-@brief Draw pixels of ceiling and floor on image.
-*/
+/**
+ * @brief Draw pixels of ceiling and floor on image
+ * @param game The game struct
+ */
 void	draw_f_c(t_game *game)
 {
 	size_t		x;
 	long		y;
 
-	// ft_printf("Llega a draw_f_c\n");
 	y = -1;
 	while (++y < HEIGHT)
 	{
@@ -35,89 +35,66 @@ void	draw_f_c(t_game *game)
 }
 
 /**
- * @brief Function to draw a 2D map
+ * @brief Function to init the values of the auxiiar struct and erase the
+ * previous minimap
+ * @param d The struct with the auxiiar variables
  * @param game The game struct
  */
-/* void	draw_map(t_game *game)
+void	init_minimap(t_aux_draw *d, t_game *game)
 {
-	t_map	*map;
-	size_t	aux;
-	long	count;
-
-	map = game->map;
-	aux = -1;
-	count = -1;
-	draw_square((t_square){0, 0, GRIDSIZE, game->map->c_color}, game->img);
-	draw_square((t_square){0, 0, GRIDSIZE, game->map->f_color}, game->img2);
-	draw_square((t_square){0, 0, GRIDSIZE, game->map->p_color}, game->img3);
-	while (game->map->checked_map[++count])
+	d->aux = -1;
+	d->count = -1;
+	d->x = floor(game->map->pos_y - 16);
+	d->y = floor(game->map->pos_x - 16);
+	game->map->p_color = game->map->f_color + 12500000;
+	draw_color((t_square){0, 0, MINMAP_SIZE, game->map->g_color}, game->img);
+	while (d->x < 0)
 	{
-		while (++aux < game->map->num_cols)
-		{
-			if ((map->checked_map[count][aux]) == '1')
-			{
-				if (mlx_image_to_window(game->mlx, game->img, 320 + aux * GRIDSIZE, \
-				320 + count * GRIDSIZE) < 0)
-					c_error("Image to window error\n");
-			}
-			else if (map->checked_map[count][aux] == '0')
-			{
-				if (mlx_image_to_window(game->mlx, game->img2, 320 + aux * GRIDSIZE, \
-				320 + count * GRIDSIZE) < 0)
-					c_error("Image to window error\n");
-			}
-			else if (map->checked_map[count][aux] != ' ' && map->checked_map[count][aux] != 'x')
-				if (mlx_image_to_window(game->mlx, game->img3, 320 + aux * GRIDSIZE, \
-				320 + count * GRIDSIZE) < 0)
-					c_error("Image to window error\n");
-		}
-		aux = -1;
+		d->x++;
+		d->count++;
 	}
-} */
-
+	while (d->y < 0)
+	{
+		d->y++;
+		d->aux++;
+	}
+}
 
 /**
- * @brief Function to render information on r.pixel_map. Also render minimap.
+ * @brief Function to draw a specific pixel
  * @param game The game struct
+ * @param square The properties of the square
+ * @param d A struct with the auxiliar variables
+ * @param color The color of the square
  */
-void	ft_draw_pixel_map(t_game *game)
+void	draw_grid(t_game *game, t_square *square, t_aux_draw d, int color)
 {
-	/* size_t		x;
-	long		y;
+	square->color = color;
+	square->x = d.count;
+	square->y = d.aux;
+	draw_square(*square, game->img);
+}
 
-	y = -1;
-// create new image each time?
-	// if (!game->img)
-	// game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	// if (!game->img)
-	// {
-	// 	mlx_close_window(game->mlx);
-	// 	ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
-	// }
-	while (++y < HEIGHT)
-	{
-		x = -1;
-		while (++x < WIDTH)
-		{
-			
-			if (game->r.pixel_map[y][x] > 0)
-				// (ft_printf("dram_pixel_map: Entra al if\n"), mlx_put_pixel(game->img, x, y, game->r.pixel_map[y][x]));
-				mlx_put_pixel(game->img, x, y, game->r.pixel_map[y][x]);
-			else if (y > HEIGHT / 2)
-				// (ft_printf("dram_pixel_map: Entra 1er else\n"), mlx_put_pixel(game->img, x, y, game->map->c_color));
-				mlx_put_pixel(game->img, x, y, game->map->c_color);
-			else if (y < HEIGHT / 2)
-				// (ft_printf("dram_pixel_map: Entra 2º else\n"), mlx_put_pixel(game->img, x, y, game->map->f_color));
-				mlx_put_pixel(game->img, x, y, game->map->f_color);
-		}
-	} */
-	// draw_f_c(game);
-	// draw_minimap(game);
-	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-		c_error("Image to window error\n");
-	// mlx_delete_image(game->mlx, game->img);
-	}
+/**
+ * @brief Function to draw the walls and floor in the minimap
+ * @param game The game struct
+ * @param square The properties of the square
+ * @param d A struct with the auxiliar variables
+ */
+void	draw_minipixels(t_game *game, t_square square, t_aux_draw d)
+{
+	t_map	*map;
 
+	map = game->map;
+	if (map->checked_map[d.y] && map->checked_map[d.y][d.x] == '1')
+		draw_grid(game, &square, d, map->f_color);
+	else if (map->checked_map[d.y] && map->checked_map[d.y][d.x] == '0')
+		draw_grid(game, &square, d, map->c_color);
+	else if (map->checked_map[d.y] && map->checked_map[d.y][d.x] == 'x')
+		draw_grid(game, &square, d, map->g_color);
+	else if (map->checked_map[d.y] && map->checked_map[d.y][d.x])
+		draw_grid(game, &square, d, map->c_color);
+}
 
 /**
  * @brief Function to draw a minimap centered in the player
@@ -126,80 +103,27 @@ void	ft_draw_pixel_map(t_game *game)
 void	draw_minimap(t_game *game)
 {
 	t_map		*map;
-	size_t		aux;
-	size_t		count;
-	size_t		count2;
-	size_t		x2;
-	int			x;
-	int			y;
+	t_aux_draw	d;
 	t_square	square;
 
-	// ft_printf("Entra en minimap\n");
 	map = game->map;
-	aux = -1;
-	count = -1;
 	square.size = M_GRIDSIZE;
-	x = floor(map->pos_y - 16);
-	y = floor(map->pos_x - 16);
-	game->map->p_color = game->map->f_color + 12500000;//game->map->p_color = get_rgba(255, 10, 10, 255);
-	draw_color((t_square){0, 0, MINMAP_SIZE, game->map->g_color}, game->img);
-	while (x < 0)
+	init_minimap(&d, game);
+	d.x2 = d.x;
+	d.count2 = d.count;
+	while (++d.aux * M_GRIDSIZE < MINMAP_SIZE && ++d.y >= 0
+		&& d.y <= (int)(map->num_lines - map->init_line))
 	{
-		x++;
-		count++;
-	}
-	while (y < 0)
-	{
-		y++;
-		aux++;
-	}
-	x2 = x;
-	count2 = count;
-	while (++aux * M_GRIDSIZE < MINMAP_SIZE && ++y >= 0 && y <= (int)(map->num_lines - map->init_line))
-	{
-		while (++count * M_GRIDSIZE < MINMAP_SIZE && ++x >= 0 && x < (int)(map->num_cols) - 1)
-		{
-			// printf("draw_minimap: x: %f, y: %f\n", map->pos_y, map->pos_x);
-			if (map->checked_map[y] && map->checked_map[y][x] == '1')
-			{
-				square.color = map->f_color;
-				square.x = count;
-				square.y = aux;
-				// ft_printf("draw_minimap: x: %d, y: %d\n", square.x, square.y);
-				draw_square(square, game->img);
-			}
-			else if (map->checked_map[y] && map->checked_map[y][x] == '0')
-			{
-				square.color = map->c_color;
-				square.x = count;
-				square.y = aux;
-				// ft_printf("draw_minimap: x: %d, y: %d\n", square.x, square.y);
-				draw_square(square, game->img);
-			}
-			else if (map->checked_map[y] && map->checked_map[y][x] == 'x')
-			{
-				square.color = map->g_color;
-				square.x = count;
-				square.y = aux;
-				// ft_printf("draw_minimap: x: %d, y: %d\n", square.x, square.y);
-				draw_square(square, game->img);
-			}
-			else if (map->checked_map[y] && map->checked_map[y][x])
-			{
-				square.color = map->c_color;
-				square.x = count;
-				square.y = aux;
-				// ft_printf("draw_minimap: x: %d, y: %d\n", square.x, square.y);
-				draw_square(square, game->img);
-			}
-		}
-		x = x2;
-		count = count2;
+		while (++d.count * M_GRIDSIZE < MINMAP_SIZE
+			&& ++d.x >= 0 && d.x < (int)(map->num_cols) - 1)
+			draw_minipixels(game, square, d);
+		d.x = d.x2;
+		d.count = d.count2;
 	}
 	square.color = map->p_color;
 	square.x = 15;
 	square.y = 15;
 	draw_square(square, game->img);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-		c_error("Image to window error\n");
+		c_error(game, "Image to window error\n");
 }

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daviles- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 18:13:05 by daviles-          #+#    #+#             */
-/*   Updated: 2024/07/09 18:13:07 by daviles-         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:15:05 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 // void	ft_close(t_data **data)
@@ -21,3 +22,17 @@
 // 	ft_printf("\033[0;35m      龴ↀ ◡ↀ 龴   \n");
 // 	exit(0);
 // }
+
+/**
+ * @brief Function to exit in case of error
+ * @param game The game structure
+ * @param message The error message
+ */
+void	c_error(t_game *game, char *message)
+{
+	if (mlx_errno != 0)
+		ft_printf("Error - %s: %s\n", mlx_strerror(mlx_errno), message);
+	else
+		ft_printf("Error - %s\n", message);
+	free_game(game);
+}

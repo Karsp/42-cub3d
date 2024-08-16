@@ -1,7 +1,7 @@
-NO ./textures/greystone.xpm
-SO ./textures/greystone.xpm
-WE ./textures/greystone.xpm
-EA ./textures/greystone.xpm
+NO ./src/assets/wolf/bluestone.png
+SO ./src/assets/wolf/greystone.png
+WE ./src/assets/wolf/eagle.png
+EA ./src/assets/wolf/mossy.png
 
 F 245,40,145
 C 56,56,255

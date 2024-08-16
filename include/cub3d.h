@@ -6,10 +6,9 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/14 18:54:05 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:42:27 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -43,19 +42,19 @@ typedef enum e_cardinal_direction
 //Player struct
 typedef struct s_player
 {
-	double  pos_x;
-	double  pos_y;
-	double  dir_x;
-	double  dir_y;
-	double  plane_x;
-	double  plane_y;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	double	old_dirx;
 	double	old_planex;
 	double	frame_time;
 	double	movespeed;
 	double	rotspeed;
 	bool	is_moving;
-}	t_player;
+}				t_player;
 
 //Raycast struct
 typedef struct s_raycast
@@ -63,15 +62,15 @@ typedef struct s_raycast
 	double		camera_x;
 	double		ray_dirx;
 	double		ray_diry;
-	int   		map_x;
-	int   		map_y;
+	int			map_x;
+	int			map_y;
 	double		side_dist_x;
 	double		side_dist_y;
 	double		delta_dist_x;
 	double		delta_dist_y;
-	int   		step_x;
-	int   		step_y;
-	int   		side;
+	int			step_x;
+	int			step_y;
+	int			side;
 	double		wall_dist;
 	double		wall_x;
 	int			line_height;
@@ -97,7 +96,17 @@ typedef struct s_square
 	int					color;
 }		t_square;
 
-// Struct for the map values. info_map to chek if there's all of the needed data
+typedef struct s_aux_draw
+{
+	size_t		aux;
+	size_t		count;
+	size_t		count2;
+	size_t		x2;
+	int			x;
+	int			y;
+}			t_aux_draw;
+
+// Struct for the map values. i_map to chek if there's all of the needed data
 typedef struct s_map
 {
 	int		fd;
@@ -115,12 +124,12 @@ typedef struct s_map
 	int		p_color;
 	int		g_color;
 	char	dir;
-	int		info_map;
+	int		i_map;
 	int		symbols;
 	char	*read_map;
 	char	**map;
 	char	**checked_map;
-}			t_map;
+}				t_map;
 
 // General struct. Contains map, player, raycast settings and MLX pointers
 typedef struct s_game
@@ -130,8 +139,11 @@ typedef struct s_game
 	mlx_texture_t	*no_texture;
 	xpm_t			*n_xmp_t;
 	mlx_texture_t	*so_texture;
+	mlx_image_t		*so_image;
 	mlx_texture_t	*e_texture;
+	mlx_image_t		*e_image;
 	mlx_texture_t	*w_texture;
+	mlx_image_t		*w_image;
 	mlx_image_t		*img;
 	mlx_image_t		*img1;
 	mlx_image_t		*img2;
@@ -180,18 +192,26 @@ void		ft_move_backwards(t_game *game, t_player *p);
 
 
 // Errors management
-void	c_error(char *message);
+void	c_error(t_game *game, char *message);
 
 // Parsing functions
-long	find_n(char *s, t_map *map);
-void	c_check_ext(char *file);
+void	init_map(t_game *game);
+long	find_n(t_game *game, char *s);
+void	c_check_ext(t_game *game, char *file);
 void	c_read_map(t_game *game, char *file);
 void	c_check_map(t_game *game);
+void	build_map(t_map *map);
+void	write_map(t_game *game);
+void	check_map(t_game *game);
+void	check_file(t_game *game, char *file);
+void	c_check_ext(t_game *game, char *file);
+void	check_fcolors(t_game *game, char *line);
+void	check_ccolors(t_game *game, char *line);
 
 // Auxiliar functions
 int		free_array(char **colors);
-int		ft_freeintarray(int **pixel_map);
 int		is_char(char c);
+void	map_size(t_game *game);
 
 // Game
 void	init_img(t_game *game);
@@ -202,7 +222,7 @@ void	free_game(t_game *game);
 void	draw_square(t_square square, mlx_image_t *img);
 void	draw_map(t_game *game);
 void	generate_map(t_game *game);
-void	ft_draw_pixel_map(t_game *game);
+// void	ft_draw_pixel_map(t_game *game);
 void	draw_minimap(t_game *game);
 void	draw_color(t_square square, mlx_image_t *img);
 void	draw_f_c(t_game *game);
