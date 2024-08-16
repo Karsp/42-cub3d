@@ -6,12 +6,12 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:29:00 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/16 13:31:21 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:31:47 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
+/* 
 void	init_images(t_game *game)
 {
 	game->no_image = mlx_texture_to_image(game->mlx, game->no_texture);
@@ -26,7 +26,7 @@ void	init_images(t_game *game)
 	game->w_image = mlx_texture_to_image(game->mlx, game->w_texture);
 	if (!game->no_image)
 		c_error(game, "W image can't be loaded\n");
-}
+} */
 
 /**
  * @brief Function to init the textures of the game
@@ -46,7 +46,7 @@ void	init_textures(t_game *game)
 	game->w_texture = mlx_load_png(game->map->w_path);
 	if (!game->w_texture)
 		c_error(game, "W texture can't be loaded\n");
-	init_images(game);
+	// init_images(game);
 }
 
 /**

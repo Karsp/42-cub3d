@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/16 12:42:27 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:32:43 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,8 @@ typedef struct s_colors
 int			init_data(t_game *game);
 int			init_player(t_game *game);
 int			create_pixelmap(t_game *game);
-void		ft_init_long(t_game *game);
-void		ft_init_lat(t_game *game);
+// void		ft_init_long(t_game *game);
+// void		ft_init_lat(t_game *game);
 
 // Raycast.c
 int			init_raycast(t_game *game);
