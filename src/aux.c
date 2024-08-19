@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/16 13:32:38 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:31:26 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	free_array(char **colors)
 	int	i;
 
 	i = 0;
-	while (colors[i] != NULL)
+	while (colors && colors[i] != NULL)
 	{
 		(free(colors[i]), colors[i] = NULL);
 		i++;
@@ -66,7 +66,7 @@ int	free_array(char **colors)
  */
 void	free_game(t_game *game)
 {
-	if (game->map->checked_map)
+	if (game->map->checked_map != NULL)
 		free_array(game->map->checked_map);
 	if (game->img_addr)
 		free(game->img_addr);
