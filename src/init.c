@@ -11,22 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-/* 
-void	init_images(t_game *game)
-{
-	game->no_image = mlx_texture_to_image(game->mlx, game->no_texture);
-	if (!game->no_image)
-		c_error(game, "NO image can't be loaded\n");
-	game->so_image = mlx_texture_to_image(game->mlx, game->so_texture);
-	if (!game->no_image)
-		c_error(game, "SO image can't be loaded\n");
-	game->e_image = mlx_texture_to_image(game->mlx, game->e_texture);
-	if (!game->no_image)
-		c_error(game, "E image can't be loaded\n");
-	game->w_image = mlx_texture_to_image(game->mlx, game->w_texture);
-	if (!game->no_image)
-		c_error(game, "W image can't be loaded\n");
-} */
 
 /**
  * @brief Function to init the textures of the game
@@ -46,7 +30,6 @@ void	init_textures(t_game *game)
 	game->w_texture = mlx_load_png(game->map->w_path);
 	if (!game->w_texture)
 		c_error(game, "W texture can't be loaded\n");
-	// init_images(game);
 }
 
 /**
@@ -60,14 +43,14 @@ int	init_data(t_game *game)
 	game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false);
 	if (!(game->mlx))
 	{
-		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
+		c_error(game, "MLX error");
 		return (EXIT_FAILURE);
 	}
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->img)
 	{
 		mlx_close_window(game->mlx);
-		ft_putstr_fd("mlx_strerror(mlx_errno)", 2);
+		c_error(game, "MLX image error");
 		return (EXIT_FAILURE);
 	}
 	init_textures(game);
@@ -76,7 +59,7 @@ int	init_data(t_game *game)
 
 /**
  * @brief initialize the player position with the starting position and direction
- * 	when the direction is EAST or WEST.
+ * 	when the direction is EAST (first case) or WEST.
  */
 static void	ft_init_long(t_game *game)
 {
@@ -85,15 +68,13 @@ static void	ft_init_long(t_game *game)
 	p = &game->p;
 	if (game->map->dir == 'E')
 	{
-		printf("EAST\n");
 		p->dir_x = 0.0;
 		p->dir_y = 1.0;
 		p->plane_x = 0.66;
 		p->plane_y = 0.0;
 	}
-	else //west
+	else
 	{
-		printf("WEST\n");
 		p->dir_x = 0.0;
 		p->dir_y = -1.0;
 		p->plane_x = 0.66;
@@ -103,7 +84,7 @@ static void	ft_init_long(t_game *game)
 
 /**
  * @brief initialize the player position with the starting position and direction
- * 	when the direction is NORTH or SOUTH.
+ * 	when the direction is NORTH (first case) or SOUTH.
  */
 static void	ft_init_lat(t_game *game)
 {
@@ -112,16 +93,13 @@ static void	ft_init_lat(t_game *game)
 	p = &game->p;
 	if (game->map->dir == 'N')
 	{
-		printf("NORTH\n");
 		p->dir_x = -1.0;
 		p->dir_y = 0.0;
 		p->plane_x = 0.0;
 		p->plane_y = 0.66;
-
 	}
-	else //south
+	else
 	{
-		printf("SOUTH\n");
 		p->dir_x = 1.0;
 		p->dir_y = 0.0;
 		p->plane_x = 0.0;

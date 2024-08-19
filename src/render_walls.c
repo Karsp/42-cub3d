@@ -38,25 +38,25 @@ the direction.
 */
 void	update_texture_vars(t_game *game, t_raycast *r)
 {
-	if(r->dir == NORTH)
+	if (r->dir == NORTH)
 	{
 		r->tex_width = game->no_texture->width;
 		r->tex_height = game->no_texture->height;
 		r->tex_bpp = game->no_texture->bytes_per_pixel;
 	}
-	else if(r->dir == SOUTH)
+	else if (r->dir == SOUTH)
 	{
 		r->tex_width = game->so_texture->width;
 		r->tex_height = game->so_texture->height;
 		r->tex_bpp = game->so_texture->bytes_per_pixel;
 	}
-	else if(r->dir == EAST)
+	else if (r->dir == EAST)
 	{
 		r->tex_width = game->e_texture->width;
 		r->tex_height = game->e_texture->height;
 		r->tex_bpp = game->e_texture->bytes_per_pixel;
 	}
-	else if(r->dir == WEST)
+	else if (r->dir == WEST)
 	{
 		r->tex_width = game->w_texture->width;
 		r->tex_height = game->w_texture->height;
@@ -74,18 +74,18 @@ void	update_texture_vars(t_game *game, t_raycast *r)
 uint32_t	get_wallcolor(t_game *game, t_raycast *r)
 {
 	uint8_t	*color;
-	int index;
+	int		index;
 
 	index = (r->tex_height * r->tex_y + r->tex_x) * r->tex_bpp;
 	color = 0;
 	if (r->side == 0 && r->ray_dirx > 0)
-    	color = game->so_texture->pixels + index;
+		color = game->so_texture->pixels + index;
 	else if (r->side == 0 && r->ray_dirx < 0)
-    	color = game->no_texture->pixels + index;
+		color = game->no_texture->pixels + index;
 	else if (r->side == 1 && r->ray_diry > 0)
-    	color = game->e_texture->pixels + index;
+		color = game->e_texture->pixels + index;
 	else if (r->side == 1 && r->ray_diry < 0)
-    	color = game->w_texture->pixels + index;
+		color = game->w_texture->pixels + index;
 	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | color[3]);
 }
 
@@ -100,7 +100,7 @@ r->tex_y Cast the texture coordinate to integer, and mask with
 	(r->tex_height — 1) in case of overflow. That means that the values 
 	are only inside the range of the texture position.
 */
-void render_walls(t_game *game, int x)
+void	render_walls(t_game *game, int x)
 {
 	t_raycast	*r;
 	int			y;
@@ -116,9 +116,9 @@ void render_walls(t_game *game, int x)
 	y = r->draw_start;
 	while (y < r->draw_end)
 	{
-		r->tex_y= (int)r->pos & (r->tex_height - 1);
+		r->tex_y = (int)r->pos & (r->tex_height - 1);
 		r->pos += r->step;
-		r->color = get_wallcolor(game,r);
+		r->color = get_wallcolor(game, r);
 		mlx_put_pixel(game->img, x, y, r->color);
 		y++;
 	}

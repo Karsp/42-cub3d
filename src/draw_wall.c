@@ -20,43 +20,20 @@
 */
 void	draw_dir(t_game *game)
 {
-	double	x;
-	double	x1;
-	double	x2;
-	double	y;
-	double	y1;
-	double	y2;
-	int		count;
-	int color;
+	double		x;
+	double		y;
+	int			count;
+	int			color;
+	t_raycast	*r;
 
+	r = &game->r;
 	color = get_rgba(0, 0, 0, 255);
 	count = -1;
-	// printf("draw_dir: r.ray_diry %f\n", game->r.ray_diry);
-	if (game->r.ray_diry < 0)
+	draw_dir_aux(game, r);
+	y = r->y2;
+	while (y < r->y1 && ++count < 20)
 	{
-		y1 = 15 * M_GRIDSIZE;
-		y2 = y1 + game->r.ray_diry * 20;
-	}
-	else
-	{
-		y2 = 15 * M_GRIDSIZE;
-		y1 = y2 + game->r.ray_diry * 20;
-	}
-	if (game->r.ray_dirx < 0)
-	{
-		x1 = 15 * M_GRIDSIZE;
-		x2 = x1 + game->r.ray_dirx * 20;
-	}
-	else
-	{
-		x2 = 15 * M_GRIDSIZE;
-		x1 = x2 + game->r.ray_dirx * 20;
-	}
-	y = y2;
-	while (y < y1 && ++count < 20)
-	{
-		x = (((x2 - x1) * (y - y1)) / (y2 - y1)) + x1;
-		// printf("draw_dir: x %f, y %f, x1 %f, x2 %f, y1 %f, y2 %f\n", x, y, x1, x2, y1, y2);
+		x = (((r->x2 - r->x1) * (y - r->y1)) / (r->y2 - r->y1)) + r->x1;
 		mlx_put_pixel(game->img, x, y, color);
 		mlx_put_pixel(game->img, x + 0.01, y + 0.01, color);
 		mlx_put_pixel(game->img, x - 0.01, y - 0.01, color);
@@ -65,6 +42,30 @@ void	draw_dir(t_game *game)
 		mlx_put_pixel(game->img, x + 0.03, y + 0.03, color);
 		mlx_put_pixel(game->img, x - 0.03, y - 0.03, color);
 		y += 0.1;
+	}
+}
+
+void	draw_dir_aux(t_game *g, t_raycast *r)
+{
+	if (g->r.ray_diry < 0)
+	{
+		r->y1 = 15 * M_GRIDSIZE;
+		r->y2 = r->y1 + g->r.ray_diry * 20;
+	}
+	else
+	{
+		r->y2 = 15 * M_GRIDSIZE;
+		r->y1 = r->y2 + g->r.ray_diry * 20;
+	}
+	if (g->r.ray_dirx < 0)
+	{
+		r->x1 = 15 * M_GRIDSIZE;
+		r->x2 = r->x1 + g->r.ray_dirx * 20;
+	}
+	else
+	{
+		r->x2 = 15 * M_GRIDSIZE;
+		r->x1 = r->x2 + g->r.ray_dirx * 20;
 	}
 }
 

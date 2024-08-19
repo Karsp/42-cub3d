@@ -25,16 +25,14 @@ void	launch_game(t_game *game, char *name)
 	game->map->num_lines = 0;
 	game->map->num_cols = 0;
 	game->map->i_map = 0;
-	// game->r.pixel_map = NULL;
 	c_check_ext(game, name);
 	c_read_map(game, name);
 	c_check_map(game);
 	if (init_data(game))
-		ft_putstr_fd((char *)mlx_strerror(mlx_errno), 2);
+		c_error(game, "Failed to init data structure");
 	init_raycast(game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
 		c_error(game, "Image to window error\n");
-	// ft_draw_pixel_map(game);
 }
 
 int	main(int argc, char **argv)

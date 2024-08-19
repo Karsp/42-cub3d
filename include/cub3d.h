@@ -85,6 +85,11 @@ typedef struct s_raycast
 	uint32_t	color;
 	double 		pos;
 	double 		step;
+	double 		x1;
+	double 		x2;
+	double 		y1;
+	double 		y2;
+
 }	t_raycast;
 
 // Struct for a rectangle
@@ -229,7 +234,7 @@ void	draw_minimap(t_game *game);
 void	draw_color(t_square square, mlx_image_t *img);
 void	draw_f_c(t_game *game);
 void	draw_dir(t_game *game);
-
+void	draw_dir_aux(t_game *g, t_raycast *r);
 
 // Auxiliar drawing functions
 int		get_size(t_map	*map);
