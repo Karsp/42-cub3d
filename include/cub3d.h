@@ -189,6 +189,7 @@ void		update_texture_vars(t_game *game, t_raycast *r);
 void		my_close(t_game *game);
 // Hooks.c
 void		ft_hook(void *param);
+void		ft_mouse_hook(void *param);
 void		ft_onloop(void *param);
 void		ft_rotate_left(t_player *p);
 void		ft_rotate_right(t_player *p);

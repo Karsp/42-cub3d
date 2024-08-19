@@ -45,6 +45,7 @@ int	main(int argc, char **argv)
 		name = argv[1];
 		launch_game(&game, name);
 		mlx_loop_hook(game.mlx, ft_hook, &game);
+		// mlx_cursor_hook(game.mlx, ft_mouse_hook, &game);
 		if (game.mlx != NULL)
 		{
 			mlx_loop(game.mlx);

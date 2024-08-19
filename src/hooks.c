@@ -82,3 +82,13 @@ void	ft_hook(void *param)
 	ft_move_hooks(game, p);
 	new_map_pos(game, p);
 }
+
+/**
+ * @brief Main hook that handle movements on key pressed
+ * @param param It receives the game struct
+ */
+// void	ft_mouse_hook(void *param)
+// {
+// mlx_get_mouse_pos()
+
+// }
