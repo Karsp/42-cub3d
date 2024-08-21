@@ -91,6 +91,5 @@ void	c_check_map(t_game *game)
 {
 	build_map(game->map);
 	write_map(game);
-	// c_print_all(game->map);
 	check_map(game);
 }

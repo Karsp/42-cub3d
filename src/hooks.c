@@ -53,9 +53,9 @@ void	ft_hook(void *param)
 /**
  * @brief Mouse hook that handle horizontal movements to rotate view
  */
-void	ft_mouse_hook(double xpos, double ypos, void* param)
+void	ft_mouse_hook(double xpos, double ypos, void *param)
 {
-	t_game	*game;
+	t_game				*game;
 	mlx_win_cursor_t	*cursor;
 
 	(void)ypos;
@@ -63,9 +63,9 @@ void	ft_mouse_hook(double xpos, double ypos, void* param)
 	cursor = mlx_create_std_cursor(MLX_CURSOR_CROSSHAIR);
 	mlx_set_cursor(game->mlx, cursor);
 	if (game->p.hide_cursor)
-		mlx_set_cursor_mode(game->mlx,MLX_MOUSE_HIDDEN);
+		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	else
-		mlx_set_cursor_mode(game->mlx,MLX_MOUSE_NORMAL);
+		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	if (xpos < game->p.mouse_x)
 		ft_rotate_left(&game->p);
 	else

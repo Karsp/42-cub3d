@@ -12,7 +12,6 @@
 
 #include "../include/cub3d.h"
 
-
 /** 
  * @brief Function to check wether the colors are correct
  * @param game The game structure

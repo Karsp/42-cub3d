@@ -12,7 +12,6 @@
 
 #include "../include/cub3d.h"
 
-
 /**
  * @brief Auxiliar function to check if the symbols in the map are correct
  * @param game The game structure

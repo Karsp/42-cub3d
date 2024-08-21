@@ -32,6 +32,7 @@
 # define SPEEDRATIO 0.35
 
 # define ERRORARG "Select a map from src/maps/"
+
 typedef enum e_cardinal_direction
 {
 	NORTH = 0,
@@ -56,7 +57,6 @@ typedef struct s_player
 	double	rotspeed;
 	bool	hide_cursor;
 	double	mouse_x;
-	// int32_t	mouse_y;
 }				t_player;
 
 //Raycast struct
@@ -80,18 +80,18 @@ typedef struct s_raycast
 	int			draw_start;
 	int			draw_end;
 	int			dir;
-	int 		tex_x;
-	int 		tex_y;
+	int			tex_x;
+	int			tex_y;
 	int			tex_width;
 	int			tex_height;
 	int			tex_bpp;
 	uint32_t	color;
-	double 		pos;
-	double 		step;
-	double 		x1;
-	double 		x2;
-	double 		y1;
-	double 		y2;
+	double		pos;
+	double		step;
+	double		x1;
+	double		x2;
+	double		y1;
+	double		y2;
 
 }	t_raycast;
 
@@ -180,7 +180,7 @@ void		ft_init_lat(t_game *game);
 
 // Hooks.c
 void		ft_hook(void *param);
-void		ft_mouse_hook(double xpos, double ypos, void* param);
+void		ft_mouse_hook(double xpos, double ypos, void *param);
 void		new_map_pos(t_game *game, t_player *p);
 void		ft_other_hooks(t_game *game, t_player *p);
 // Hook rotate
@@ -196,51 +196,51 @@ void		ft_move_hooks(t_game *game, t_player *p);
 
 // Parsing functions
 // check
-void	init_map(t_game *game);
-void	check_next_line(t_game *game);
-void	check_line(t_game *game, char *line);
-char	*extract_data(t_game *game, char *line, int start);
-void	check_file(t_game *game, char *file);
+void		init_map(t_game *game);
+void		check_next_line(t_game *game);
+void		check_line(t_game *game, char *line);
+char		*extract_data(t_game *game, char *line, int start);
+void		check_file(t_game *game, char *file);
 // check_line
-void	check_fcolors(t_game *game, char *line);
-void	check_ccolors(t_game *game, char *line);
-char	**extract_color_data(t_game *game, char *line, int start);
-void	check_colors(t_game *game, char **colors);
+void		check_fcolors(t_game *game, char *line);
+void		check_ccolors(t_game *game, char *line);
+char		**extract_color_data(t_game *game, char *line, int start);
+void		check_colors(t_game *game, char **colors);
 //check_map
-void	c_check_ext(t_game *game, char *file);
-void	get_map(t_game *game, char *file);
-void	c_read_map(t_game *game, char *file);
-void	c_check_map(t_game *game);
+void		c_check_ext(t_game *game, char *file);
+void		get_map(t_game *game, char *file);
+void		c_read_map(t_game *game, char *file);
+void		c_check_map(t_game *game);
 
 // Auxiliar functions
 // aux .c
-int		free_array(char **colors);
-int		is_char(char c);
-void	map_size(t_game *game);
-void	c_print_all(t_map *map);
+int			free_array(char **colors);
+int			is_char(char c);
+void		map_size(t_game *game);
+void		c_print_all(t_map *map);
 // aux_parser.c
-long	find_n(t_game *game, char *s);
-void	set_dir(t_map *map, char dir, int *symbols, long *pos);
-int		get_rgba(int r, int g, int b, int a);
+long		find_n(t_game *game, char *s);
+void		set_dir(t_map *map, char dir, int *symbols, long *pos);
+int			get_rgba(int r, int g, int b, int a);
 // build_map
-void	build_map(t_map *map);
-void	write_map(t_game *game);
-void	write_file(t_game *game, size_t	aux);
-void	check_map(t_game *game);
-void	check_symbol(t_game *game, int line, int col);
+void		build_map(t_map *map);
+void		write_map(t_game *game);
+void		write_file(t_game *game, size_t	aux);
+void		check_map(t_game *game);
+void		check_symbol(t_game *game, int line, int col);
 
 // Drawing functions
 // draw_wall
-void	draw_square(t_square square, mlx_image_t *img);
-void	draw_color(t_square square, mlx_image_t *img);
-void	draw_dir_aux(t_game *g, t_raycast *r);
-void	draw_dir(t_game *game);
+void		draw_square(t_square square, mlx_image_t *img);
+void		draw_color(t_square square, mlx_image_t *img);
+void		draw_dir_aux(t_game *g, t_raycast *r);
+void		draw_dir(t_game *game);
 // draw
-void	draw_minimap(t_game *game);
-void	draw_minipixels(t_game *game, t_square square, t_aux_draw d);
-void	draw_grid(t_game *game, t_square *square, t_aux_draw d, int color);
-void	init_minimap(t_aux_draw *d, t_game *game);
-void	draw_f_c(t_game *game);
+void		draw_minimap(t_game *game);
+void		draw_minipixels(t_game *game, t_square square, t_aux_draw d);
+void		draw_grid(t_game *game, t_square *square, t_aux_draw d, int color);
+void		init_minimap(t_aux_draw *d, t_game *game);
+void		draw_f_c(t_game *game);
 
 // Raycast.c
 int			init_raycast(t_game *game);

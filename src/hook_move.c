@@ -85,5 +85,5 @@ void	ft_move_hooks(t_game *game, t_player *p)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		ft_move_left(game, p);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-			ft_move_right(game, p);
+		ft_move_right(game, p);
 }

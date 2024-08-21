@@ -21,7 +21,6 @@ void	my_close(t_game *game)
 	free(game->map->read_map);
 	free_array(game->map->map);
 	mlx_delete_image(game->mlx, game->img);
-	//mlx_delete_texture(game->texture);
 	mlx_terminate(game->mlx);
 	exit (EXIT_SUCCESS);
 }

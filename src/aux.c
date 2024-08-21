@@ -89,5 +89,4 @@ void	c_print_all(t_map *map)
 	ft_printf("dir %c\n", map->dir);
 	ft_printf("i_map %d\n", map->i_map);
 	ft_printf("map\n");
-
 }

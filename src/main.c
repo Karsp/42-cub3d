@@ -58,5 +58,3 @@ int	main(int argc, char **argv)
 		ft_printf("Error - Bad number of args. %s\n", ERRORARG);
 	return (EXIT_SUCCESS);
 }
-
-
