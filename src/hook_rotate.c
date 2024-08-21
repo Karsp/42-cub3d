@@ -42,3 +42,26 @@ void	ft_rotate_right(t_player *p)
 	p->plane_y = p->old_planex * sin(-p->rotspeed) + p->plane_y
 		* cos(-p->rotspeed);
 }
+
+/**
+ * @brief Function to manage the player rotation view
+ * */
+void	ft_rotate_hooks(t_game *game, t_player *p)
+{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT)
+		|| mlx_is_key_down(game->mlx, MLX_KEY_Q))
+	{
+		if (game->map->dir == 'N' || game->map->dir == 'E')
+			ft_rotate_left(p);
+		else
+			ft_rotate_right(p);
+	}
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
+		|| mlx_is_key_down(game->mlx, MLX_KEY_E))
+	{
+		if (game->map->dir == 'N' || game->map->dir == 'E')
+			ft_rotate_right(p);
+		else
+			ft_rotate_left(p);
+	}
+}

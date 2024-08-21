@@ -61,7 +61,7 @@ int	init_data(t_game *game)
  * @brief initialize the player position with the starting position and direction
  * 	when the direction is EAST (first case) or WEST.
  */
-static void	ft_init_long(t_game *game)
+void	ft_init_long(t_game *game)
 {
 	t_player	*p;
 
@@ -86,7 +86,7 @@ static void	ft_init_long(t_game *game)
  * @brief initialize the player position with the starting position and direction
  * 	when the direction is NORTH (first case) or SOUTH.
  */
-static void	ft_init_lat(t_game *game)
+void	ft_init_lat(t_game *game)
 {
 	t_player	*p;
 
@@ -125,5 +125,7 @@ int	init_player(t_game *game)
 		ft_init_long(game);
 	p->movespeed = 0.0405000;
 	p->rotspeed = 0.041550;
+	p->mouse_x = WIDTH / 2;
+	game->p.hide_cursor = 1;
 	return (EXIT_SUCCESS);
 }

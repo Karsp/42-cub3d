@@ -68,3 +68,22 @@ void	ft_move_backwards(t_game *g, t_player *p)
 	if (g->map->checked_map[(int)(p->pos_x)][(int)(p->pos_y - p->dir_y)] == '0')
 		p->pos_y -= p->dir_y * SPEEDRATIO;
 }
+
+/**
+ * @brief Function to manage the player movements
+ * @param game The game struct
+ * @param p The player struct
+ */
+void	ft_move_hooks(t_game *game, t_player *p)
+{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_UP)
+		|| mlx_is_key_down(game->mlx, MLX_KEY_W))
+		ft_move_forwards(game, p);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN)
+		|| mlx_is_key_down(game->mlx, MLX_KEY_S))
+		ft_move_backwards(game, p);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		ft_move_left(game, p);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+			ft_move_right(game, p);
+}

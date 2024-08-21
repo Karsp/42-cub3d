@@ -31,6 +31,7 @@
 # define MINMAP_SIZE 310
 # define SPEEDRATIO 0.35
 
+# define ERRORARG "Select a map from src/maps/"
 typedef enum e_cardinal_direction
 {
 	NORTH = 0,
@@ -53,7 +54,9 @@ typedef struct s_player
 	double	frame_time;
 	double	movespeed;
 	double	rotspeed;
-	bool	is_moving;
+	bool	hide_cursor;
+	double	mouse_x;
+	// int32_t	mouse_y;
 }				t_player;
 
 //Raycast struct
@@ -165,12 +168,79 @@ typedef struct s_colors
 	int	b;
 }				t_colors;
 
+// game
+void		launch_game(t_game *game, char *name);
+
 // Init.c
 int			init_data(t_game *game);
 int			init_player(t_game *game);
-int			create_pixelmap(t_game *game);
-// void		ft_init_long(t_game *game);
-// void		ft_init_lat(t_game *game);
+void		init_textures(t_game *game);
+void		ft_init_long(t_game *game);
+void		ft_init_lat(t_game *game);
+
+// Hooks.c
+void		ft_hook(void *param);
+void		ft_mouse_hook(double xpos, double ypos, void* param);
+void		new_map_pos(t_game *game, t_player *p);
+void		ft_other_hooks(t_game *game, t_player *p);
+// Hook rotate
+void		ft_rotate_hooks(t_game *game, t_player *p);
+void		ft_rotate_left(t_player *p);
+void		ft_rotate_right(t_player *p);
+// Hook move
+void		ft_move_forwards(t_game *game, t_player *p);
+void		ft_move_backwards(t_game *game, t_player *p);
+void		ft_move_left(t_game *g, t_player *p);
+void		ft_move_right(t_game *g, t_player *p);
+void		ft_move_hooks(t_game *game, t_player *p);
+
+// Parsing functions
+// check
+void	init_map(t_game *game);
+void	check_next_line(t_game *game);
+void	check_line(t_game *game, char *line);
+char	*extract_data(t_game *game, char *line, int start);
+void	check_file(t_game *game, char *file);
+// check_line
+void	check_fcolors(t_game *game, char *line);
+void	check_ccolors(t_game *game, char *line);
+char	**extract_color_data(t_game *game, char *line, int start);
+void	check_colors(t_game *game, char **colors);
+//check_map
+void	c_check_ext(t_game *game, char *file);
+void	get_map(t_game *game, char *file);
+void	c_read_map(t_game *game, char *file);
+void	c_check_map(t_game *game);
+
+// Auxiliar functions
+// aux .c
+int		free_array(char **colors);
+int		is_char(char c);
+void	map_size(t_game *game);
+void	c_print_all(t_map *map);
+// aux_parser.c
+long	find_n(t_game *game, char *s);
+void	set_dir(t_map *map, char dir, int *symbols, long *pos);
+int		get_rgba(int r, int g, int b, int a);
+// build_map
+void	build_map(t_map *map);
+void	write_map(t_game *game);
+void	write_file(t_game *game, size_t	aux);
+void	check_map(t_game *game);
+void	check_symbol(t_game *game, int line, int col);
+
+// Drawing functions
+// draw_wall
+void	draw_square(t_square square, mlx_image_t *img);
+void	draw_color(t_square square, mlx_image_t *img);
+void	draw_dir_aux(t_game *g, t_raycast *r);
+void	draw_dir(t_game *game);
+// draw
+void	draw_minimap(t_game *game);
+void	draw_minipixels(t_game *game, t_square square, t_aux_draw d);
+void	draw_grid(t_game *game, t_square *square, t_aux_draw d, int color);
+void	init_minimap(t_aux_draw *d, t_game *game);
+void	draw_f_c(t_game *game);
 
 // Raycast.c
 int			init_raycast(t_game *game);
@@ -178,73 +248,17 @@ void		get_ray_posdir(int x, t_player *p, t_raycast *r);
 void		get_ray_step_sidedist(t_player *p, t_raycast *r);
 void		get_walldistance(t_game *game, t_player *p, t_raycast *r);
 void		get_wallheight(t_player *p, t_raycast *r);
-
-// render_walls
+// Raycast aux
+// render_walls.c
 int			ft_get_direction(t_raycast *ray);
 void		render_walls(t_game *game, int x);
 uint32_t	get_wallcolor(t_game *game, t_raycast *r);
 void		update_texture_vars(t_game *game, t_raycast *r);
 
+// Errors and cleaning management
 // Clean.c
 void		my_close(t_game *game);
-// Hooks.c
-void		ft_hook(void *param);
-void		ft_mouse_hook(void *param);
-void		ft_onloop(void *param);
-void		ft_rotate_left(t_player *p);
-void		ft_rotate_right(t_player *p);
-void		ft_move_forwards(t_game *game, t_player *p);
-void		ft_move_backwards(t_game *game, t_player *p);
-void		ft_move_left(t_game *g, t_player *p);
-void		ft_move_right(t_game *g, t_player *p);
-int			ft_get_playerdir(t_player *player);
-
-// Errors management
-void	c_error(t_game *game, char *message);
-
-// Parsing functions
-void	init_map(t_game *game);
-long	find_n(t_game *game, char *s);
-void	c_check_ext(t_game *game, char *file);
-void	c_read_map(t_game *game, char *file);
-void	c_check_map(t_game *game);
-void	build_map(t_map *map);
-void	write_map(t_game *game);
-void	check_map(t_game *game);
-void	check_file(t_game *game, char *file);
-void	c_check_ext(t_game *game, char *file);
-void	check_fcolors(t_game *game, char *line);
-void	check_ccolors(t_game *game, char *line);
-
-// Auxiliar functions
-int		free_array(char **colors);
-int		is_char(char c);
-void	map_size(t_game *game);
-
-// Game
-void	init_img(t_game *game);
-void	init_game(t_game *game);
-void	free_game(t_game *game);
-
-// Drawing functions
-void	draw_square(t_square square, mlx_image_t *img);
-void	draw_map(t_game *game);
-void	generate_map(t_game *game);
-// void	ft_draw_pixel_map(t_game *game);
-void	draw_minimap(t_game *game);
-void	draw_color(t_square square, mlx_image_t *img);
-void	draw_f_c(t_game *game);
-void	draw_dir(t_game *game);
-void	draw_dir_aux(t_game *g, t_raycast *r);
-
-// Auxiliar drawing functions
-int		get_size(t_map	*map);
-int		get_rgba(int r, int g, int b, int a);
-
-// To delete
-// int32_t	mlx_get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
-// int		c_strlen(const char *s);
-
-void	c_print_all(t_map *map);
+void		free_game(t_game *game);
+void		c_error(t_game *game, char *message);
 
 #endif

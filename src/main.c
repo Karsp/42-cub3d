@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 		name = argv[1];
 		launch_game(&game, name);
 		mlx_loop_hook(game.mlx, ft_hook, &game);
-		// mlx_cursor_hook(game.mlx, ft_mouse_hook, &game);
+		mlx_cursor_hook(game.mlx, &ft_mouse_hook, &game);
 		if (game.mlx != NULL)
 		{
 			mlx_loop(game.mlx);
@@ -55,9 +55,7 @@ int	main(int argc, char **argv)
 		return (EXIT_SUCCESS);
 	}
 	else
-		c_error(&game, "Bad number of args");
-	if (game.img != NULL && game.mlx != NULL)
-		my_close(&game);
+		ft_printf("Error - Bad number of args. %s\n", ERRORARG);
 	return (EXIT_SUCCESS);
 }
 

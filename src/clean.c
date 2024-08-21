@@ -39,3 +39,29 @@ void	c_error(t_game *game, char *message)
 		ft_printf("Error - %s\n", message);
 	free_game(game);
 }
+
+/**
+ * @brief Function to free the structs and destroy the MLX42 objects
+ * @param game The game struct to free & destroy
+ */
+void	free_game(t_game *game)
+{
+	if (game->map->checked_map != NULL)
+		free_array(game->map->checked_map);
+	if (game->img_addr)
+		free(game->img_addr);
+	if (game->img)
+		mlx_delete_image(game->mlx, game->img);
+	if (game->no_texture)
+		mlx_delete_texture(game->no_texture);
+	if (game->so_texture)
+		mlx_delete_texture(game->so_texture);
+	if (game->e_texture)
+		mlx_delete_texture(game->e_texture);
+	if (game->w_texture)
+		mlx_delete_texture(game->w_texture);
+	if (game->mlx)
+		mlx_terminate(game->mlx);
+	game = NULL;
+	exit(EXIT_SUCCESS);
+}

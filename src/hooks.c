@@ -31,41 +31,6 @@ void	new_map_pos(t_game *game, t_player *p)
 }
 
 /**
- * @brief Function to manage the player movements
- * @param game The game struct
- * @param p The player struct
- */
-void	ft_move_hooks(t_game *game, t_player *p)
-{
-	if (mlx_is_key_down(game->mlx, MLX_KEY_UP)
-		|| mlx_is_key_down(game->mlx, MLX_KEY_W))
-		ft_move_forwards(game, p);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN)
-		|| mlx_is_key_down(game->mlx, MLX_KEY_S))
-		ft_move_backwards(game, p);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		ft_move_left(game, p);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-			ft_move_right(game, p);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT)
-		|| mlx_is_key_down(game->mlx, MLX_KEY_Q))
-	{
-		if (game->map->dir == 'N' || game->map->dir == 'E')
-			ft_rotate_left(p);
-		else
-			ft_rotate_right(p);
-	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
-		|| mlx_is_key_down(game->mlx, MLX_KEY_E))
-	{
-		if (game->map->dir == 'N' || game->map->dir == 'E')
-			ft_rotate_right(p);
-		else
-			ft_rotate_left(p);
-	}
-}
-
-/**
  * @brief Main hook that handle movements on key pressed
  * @param param It receives the game struct
  */
@@ -80,15 +45,36 @@ void	ft_hook(void *param)
 		if (game)
 			free_game(game);
 	ft_move_hooks(game, p);
+	ft_rotate_hooks(game, p);
+	ft_other_hooks(game, p);
 	new_map_pos(game, p);
 }
 
 /**
- * @brief Main hook that handle movements on key pressed
- * @param param It receives the game struct
+ * @brief Mouse hook that handle horizontal movements to rotate view
  */
-// void	ft_mouse_hook(void *param)
-// {
-// mlx_get_mouse_pos()
+void	ft_mouse_hook(double xpos, double ypos, void* param)
+{
+	t_game	*game;
+	mlx_win_cursor_t	*cursor;
 
-// }
+	(void)ypos;
+	game = param;
+	cursor = mlx_create_std_cursor(MLX_CURSOR_CROSSHAIR);
+	mlx_set_cursor(game->mlx, cursor);
+	if (game->p.hide_cursor)
+		mlx_set_cursor_mode(game->mlx,MLX_MOUSE_HIDDEN);
+	else
+		mlx_set_cursor_mode(game->mlx,MLX_MOUSE_NORMAL);
+	if (xpos < game->p.mouse_x)
+		ft_rotate_left(&game->p);
+	else
+		ft_rotate_right(&game->p);
+	game->p.mouse_x = xpos;
+}
+
+void	ft_other_hooks(t_game *game, t_player *p)
+{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_C))
+		p->hide_cursor = !p->hide_cursor;
+}
