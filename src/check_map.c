@@ -25,7 +25,7 @@ void	c_check_ext(t_game *game, char *file)
 	file_ext = ft_strrchr(file, '.');
 	if (!file_ext || ft_strncmp(file_ext, ".cub", ft_strlen(file)) != 0)
 	{
-		ft_printf("Error - Bad extension");
+		ft_printf("Error - Bad extension file.\n");
 		exit(EXIT_FAILURE);
 	}
 }

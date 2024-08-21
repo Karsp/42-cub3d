@@ -29,7 +29,8 @@
 # define M_GRIDSIZE 10
 # define GRIDSIZE 25
 # define MINMAP_SIZE 310
-# define SPEEDRATIO 0.35
+# define SPEEDRATIO 0.35  //Move speed. <Lower> is slower
+# define ROTSPEED 0.03  //Rotation speed. <Lower> is slower
 
 # define ERRORARG "Select a map from src/maps/"
 
@@ -44,19 +45,19 @@ typedef enum e_cardinal_direction
 //Player struct
 typedef struct s_player
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	double	old_dirx;
-	double	old_planex;
-	double	frame_time;
-	double	movespeed;
-	double	rotspeed;
-	bool	hide_cursor;
-	double	mouse_x;
+	double				pos_x;
+	double				pos_y;
+	double				dir_x;
+	double				dir_y;
+	double				plane_x;
+	double				plane_y;
+	double				old_dirx;
+	double				old_planex;
+	double				frame_time;
+	double				rotspeed;
+	mlx_win_cursor_t	*cursor;
+	bool				hide_cursor;
+	double				mouse_x;
 }				t_player;
 
 //Raycast struct

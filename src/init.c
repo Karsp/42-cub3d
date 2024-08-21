@@ -123,8 +123,7 @@ int	init_player(t_game *game)
 		ft_init_lat(game);
 	else
 		ft_init_long(game);
-	p->movespeed = 0.0405000;
-	p->rotspeed = 0.041550;
+	p->rotspeed = ROTSPEED;
 	p->mouse_x = WIDTH / 2;
 	game->p.hide_cursor = 1;
 	return (EXIT_SUCCESS);

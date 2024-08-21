@@ -56,20 +56,29 @@ void	ft_hook(void *param)
 void	ft_mouse_hook(double xpos, double ypos, void *param)
 {
 	t_game				*game;
-	mlx_win_cursor_t	*cursor;
 
 	(void)ypos;
 	game = param;
-	cursor = mlx_create_std_cursor(MLX_CURSOR_CROSSHAIR);
-	mlx_set_cursor(game->mlx, cursor);
+	game->p.cursor = mlx_create_std_cursor(MLX_CURSOR_CROSSHAIR);
+	mlx_set_cursor(game->mlx, game->p.cursor);
 	if (game->p.hide_cursor)
 		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	else
 		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	if (xpos < game->p.mouse_x)
-		ft_rotate_left(&game->p);
+	{
+		if (game->map->dir == 'N' || game->map->dir == 'E')
+			ft_rotate_left(&game->p);
+		else
+			ft_rotate_right(&game->p);
+	}
 	else
-		ft_rotate_right(&game->p);
+	{
+		if (game->map->dir == 'N' || game->map->dir == 'E')
+			ft_rotate_right(&game->p);
+		else
+			ft_rotate_left(&game->p);
+	}
 	game->p.mouse_x = xpos;
 }
 
