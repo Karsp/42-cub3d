@@ -25,7 +25,7 @@ void	new_map_pos(t_game *game, t_player *p)
 		free_game(game);
 	init_raycast(game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-		c_error(game, "Image to window error\n");
+		c_error(game, "Failed to put Image to Window.\n");
 	game->map->pos_x = p->pos_x;
 	game->map->pos_y = p->pos_y;
 }

@@ -20,16 +20,16 @@ void	init_textures(t_game *game)
 {
 	game->no_texture = mlx_load_png(game->map->n_path);
 	if (!game->no_texture)
-		c_error(game, "NO texture can't be loaded\n");
+		c_error(game, "NO texture can't be loaded.\n");
 	game->so_texture = mlx_load_png(game->map->s_path);
 	if (!game->so_texture)
-		c_error(game, "SO texture can't be loaded\n");
+		c_error(game, "SO texture can't be loaded.\n");
 	game->e_texture = mlx_load_png(game->map->e_path);
 	if (!game->e_texture)
-		c_error(game, "E texture can't be loaded\n");
+		c_error(game, "E texture can't be loaded.\n");
 	game->w_texture = mlx_load_png(game->map->w_path);
 	if (!game->w_texture)
-		c_error(game, "W texture can't be loaded\n");
+		c_error(game, "W texture can't be loaded.\n");
 }
 
 /**
@@ -43,14 +43,14 @@ int	init_data(t_game *game)
 	game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false);
 	if (!(game->mlx))
 	{
-		c_error(game, "MLX error");
+		c_error(game, "Failed to create MLX object.");
 		return (EXIT_FAILURE);
 	}
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->img)
 	{
 		mlx_close_window(game->mlx);
-		c_error(game, "MLX image error");
+		c_error(game, "Failed to create MLX Image object.");
 		return (EXIT_FAILURE);
 	}
 	init_textures(game);

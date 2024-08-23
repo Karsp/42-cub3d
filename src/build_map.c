@@ -29,7 +29,7 @@ void	check_symbol(t_game *game, int line, int col)
 	{
 		if (c_map[line - 1][col] == 'x' || c_map[line + 1][col] == 'x'\
 	|| c_map[line][col - 1] == 'x' || c_map[line][col + 1] == 'x')
-			c_error(game, "Not closed map or there are spaces\n");
+			c_error(game, "Map is not closed or there are spaces.\n");
 	}
 }
 
@@ -109,10 +109,10 @@ void	write_file(t_game *game, size_t	aux)
 				map->checked_map[aux + 1][count + 1] = map->map[aux][count];
 		}
 		else if (map->map[aux][count] == '\t')
-			c_error(game, "Tabs are not allowed on the map\n");
+			c_error(game, "Tabs are not allowed on the map.\n");
 		else if (map->map[aux][count] != ' ' && map->map[aux][count]
 		!= '\0' && map->map[aux][count] != '\n' && map->map[aux][count] != EOF)
-			c_error(game, "Wrong symbol on the map\n");
+			c_error(game, "Wrong symbols founded on map.\n");
 	}
 }
 
@@ -142,6 +142,6 @@ void	write_map(t_game *game)
 	}
 	map->checked_map[aux + 2] = NULL;
 	if (map->symbols != 1)
-		c_error(game, "Wrong player symbol\n");
+		c_error(game, "No or wrong player start positions founded.\n");
 	free_array(map->map);
 }

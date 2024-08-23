@@ -57,7 +57,7 @@ long	find_n(t_game *game, char *s)
 	else if (map->symbols <= 1 && symbols == 0)
 		return (symbols);
 	else
-		c_error(game, "Error en el número de puntos de inicio\n");
+		c_error(game, "Too many player start positions.\n");
 	return (-1);
 }
 

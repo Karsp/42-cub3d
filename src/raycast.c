@@ -89,7 +89,7 @@ void	get_walldistance(t_game *game, t_player *p, t_raycast *r)
 			break ;
 		else if (!game->map->checked_map[r->map_x]
 			|| !game->map->checked_map[r->map_x][r->map_y])
-			c_error(game, "Ray is out of the map\n");
+			c_error(game, "Raycast error. Ray is out of the map.\n");
 	}
 	if (r->side == 0)
 		r->w_dist = (r->map_x - p->pos_x + (1 - r->step_x) / 2) / r->ray_dirx;

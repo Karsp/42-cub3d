@@ -27,7 +27,7 @@ void	check_colors(t_game *game, char **colors)
 	while (colors[count])
 		count++;
 	if (count != 3)
-		c_error(game, "Color number error\n");
+		c_error(game, "Invalid number of colors.\n");
 	count = -1;
 	while (++count < 3)
 	{
@@ -36,7 +36,7 @@ void	check_colors(t_game *game, char **colors)
 		while (colors[count] && colors[count][++aux] != '\0'
 		&& colors[count][aux] != '\n' )
 			if (colors[count][aux] < 48 || colors[count][aux] > 57)
-				c_error(game, "Error in colors\n");
+				c_error(game, "Found error in colors.\n");
 		aux = 0;
 	}
 }
@@ -79,7 +79,7 @@ void	check_fcolors(t_game *game, char *line)
 	ft_atoi(colors[2])};
 	if (rgb.r < 0 || rgb.r > 255 || rgb.g < 0 || rgb.g > 255 || rgb.b < 0 \
 	|| rgb.b > 255)
-		c_error(game, "Error in color F\n");
+		c_error(game, "Found error in color F.\n");
 	map->f_color = get_rgba(rgb.r, rgb.g, rgb.b, 255);
 	free_array(colors);
 }
@@ -96,7 +96,7 @@ void	check_ccolors(t_game *game, char *line)
 	ft_atoi(colors[2])};
 	if (rgb.r < 0 || rgb.r > 255 || rgb.g < 0 || rgb.g > 255 || rgb.b < 0 \
 	|| rgb.b > 255)
-		c_error(game, "Error in color C\n");
+		c_error(game, "Found error in color C.\n");
 	map->c_color = get_rgba(rgb.r, rgb.g, rgb.b, 255);
 	free_array(colors);
 }

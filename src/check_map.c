@@ -50,7 +50,7 @@ void	get_map(t_game *game, char *file)
 		(perror("Open"), exit(errno));
 	line = get_next_line(map->fd);
 	if (!line)
-		c_error(game, "Map reading error\n");
+		c_error(game, "Map reading error. FD closed or invalid.\n");
 	while (line != NULL)
 	{
 		if (aux_line >= map->init_line)

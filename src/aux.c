@@ -26,7 +26,7 @@ void	map_size(t_game *game)
 	num_cols = 0;
 	aux = get_next_line(map->fd);
 	if (!aux)
-		c_error(game, "Map reading error\n");
+		c_error(game, "Map reading error.\n");
 	while (aux)
 	{
 		map->num_lines++;

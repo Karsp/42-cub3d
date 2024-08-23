@@ -29,10 +29,10 @@ void	launch_game(t_game *game, char *name)
 	c_read_map(game, name);
 	c_check_map(game);
 	if (init_data(game))
-		c_error(game, "Failed to init data structure");
+		c_error(game, "Failed to init data structure.");
 	init_raycast(game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-		c_error(game, "Image to window error\n");
+		c_error(game, "Failed to put Image to Window.\n");
 }
 
 int	main(int argc, char **argv)

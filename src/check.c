@@ -26,11 +26,11 @@ void	check_file(t_game *game, char *file)
 	map = game->map;
 	map->fd = open (file, O_RDONLY);
 	if (map->fd == -1)
-		c_error(game, "Error in fd");
+		c_error(game, "Failed to open file. Check permissions.");
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
 	if (read(map->fd, buffer, 1) == 0)
-		c_error(game, "Empty file error");
+		c_error(game, "The file is empty.");
 }
 
 /**
@@ -58,7 +58,7 @@ char	*extract_data(t_game *game, char *line, int start)
 		return (ft_substr(aux, 0, ft_strlen(aux) - 1));
 	}
 	else
-		c_error(game, "Texture error\n");
+		c_error(game, "Failed to save texture. Texture empty.\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -91,7 +91,7 @@ void	check_line(t_game *game, char *line)
 		while (line[aux] == ' ' || line[aux] == '\t')
 			aux++;
 		if (line[aux] != '\0' && line[aux] != '\n')
-			c_error(game, "Map data error\n");
+			c_error(game, "Map data error, texture or color missing.\n");
 	}
 }
 
@@ -103,7 +103,7 @@ void	check_next_line(t_game *game)
 	map_line = 0;
 	l = get_next_line(game->map->fd);
 	if (!l)
-		c_error(game, "Map reading error\n");
+		c_error(game, "Map reading error. FD closed or invalid.\n");
 	check_line(game, l);
 	while (l && ++map_line)
 	{
@@ -137,5 +137,5 @@ void	init_map(t_game *game)
 	map->symbols = 0;
 	check_next_line(game);
 	if (map->i_map < 6)
-		c_error(game, "Incomplete map: missing data\n");
+		c_error(game, "Incomplete map: missing data.\n");
 }
