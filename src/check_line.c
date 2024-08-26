@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:04:05 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/16 12:46:53 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:03:22 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	check_colors(t_game *game, char **colors)
 	aux = 0;
 	while (colors[count])
 		count++;
+	ft_printf("check_colors: count = %d\n", count);
 	if (count != 3)
 		c_error(game, "Invalid number of colors.\n");
 	count = -1;
@@ -33,10 +34,15 @@ void	check_colors(t_game *game, char **colors)
 	{
 		while (colors[count][aux] == ' ')
 			aux++;
-		while (colors[count] && colors[count][++aux] != '\0'
-		&& colors[count][aux] != '\n' )
-			if (colors[count][aux] < 48 || colors[count][aux] > 57)
+		while (colors[count] && colors[count][aux] != '\0'
+		&& colors[count][aux] != '\n')
+		{
+			if (colors[count][aux] == ' ' || colors[count][aux] == '\t')
+				aux++;
+			else if (colors[count][aux] < 48 || colors[count][aux] > 57)
 				c_error(game, "Found error in colors.\n");
+			aux++;
+		}
 		aux = 0;
 	}
 }
@@ -57,6 +63,7 @@ char	**extract_color_data(t_game *game, char *line, int start)
 	map = game->map;
 	aux = ft_substr(line, start, ft_strlen(line) - start + 1);
 	aux2 = aux;
+	colors = NULL;
 	while (*aux2 == ' ')
 		aux2++;
 	map->i_map++;

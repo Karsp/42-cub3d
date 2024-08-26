@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:34:29 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/16 19:32:56 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:07:38 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ void	launch_game(t_game *game, char *name)
 	game->map->num_lines = 0;
 	game->map->num_cols = 0;
 	game->map->i_map = 0;
+	game->map->checked_map = NULL;
+	game->map->map = NULL;
+	game->map->n_path = NULL;
+	game->map->s_path = NULL;
+	game->map->e_path = NULL;
+	game->map->w_path = NULL;
 	c_check_ext(game, name);
 	c_read_map(game, name);
 	c_check_map(game);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checkmap.c                                         :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/16 20:16:03 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:23:08 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ void	c_read_map(t_game *game, char *file)
 	get_map(game, file);
 }
 
+/**
+ * @brief Function to init the check map
+ * @param game The game structure
+ */
 void	c_check_map(t_game *game)
 {
 	build_map(game->map);

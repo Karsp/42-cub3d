@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 18:13:05 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/15 16:15:05 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:17:30 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,11 @@ void	c_error(t_game *game, char *message)
 }
 
 /**
- * @brief Function to free the structs and destroy the MLX42 objects
+ * @brief Auxiliar function to free the image, textures ang mlx
  * @param game The game struct to free & destroy
  */
-void	free_game(t_game *game)
+void	free_mlx(t_game *game)
 {
-	if (game->map->checked_map != NULL)
-		free_array(game->map->checked_map);
-	if (game->img_addr)
-		free(game->img_addr);
 	if (game->img)
 		mlx_delete_image(game->mlx, game->img);
 	if (game->no_texture)
@@ -61,6 +57,27 @@ void	free_game(t_game *game)
 		mlx_delete_texture(game->w_texture);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
+}
+
+/**
+ * @brief Function to free the structs and destroy the MLX42 objects
+ * @param game The game struct to free & destroy
+ */
+void	free_game(t_game *game)
+{
+	if (game->map->checked_map != NULL)
+		free_array(game->map->checked_map);
+	if (game->img_addr)
+		free(game->img_addr);
+	if (game->map->n_path)
+		free(game->map->n_path);
+	if (game->map->s_path)
+		free(game->map->s_path);
+	if (game->map->w_path)
+		free(game->map->w_path);
+	if (game->map->e_path)
+		free(game->map->e_path);
+	free_mlx(game);
 	game = NULL;
 	exit(EXIT_SUCCESS);
 }

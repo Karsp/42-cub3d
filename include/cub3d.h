@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/16 20:30:15 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:37:43 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define M_GRIDSIZE 10
 # define GRIDSIZE 25
 # define MINMAP_SIZE 310
-# define SPEEDRATIO 0.75  //Move speed. <Lower> is slower
-# define ROTSPEED 0.06  //Rotation speed. <Lower> is slower
+# define SPEEDRATIO 0.20  //Move speed. <Lower> is slower
+# define ROTSPEED 0.04  //Rotation speed. <Lower> is slower
 
 # define ERRORARG "Select a map from src/maps/"
 

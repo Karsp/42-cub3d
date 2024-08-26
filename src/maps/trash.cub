@@ -1,0 +1,18 @@
+SO    	./src/assets/wolf/colorstone.png
+F 220,100,0
+
+
+
+C 7,,,,,12,12
+WE ./src/assets/wolf/mossy.png
+
+
+NO            	./src/assets/wolf/bluestone.png
+
+EA  ./src/assets/wolf/greystone.png
+
+  1
+ 101
+10E01
+ 101
+  1

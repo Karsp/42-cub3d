@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:27:36 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/15 19:53:57 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:31:11 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	build_map(t_map *map)
 	while (aux < map->num_lines - map->init_line + 2)
 	{
 		map->checked_map[aux] = (char *)malloc(sizeof(char) \
-		* (map->num_cols + 3));
+			* (map->num_cols + 3));
 		if (!map->checked_map)
 			(perror("Malloc"), exit(errno));
 		ft_memset(map->checked_map[aux], 'x', map->num_cols + 2);
@@ -86,18 +86,21 @@ void	build_map(t_map *map)
 /**
  * @brief Function to copy the line of the map into the checked_map
  * @param game The game struct
- * @param aux The line to copy
+ * @param aux The number of the line to copy
  */
 void	write_file(t_game *game, size_t	aux)
 {
 	size_t	i;
 	size_t	count;
 	t_map	*map;
+	int		borrar = -1;
 
 	count = -1;
 	map = game->map;
 	i = 0;
-	while (i++ < map->num_cols && map->map[aux][++count] != '\n'
+	ft_printf("write_file: num_lines %d, init_line %d\n", map->num_lines, map->init_line);
+	while (i++ < map->num_cols && aux < map->num_lines - map->init_line + 2
+		&& map->map[aux][++count] != '\n'
 			&& map->map[aux][count] != '\0')
 	{
 		if (is_char(map->map[aux][count]))
@@ -112,8 +115,14 @@ void	write_file(t_game *game, size_t	aux)
 			c_error(game, "Tabs are not allowed on the map.\n");
 		else if (map->map[aux][count] != ' ' && map->map[aux][count]
 		!= '\0' && map->map[aux][count] != '\n' && map->map[aux][count] != EOF)
-			c_error(game, "Wrong symbols founded on map.\n");
+			c_error(game, "Wrong symbols (or number) on map.\n");
 	}
+	while (game->map->map[++borrar])
+		ft_printf("%s", game->map->map[borrar]);
+	borrar = -1;
+	ft_printf("\n");
+	while (game->map->checked_map[++borrar])
+		ft_printf("%s\n", game->map->checked_map[borrar]);
 }
 
 /**
@@ -131,6 +140,7 @@ void	write_map(t_game *game)
 	while (map->map[aux] != NULL)
 	{
 		write_file(game, aux);
+		ft_printf("write_map: entra con aux %d, line %s\n", aux, map->map[aux]);
 		posx = find_n(game, map->map[aux]);
 		if (posx > 0)
 		{
@@ -142,6 +152,6 @@ void	write_map(t_game *game)
 	}
 	map->checked_map[aux + 2] = NULL;
 	if (map->symbols != 1)
-		c_error(game, "No or wrong player start positions founded.\n");
+		c_error(game, "No player or wrong player start position.\n");
 	free_array(map->map);
 }

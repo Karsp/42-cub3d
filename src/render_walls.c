@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daviles- <daviles-@student.madrid42.com>   +#+  +:+       +#+        */
+/*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:06:02 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/16 18:06:05 by daviles-         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:22:15 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-/*@brief Returns the direction of the wall that was hit by the ray.
-@returns  The number (t_direction) of the correct texture -define on cub.h-
-*/
+/**
+ * @brief Returns the direction of the wall that was hit by the ray
+ * @param ray The ray structure
+ * @returns  The number (t_direction) of the correct texture -define on cub.h-
+ */
 int	ft_get_direction(t_raycast *ray)
 {
 	if (ray->side == 0)
@@ -32,10 +35,10 @@ int	ft_get_direction(t_raycast *ray)
 	}
 }
 
-/*
-@brief  Update the width, height and bpp of the texture depends on 
-the direction.
-*/
+/**
+ * @brief  Update the width, height and bpp of the texture depends on 
+ * the direction
+ */
 void	update_texture_vars(t_game *game, t_raycast *r)
 {
 	if (r->dir == NORTH)
@@ -64,13 +67,13 @@ void	update_texture_vars(t_game *game, t_raycast *r)
 	}
 }
 
-/*
-@brief Take pixel color from texture, choose the right wall texture.
-1 case: south
-2 case: north
-3 case: east
-4 case: west
-*/
+/**
+ * @brief Take pixel color from texture, choose the right wall texture.
+ * 1 case: south
+ * 2 case: north
+ * 3 case: east
+ * 4 case: west
+ */
 uint32_t	get_wallcolor(t_game *game, t_raycast *r)
 {
 	uint8_t	*color;
@@ -89,16 +92,16 @@ uint32_t	get_wallcolor(t_game *game, t_raycast *r)
 	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | color[3]);
 }
 
-/*
-@brief Render walls on image. Check direction, take the right 
-texture and put pixel on image.
-r->pos = texpos
-r->dir = direction of the hitten wall 
-step and pos are used to know how much to increase the texture coordinate 
-per screen pixel
-r->tex_y Cast the texture coordinate to integer, and mask with 
-	(r->tex_height — 1) in case of overflow. That means that the values 
-	are only inside the range of the texture position.
+/**
+ * @brief Render walls on image. Check direction, take the right 
+ * texture and put pixel on image.
+ * r->pos = texpos
+ * r->dir = direction of the hitten wall 
+ * step and pos are used to know how much to increase the texture coordinate 
+ * per screen pixel
+ * r->tex_y Cast the texture coordinate to integer, and mask with 
+ * (r->tex_height — 1) in case of overflow. That means that the values 
+ * are only inside the range of the texture position.
 */
 void	render_walls(t_game *game, int x)
 {

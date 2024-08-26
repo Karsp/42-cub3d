@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:14:26 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/16 13:29:56 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:59:06 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,19 @@ long	find_n(t_game *game, char *s)
 {
 	long	pos;
 	int		symbols;
-	t_map	*map;	
+	t_map	*map;
+	int		len;	
 
 	map = game->map;
 	pos = -1;
 	symbols = 0;
-	while (s[++pos] != '\0')
+	ft_printf("find_n: line %s\n", s);
+	len = ft_strlen(s);
+	ft_printf("find_n: len: %d\n", len);
+	//s[++pos] && 
+	while (++pos < len && s[pos] != '\0')
 	{
+		ft_printf("find_n: pos %d, s[pos] %c\n", pos, s[pos]);
 		if (s[pos] == 'N')
 			set_dir(map, 'N', &symbols, &pos);
 		else if (s[pos] == 'S')

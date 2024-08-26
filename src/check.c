@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/15 17:00:03 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:25:40 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,20 @@ void	check_line(t_game *game, char *line)
 		check_fcolors(game, line);
 	else if (ft_strncmp(line, "C ", 2) == 0)
 		check_ccolors(game, line);
-	else if (ft_strncmp(line, "NO ", 3) == 0)
+	else if (ft_strncmp(line, "NO ", 3) == 0 && !map->n_path)
 		map->n_path = extract_data(game, line, 3);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
+	else if (ft_strncmp(line, "SO ", 3) == 0 && !map->s_path)
 		map->s_path = extract_data(game, line, 3);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
+	else if (ft_strncmp(line, "WE ", 3) == 0 && !map->w_path)
 		map->w_path = extract_data(game, line, 3);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
+	else if (ft_strncmp(line, "EA ", 3) == 0 && !map->e_path)
 		map->e_path = extract_data(game, line, 3);
 	else
 	{
 		while (line[aux] == ' ' || line[aux] == '\t')
 			aux++;
 		if (line[aux] != '\0' && line[aux] != '\n')
-			c_error(game, "Map data error, texture or color missing.\n");
+			c_error(game, "Map data error in texture or color\n");
 	}
 }
 

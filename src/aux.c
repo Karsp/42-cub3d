@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:05:13 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/16 20:31:26 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:20:00 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	map_size(t_game *game)
 		{
 			num_cols = ft_strlen(aux);
 			if (num_cols > map->num_cols)
-				map->num_cols = num_cols + 2;
+				map->num_cols = num_cols + 1;
 		}
 		(free(aux), aux = NULL);
 		aux = get_next_line(map->fd);
@@ -49,11 +49,11 @@ int	free_array(char **colors)
 {
 	int	i;
 
-	i = 0;
-	while (colors && colors[i] != NULL)
+	i = -1;
+	while (colors != NULL && colors[++i] != NULL)
 	{
-		(free(colors[i]), colors[i] = NULL);
-		i++;
+		if (colors != NULL && colors[i] != NULL)
+			(free(colors[i]), colors[i] = NULL);
 	}
 	if (colors)
 		(free(colors), colors = NULL);
