@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/26 17:23:08 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:47:05 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,18 @@ void	get_map(t_game *game, char *file)
 	aux_line = 0;
 	count = -1;
 	map = game->map;
+	line = get_next_line(map->fd);
 	map->fd = open (file, O_RDONLY);
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
 	line = get_next_line(map->fd);
+	ft_printf("get_map: line: %s\n", line);
 	if (!line)
 		c_error(game, "Map reading error. FD closed or invalid.\n");
 	while (line != NULL)
 	{
-		if (aux_line >= map->init_line)
+		ft_printf("get_map: line: %s\n", line);
+		if (aux_line >= map->init_line - 1)
 			map->map[++count] = ft_strdup(line);
 		(free(line), line = NULL);
 		line = get_next_line(map->fd);
@@ -81,8 +84,7 @@ void	c_read_map(t_game *game, char *file)
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
 	init_map(game);
-	map->map = (char **)malloc((map->num_lines - map->init_line + 1) \
-	* sizeof(char *));
+	map->map = malloc(((map->num_lines - map->init_line) + 2) * sizeof(char *));
 	close(map->fd);
 	get_map(game, file);
 }

@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/26 15:25:40 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:27:16 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,10 @@ void	check_next_line(t_game *game)
 {
 	char	*l;
 	size_t	map_line;
+	int		aux;
 
 	map_line = 0;
+	aux = 0;
 	l = get_next_line(game->map->fd);
 	if (!l)
 		c_error(game, "Map reading error. FD closed or invalid.\n");
@@ -115,11 +117,19 @@ void	check_next_line(t_game *game)
 		if (game->map->i_map < 6)
 			check_line(game, l);
 		else if (l[0] == '\0' || l[0] == '\n')
+		{
+			ft_printf("check_next_line: Entra\n");
 			continue ;
+		}
 		else if (game->map->i_map >= 6 && l && (l[0] != '\0' || l[0] != '\n'))
-			break ;
+		{
+			while (l[aux] == ' ' || l[aux] == '\t')
+				aux++;
+			if (l[aux] == '0' || l[aux] == '1')
+				break ;
+		}
 	}
-	game->map->init_line = map_line;
+	game->map->init_line = map_line + 1;
 	if (l)
 		(free(l), l = NULL);
 }

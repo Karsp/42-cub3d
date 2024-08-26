@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:27:36 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/26 17:31:11 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:12:32 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ void	build_map(t_map *map)
 	size_t	aux;
 
 	aux = 0;
-	map->checked_map = (char **)malloc((map->num_lines - map->init_line + 3) \
+	ft_printf("build_map: num_lines: %d, init_line %d\n", map->num_lines, map->init_line);
+	map->checked_map = (char **)malloc(((map->num_lines - map->init_line) + 4) \
 	* sizeof(char *));
-	while (aux < map->num_lines - map->init_line + 2)
+	while (aux < (map->num_lines - map->init_line) + 3)
 	{
 		map->checked_map[aux] = (char *)malloc(sizeof(char) \
 			* (map->num_cols + 3));
@@ -80,7 +81,7 @@ void	build_map(t_map *map)
 		aux++;
 	}
 	map->checked_map[aux] = NULL;
-	aux = 0;
+	//aux = 0;
 }
 
 /**
@@ -98,8 +99,8 @@ void	write_file(t_game *game, size_t	aux)
 	count = -1;
 	map = game->map;
 	i = 0;
-	ft_printf("write_file: num_lines %d, init_line %d\n", map->num_lines, map->init_line);
-	while (i++ < map->num_cols && aux < map->num_lines - map->init_line + 2
+	ft_printf("write_file: num_lines %d, init_line %d, aux %d\n", map->num_lines, map->init_line, aux);
+	while (i++ < map->num_cols && aux <= map->num_lines - map->init_line
 		&& map->map[aux][++count] != '\n'
 			&& map->map[aux][count] != '\0')
 	{

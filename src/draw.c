@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/16 18:13:38 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:12:38 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	draw_minimap(t_game *game)
 	d.x2 = d.x;
 	d.count2 = d.count;
 	while (++d.aux * M_GRIDSIZE < MINMAP_SIZE && ++d.y >= 0
-		&& d.y <= (int)(map->num_lines - map->init_line))
+		&& d.y <= (int)((map->num_lines - map->init_line) + 1))
 	{
 		while (++d.count * M_GRIDSIZE < MINMAP_SIZE
 			&& ++d.x >= 0 && d.x < (int)(map->num_cols) - 1)
