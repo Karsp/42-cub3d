@@ -26,7 +26,6 @@ void	check_colors(t_game *game, char **colors)
 	aux = 0;
 	while (colors[count])
 		count++;
-	ft_printf("check_colors: count = %d\n", count);
 	if (count != 3)
 		c_error(game, "Invalid number of colors.\n");
 	count = -1;

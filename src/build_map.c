@@ -93,12 +93,10 @@ void	write_file(t_game *game, size_t	aux)
 	size_t	i;
 	size_t	count;
 	t_map	*map;
-	int		borrar = -1;
 
 	count = -1;
 	map = game->map;
 	i = 0;
-	ft_printf("write_file: num_lines %d, init_line %d\n", map->num_lines, map->init_line);
 	while (i++ < map->num_cols && aux < map->num_lines - map->init_line + 2
 		&& map->map[aux][++count] != '\n'
 			&& map->map[aux][count] != '\0')
@@ -117,12 +115,6 @@ void	write_file(t_game *game, size_t	aux)
 		!= '\0' && map->map[aux][count] != '\n' && map->map[aux][count] != EOF)
 			c_error(game, "Wrong symbols (or number) on map.\n");
 	}
-	while (game->map->map[++borrar])
-		ft_printf("%s", game->map->map[borrar]);
-	borrar = -1;
-	ft_printf("\n");
-	while (game->map->checked_map[++borrar])
-		ft_printf("%s\n", game->map->checked_map[borrar]);
 }
 
 /**
@@ -140,7 +132,6 @@ void	write_map(t_game *game)
 	while (map->map[aux] != NULL)
 	{
 		write_file(game, aux);
-		ft_printf("write_map: entra con aux %d, line %s\n", aux, map->map[aux]);
 		posx = find_n(game, map->map[aux]);
 		if (posx > 0)
 		{

@@ -45,6 +45,7 @@ void	get_map(t_game *game, char *file)
 	aux_line = 0;
 	count = -1;
 	map = game->map;
+	line = get_next_line(map->fd);
 	map->fd = open (file, O_RDONLY);
 	if (map->fd == -1)
 		(perror("Open"), exit(errno));
@@ -59,6 +60,7 @@ void	get_map(t_game *game, char *file)
 		line = get_next_line(map->fd);
 		aux_line++;
 	}
+
 	if (line)
 		(free(line), line = NULL);
 	map->map[++count] = NULL;
@@ -96,4 +98,5 @@ void	c_check_map(t_game *game)
 	build_map(game->map);
 	write_map(game);
 	check_map(game);
+	c_print_all(game->map);
 }

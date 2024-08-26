@@ -42,13 +42,13 @@ long	find_n(t_game *game, char *s)
 	map = game->map;
 	pos = -1;
 	symbols = 0;
-	ft_printf("find_n: line %s\n", s);
+	// ft_printf("find_n: line %s\n", s);
 	len = ft_strlen(s);
-	ft_printf("find_n: len: %d\n", len);
+	// ft_printf("find_n: len: %d\n", len);
 	//s[++pos] && 
 	while (++pos < len && s[pos] != '\0')
 	{
-		ft_printf("find_n: pos %d, s[pos] %c\n", pos, s[pos]);
+		// ft_printf("find_n: pos %d, s[pos] %c\n", pos, s[pos]);
 		if (s[pos] == 'N')
 			set_dir(map, 'N', &symbols, &pos);
 		else if (s[pos] == 'S')
