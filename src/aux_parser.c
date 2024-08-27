@@ -36,31 +36,25 @@ long	find_n(t_game *game, char *s)
 {
 	long	pos;
 	int		symbols;
-	t_map	*map;
 	int		len;	
 
-	map = game->map;
 	pos = -1;
 	symbols = 0;
-	ft_printf("find_n: line %s\n", s);
 	len = ft_strlen(s);
-	ft_printf("find_n: len: %d\n", len);
-	//s[++pos] && 
 	while (++pos < len && s[pos] != '\0')
 	{
-		ft_printf("find_n: pos %d, s[pos] %c\n", pos, s[pos]);
 		if (s[pos] == 'N')
-			set_dir(map, 'N', &symbols, &pos);
+			set_dir(game->map, 'N', &symbols, &pos);
 		else if (s[pos] == 'S')
-			set_dir(map, 'S', &symbols, &pos);
+			set_dir(game->map, 'S', &symbols, &pos);
 		else if (s[pos] == 'E')
-			set_dir(map, 'E', &symbols, &pos);
+			set_dir(game->map, 'E', &symbols, &pos);
 		else if (s[pos] == 'W')
-			set_dir(map, 'W', &symbols, &pos);
+			set_dir(game->map, 'W', &symbols, &pos);
 	}
-	if (map->symbols <= 1 && symbols != 0)
+	if (game->map->symbols <= 1 && symbols != 0)
 		return (symbols + 1);
-	else if (map->symbols <= 1 && symbols == 0)
+	else if (game->map->symbols <= 1 && symbols == 0)
 		return (symbols);
 	else
 		c_error(game, "Too many player start positions.\n");

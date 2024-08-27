@@ -31,71 +31,71 @@ void	draw_mini_square(t_square square, mlx_image_t *img)
 	}
 }
 
-void	draw_dir_aux(t_game *g, t_raycast *r)
-{
-	if (g->r.ray_diry < 0)
-	{
-		r->y1 = 15 * M_GRIDSIZE;
-		r->y2 = r->y1 + g->r.ray_diry;
-	}
-	else
-	{
-		r->y2 = 15 * M_GRIDSIZE;
-		r->y1 = r->y2 + g->r.ray_diry;
-	}
-	if (g->r.ray_dirx < 0)
-	{
-		r->x1 = 15 * M_GRIDSIZE;
-		r->x2 = r->x1 + g->r.ray_dirx;
-	}
-	else
-	{
-		r->x2 = 15 * M_GRIDSIZE;
-		r->x1 = r->x2 + g->r.ray_dirx;
-	}
-}
+// void	draw_dir_aux(t_game *g, t_raycast *r)
+// {
+// 	if (g->r.ray_diry < 0)
+// 	{
+// 		r->y1 = 15 * M_GRIDSIZE;
+// 		r->y2 = r->y1 + g->r.ray_diry;
+// 	}
+// 	else
+// 	{
+// 		r->y2 = 15 * M_GRIDSIZE;
+// 		r->y1 = r->y2 + g->r.ray_diry;
+// 	}
+// 	if (g->r.ray_dirx < 0)
+// 	{
+// 		r->x1 = 15 * M_GRIDSIZE;
+// 		r->x2 = r->x1 + g->r.ray_dirx;
+// 	}
+// 	else
+// 	{
+// 		r->x2 = 15 * M_GRIDSIZE;
+// 		r->x1 = r->x2 + g->r.ray_dirx;
+// 	}
+// }
 
 /*
 * Ecuación recta por dos puntos:
 * (x - x1)/(x2 - x1) = (y - y1)/(y2 - y1)
 * Si conocemos la línea en la que estamos, es decir la y:
 * x = (x2 - x1)*(y - y1)/(y2 - y1) + x1
-*/
-void	draw_dir(t_game *game)
-{
-	// double		x;
-	double		y;
-	// int			count;
-	//int			color;
-	t_raycast	*r;
-	t_square	m_square;
+// */
+// void	draw_dir(t_game *game)
+// {
+// 	double		x;
+// 	double		y;
+// 	int			count;
+// 	int			color;
+// 	t_raycast	*r;
+// 	t_square	m_square;
 
-	r = &game->r;
-	m_square.color = game->map->p_color;
-	m_square.size = 20;
-	//color = game->map->f_color + 3500000;
-	//color = get_rgba(0, 0, 0, 255);
-	// count = -1;
-	draw_dir_aux(game, r);
-	y = r->y2 + 20;
-	m_square.y = y;
-	m_square.x = (((r->x2 - r->x1) * (y - r->y1)) / (r->y2 - r->y1)) + r->x1;
-	draw_mini_square(m_square, game->img);
-	/* while (y < r->y1 && ++count < 20)
-	{
-		x = (((r->x2 - r->x1) * (y - r->y1)) / (r->y2 - r->y1)) + r->x1;
-		//mlx_put_pixel(game->img, x, y, game->map->p_color);
-		m_square.x = x;
-		m_square.y = y;
- 		mlx_put_pixel(game->img, x + 0.1, y + 0.1, game->map->p_color);
-		mlx_put_pixel(game->img, x - 0.1, y - 0.1, game->map->p_color);
-		mlx_put_pixel(game->img, x + 0.2, y + 0.2, game->map->p_color);
-		mlx_put_pixel(game->img, x - 0.2, y - 0.2, game->map->p_color);
-		mlx_put_pixel(game->img, x + 0.3, y + 0.3, game->map->p_color);
-		mlx_put_pixel(game->img, x - 0.3, y - 0.3, game->map->p_color);
-		y += 0.1;
-	} */
-}
+// 	r = &game->r;
+// 	m_square.color = game->map->p_color;
+// 	m_square.size = 20;
+// 	color = game->map->f_color + 3500000;
+// 	color = get_rgba(0, 0, 0, 255);
+// 	count = -1;
+// 	draw_dir_aux(game, r);
+// 	y = r->y2 + 20;
+// 	m_square.y = y;
+// 	m_square.x = (((r->x2 - r->x1) * (y - r->y1)) / (r->y2 - r->y1)) + r->x1;
+// 	draw_mini_square(m_square, game->img);
+// 	while (y < r->y1 && ++count < 20)
+// 	{
+// 		x = (((r->x2 - r->x1) * (y - r->y1)) / (r->y2 - r->y1)) + r->x1;
+// 		//mlx_put_pixel(game->img, x, y, game->map->p_color);
+// 		m_square.x = x;
+// 		m_square.y = y;
+//  		mlx_put_pixel(game->img, x + 0.1, y + 0.1, game->map->p_color);
+// 		mlx_put_pixel(game->img, x - 0.1, y - 0.1, game->map->p_color);
+// 		mlx_put_pixel(game->img, x + 0.2, y + 0.2, game->map->p_color);
+// 		mlx_put_pixel(game->img, x - 0.2, y - 0.2, game->map->p_color);
+// 		mlx_put_pixel(game->img, x + 0.3, y + 0.3, game->map->p_color);
+// 		mlx_put_pixel(game->img, x - 0.3, y - 0.3, game->map->p_color);
+// 		y += 0.1;
+// 	} 
+// }
 
 /**
  * @brief Function to draw a square (for the minimap)

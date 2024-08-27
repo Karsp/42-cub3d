@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/26 15:37:43 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:07:10 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define M_GRIDSIZE 10
 # define GRIDSIZE 25
 # define MINMAP_SIZE 310
-# define SPEEDRATIO 0.20  //Move speed. <Lower> is slower
-# define ROTSPEED 0.04  //Rotation speed. <Lower> is slower
+# define SPEEDRATIO 0.17  //Move speed. <Lower> is slower
+# define ROTSPEED 0.035  //Rotation speed. <Lower> is slower
 
 # define ERRORARG "Select a map from src/maps/"
 
@@ -202,6 +202,7 @@ void		check_next_line(t_game *game);
 void		check_line(t_game *game, char *line);
 char		*extract_data(t_game *game, char *line, int start);
 void		check_file(t_game *game, char *file);
+char		*check_path(t_game *game, char **path);
 // check_line
 void		check_fcolors(t_game *game, char *line);
 void		check_ccolors(t_game *game, char *line);
@@ -234,8 +235,8 @@ void		check_symbol(t_game *game, int line, int col);
 // draw_wall
 void		draw_square(t_square square, mlx_image_t *img);
 void		draw_color(t_square square, mlx_image_t *img);
-void		draw_dir_aux(t_game *g, t_raycast *r);
-void		draw_dir(t_game *game);
+// void		draw_dir_aux(t_game *g, t_raycast *r);
+// void		draw_dir(t_game *game);
 // draw
 void		draw_minimap(t_game *game);
 void		draw_minipixels(t_game *game, t_square square, t_aux_draw d);
@@ -245,7 +246,7 @@ void		draw_f_c(t_game *game);
 
 // Raycast.c
 int			init_raycast(t_game *game);
-void		get_ray_posdir(int x, t_player *p, t_raycast *r);
+void		get_ray_posdir(int x, t_player *p, t_raycast *r, t_game *game);
 void		get_ray_step_sidedist(t_player *p, t_raycast *r);
 void		get_walldistance(t_game *game, t_player *p, t_raycast *r);
 void		get_wallheight(t_player *p, t_raycast *r);

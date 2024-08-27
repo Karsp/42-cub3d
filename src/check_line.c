@@ -6,11 +6,39 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:04:05 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/26 16:03:22 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:17:28 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+char	*check_path(t_game *game, char **path)
+{
+	char	*str;
+	int		init;
+	int		end;
+	int		out;
+
+	init = 0;
+	str = *path;
+	while (str[init] == ' ' || str[init] == '\t')
+		init++;
+	end = init;
+	while (str[end] != ' ' && str[end] != '\t' && str[end] != '\0')
+		end++;
+	out = end;
+	while (str[out] != '\0')
+	{
+		if (str[out] == ' ' || str[out] == '\t')
+			out++;
+		else
+		{
+			(free(*path), *path = NULL);
+			c_error(game, "NO texture can't be loaded.");
+		}
+	}
+	return (ft_substr(str, init, end - init));
+}
 
 /** 
  * @brief Function to check wether the colors are correct
@@ -26,7 +54,6 @@ void	check_colors(t_game *game, char **colors)
 	aux = 0;
 	while (colors[count])
 		count++;
-	ft_printf("check_colors: count = %d\n", count);
 	if (count != 3)
 		c_error(game, "Invalid number of colors.\n");
 	count = -1;
@@ -37,9 +64,8 @@ void	check_colors(t_game *game, char **colors)
 		while (colors[count] && colors[count][aux] != '\0'
 		&& colors[count][aux] != '\n')
 		{
-			if (colors[count][aux] == ' ' || colors[count][aux] == '\t')
-				aux++;
-			else if (colors[count][aux] < 48 || colors[count][aux] > 57)
+			if ((colors[count][aux] < 48 || colors[count][aux] > 57) &&
+			colors[count][aux] != ' ' && colors[count][aux] != '\t')
 				c_error(game, "Found error in colors.\n");
 			aux++;
 		}

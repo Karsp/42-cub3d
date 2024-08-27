@@ -1,10 +1,10 @@
 SO    	./src/assets/wolf/colorstone.png
-F 220,100,0
+F ,,,,,220,100,0
 
 
 
 C 7,,,,,12,12
-WE ./src/assets/wolf/mossy.png
+WE      ./src/assets/wolf/mossy.png
 
 
 NO            	./src/assets/wolf/bluestone.png

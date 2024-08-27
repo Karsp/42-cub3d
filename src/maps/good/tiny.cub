@@ -1,0 +1,14 @@
+F 220,100,0
+
+C 225,30,0
+NO            	./src/assets/wolf/eagle.png
+SO    	./src/assets/wolf/colorstone.png
+WE ./src/assets/wolf/mossy.png
+EA  ./src/assets/wolf/greystone.png
+
+
+
+1
+1111
+1E1
+1111

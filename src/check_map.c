@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:33:51 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/26 20:47:05 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:58:50 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,29 @@ void	c_check_ext(t_game *game, char *file)
 void	get_map(t_game *game, char *file)
 {
 	char	*line;
-	t_map	*map;
 	long	aux_line;
 	size_t	count;
 
 	aux_line = 0;
 	count = -1;
-	map = game->map;
-	line = get_next_line(map->fd);
-	map->fd = open (file, O_RDONLY);
-	if (map->fd == -1)
+	line = get_next_line(game->map->fd);
+	game->map->fd = open (file, O_RDONLY);
+	if (game->map->fd == -1)
 		(perror("Open"), exit(errno));
-	line = get_next_line(map->fd);
-	ft_printf("get_map: line: %s\n", line);
+	line = get_next_line(game->map->fd);
 	if (!line)
 		c_error(game, "Map reading error. FD closed or invalid.\n");
 	while (line != NULL)
 	{
-		ft_printf("get_map: line: %s\n", line);
-		if (aux_line >= map->init_line - 1)
-			map->map[++count] = ft_strdup(line);
+		if (aux_line >= game->map->init_line)
+			game->map->map[++count] = ft_strdup(line);
 		(free(line), line = NULL);
-		line = get_next_line(map->fd);
+		line = get_next_line(game->map->fd);
 		aux_line++;
 	}
 	if (line)
 		(free(line), line = NULL);
-	map->map[++count] = NULL;
+	game->map->map[++count] = NULL;
 }
 
 /**

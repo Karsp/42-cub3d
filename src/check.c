@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:40:18 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/26 20:27:16 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:59:03 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	check_file(t_game *game, char *file)
 char	*extract_data(t_game *game, char *line, int start)
 {
 	char	*aux;
+	char	*path;
 	int		count;
 	t_map	*map;
 
@@ -55,7 +56,10 @@ char	*extract_data(t_game *game, char *line, int start)
 	if (*aux != '\0' && *aux != '\n')
 	{
 		map->i_map++;
-		return (ft_substr(aux, 0, ft_strlen(aux) - 1));
+		path = ft_substr(aux, 0, ft_strlen(aux) - 1);
+		aux = check_path(game, &path);
+		(free(path), path = NULL);
+		return (aux);
 	}
 	else
 		c_error(game, "Failed to save texture. Texture empty.\n");

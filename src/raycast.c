@@ -20,12 +20,21 @@
  * camera_x -> x-coordinate in camera space
  * r->map_x -> which box of the map we're in
  * r->delta_dist -> length of ray from one x or y-side to next x or y-side
+ * We check map->dir to avoid mirror render
  */
-void	get_ray_posdir(int x, t_player *p, t_raycast *r)
+void	get_ray_posdir(int x, t_player *p, t_raycast *r, t_game *game)
 {
 	r->camera_x = 2 * x / (double)WIDTH - 1;
-	r->ray_dirx = p->dir_x + p->plane_x * r->camera_x;
-	r->ray_diry = p->dir_y + p->plane_y * r->camera_x;
+	if (game->map->dir == 'N' || game->map->dir == 'E')
+	{
+		r->ray_dirx = p->dir_x + p->plane_x * r->camera_x;
+		r->ray_diry = p->dir_y + p->plane_y * r->camera_x;
+	}
+	else
+	{
+		r->ray_dirx = p->dir_x - p->plane_x * r->camera_x;
+		r->ray_diry = p->dir_y - p->plane_y * r->camera_x;
+	}
 	r->map_x = (int)p->pos_x;
 	r->map_y = (int)p->pos_y;
 	r->delta_dist_x = fabs(1 / r->ray_dirx);
@@ -145,7 +154,7 @@ int	init_raycast(t_game *game)
 	draw_f_c(game);
 	while (++x < WIDTH)
 	{
-		get_ray_posdir(x, p, r);
+		get_ray_posdir(x, p, r, game);
 		get_ray_step_sidedist(p, r);
 		get_walldistance(game, p, r);
 		get_wallheight(p, r);

@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/26 19:12:38 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:59:14 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	draw_f_c(t_game *game)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			if (y > HEIGHT / 2)
+			if (y < HEIGHT / 2)
 				mlx_put_pixel(game->img, x, y, game->map->c_color);
-			else if (y < HEIGHT / 2)
+			else if (y > HEIGHT / 2)
 				mlx_put_pixel(game->img, x, y, game->map->f_color);
 		}
 	}
@@ -124,7 +124,6 @@ void	draw_minimap(t_game *game)
 	square.x = 15;
 	square.y = 15;
 	draw_square(square, game->img);
-	draw_dir(game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
 		c_error(game, "Image to window error.\n");
 }
