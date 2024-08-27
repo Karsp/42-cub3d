@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:47:15 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/16 18:13:38 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 12:51:28 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	draw_f_c(t_game *game)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			if (y > HEIGHT / 2)
+			if (y < HEIGHT / 2)
 				mlx_put_pixel(game->img, x, y, game->map->c_color);
-			else if (y < HEIGHT / 2)
+			else if (y > HEIGHT / 2)
 				mlx_put_pixel(game->img, x, y, game->map->f_color);
 		}
 	}
