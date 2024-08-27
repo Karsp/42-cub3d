@@ -110,6 +110,7 @@ void	render_walls(t_game *game, int x)
 
 	r = &game->r;
 	r->dir = ft_get_direction(r);
+	// ft_printf("Dir: %d ray_dx: %d ray_dy: %d\n", r->dir, r->ray_dirx, r->ray_diry);
 	update_texture_vars(game, r);
 	r->tex_x = (int)(r->wall_x * r->tex_width);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))

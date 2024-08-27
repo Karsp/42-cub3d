@@ -50,18 +50,8 @@ void	ft_rotate_hooks(t_game *game, t_player *p)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_Q))
-	{
-		if (game->map->dir == 'N' || game->map->dir == 'E')
 			ft_rotate_left(p);
-		else
-			ft_rotate_right(p);
-	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_E))
-	{
-		if (game->map->dir == 'N' || game->map->dir == 'E')
 			ft_rotate_right(p);
-		else
-			ft_rotate_left(p);
-	}
 }

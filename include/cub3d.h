@@ -246,7 +246,7 @@ void		draw_f_c(t_game *game);
 
 // Raycast.c
 int			init_raycast(t_game *game);
-void		get_ray_posdir(int x, t_player *p, t_raycast *r);
+void		get_ray_posdir(int x, t_player *p, t_raycast *r, t_game *game);
 void		get_ray_step_sidedist(t_player *p, t_raycast *r);
 void		get_walldistance(t_game *game, t_player *p, t_raycast *r);
 void		get_wallheight(t_player *p, t_raycast *r);
