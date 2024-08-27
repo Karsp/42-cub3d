@@ -124,7 +124,6 @@ void	draw_minimap(t_game *game)
 	square.x = 15;
 	square.y = 15;
 	draw_square(square, game->img);
-	draw_dir(game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
 		c_error(game, "Image to window error.\n");
 }

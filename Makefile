@@ -52,7 +52,7 @@ NOC		=	\033[0m
 CHANGES_MADE = 0
 CHARS_LEN := 0
 CHARS := 0
-progress := 4
+progress := 26
 
 all: libmlx $(NAME)
 	@if [ "$(CHANGES_MADE)" -eq "0" ]; then \

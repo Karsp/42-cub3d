@@ -78,7 +78,7 @@ void	ft_move_hooks(t_game *game, t_player *p)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_W))
-			ft_move_forwards(game, p);
+		ft_move_forwards(game, p);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_S))
 		ft_move_backwards(game, p);

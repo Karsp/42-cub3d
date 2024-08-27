@@ -50,8 +50,8 @@ void	ft_rotate_hooks(t_game *game, t_player *p)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_Q))
-			ft_rotate_left(p);
+		ft_rotate_left(p);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_E))
-			ft_rotate_right(p);
+		ft_rotate_right(p);
 }

@@ -235,8 +235,8 @@ void		check_symbol(t_game *game, int line, int col);
 // draw_wall
 void		draw_square(t_square square, mlx_image_t *img);
 void		draw_color(t_square square, mlx_image_t *img);
-void		draw_dir_aux(t_game *g, t_raycast *r);
-void		draw_dir(t_game *game);
+// void		draw_dir_aux(t_game *g, t_raycast *r);
+// void		draw_dir(t_game *game);
 // draw
 void		draw_minimap(t_game *game);
 void		draw_minipixels(t_game *game, t_square square, t_aux_draw d);

@@ -20,7 +20,7 @@
  * camera_x -> x-coordinate in camera space
  * r->map_x -> which box of the map we're in
  * r->delta_dist -> length of ray from one x or y-side to next x or y-side
- * Check dir map to avoid mirror renderer
+ * We check map->dir to avoid mirror render
  */
 void	get_ray_posdir(int x, t_player *p, t_raycast *r, t_game *game)
 {
