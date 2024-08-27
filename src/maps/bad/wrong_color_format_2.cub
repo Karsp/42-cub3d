@@ -1,9 +1,9 @@
-NO            	./src/assets/wolf/bluestone.png
+NO           	./src/assets/wolf/bluestone.png
 SO    	./src/assets/wolf/colorstone.png
 WE ./src/assets/wolf/mossy.png
 EA  ./src/assets/wolf/greystone.png
-F 220,100,0 a
-C 225,30,0
+F 220,      100,,,,,,,,,,,,,,,,255                   a
+C 225,     30,0
 
         1111111111111111111111111
         1000000000110000000000001

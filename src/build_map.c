@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:27:36 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/26 17:31:11 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 09:56:57 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_symbol(t_game *game, int line, int col)
 	{
 		if (c_map[line - 1][col] == 'x' || c_map[line + 1][col] == 'x'\
 	|| c_map[line][col - 1] == 'x' || c_map[line][col + 1] == 'x')
-			c_error(game, "Map is not closed or there are spaces.\n");
+			c_error(game, "Map is not closed or there are spaces inside.\n");
 	}
 }
 

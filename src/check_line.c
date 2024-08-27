@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:04:05 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/26 16:03:22 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 12:20:00 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ void	check_colors(t_game *game, char **colors)
 		while (colors[count] && colors[count][aux] != '\0'
 		&& colors[count][aux] != '\n')
 		{
-			if (colors[count][aux] == ' ' || colors[count][aux] == '\t')
-				aux++;
-			else if (colors[count][aux] < 48 || colors[count][aux] > 57)
+			if ((colors[count][aux] < 48 || colors[count][aux] > 57) &&
+			colors[count][aux] != ' ' && colors[count][aux] != '\t')
 				c_error(game, "Found error in colors.\n");
 			aux++;
 		}
