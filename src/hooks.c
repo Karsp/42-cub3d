@@ -66,19 +66,9 @@ void	ft_mouse_hook(double xpos, double ypos, void *param)
 	else
 		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	if (xpos < game->p.mouse_x)
-	{
-		if (game->map->dir == 'N' || game->map->dir == 'E')
-			ft_rotate_left(&game->p);
-		else
-			ft_rotate_right(&game->p);
-	}
+		ft_rotate_left(&game->p);
 	else
-	{
-		if (game->map->dir == 'N' || game->map->dir == 'E')
-			ft_rotate_right(&game->p);
-		else
-			ft_rotate_left(&game->p);
-	}
+		ft_rotate_right(&game->p);
 	game->p.mouse_x = xpos;
 }
 
