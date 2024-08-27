@@ -6,7 +6,7 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:55:17 by daviles-          #+#    #+#             */
-/*   Updated: 2024/08/27 09:26:31 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:07:10 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ void		check_next_line(t_game *game);
 void		check_line(t_game *game, char *line);
 char		*extract_data(t_game *game, char *line, int start);
 void		check_file(t_game *game, char *file);
+char		*check_path(t_game *game, char **path);
 // check_line
 void		check_fcolors(t_game *game, char *line);
 void		check_ccolors(t_game *game, char *line);

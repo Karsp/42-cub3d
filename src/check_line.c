@@ -6,11 +6,39 @@
 /*   By: dlanzas- <dlanzas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:04:05 by dlanzas-          #+#    #+#             */
-/*   Updated: 2024/08/27 12:20:00 by dlanzas-         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:17:28 by dlanzas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+char	*check_path(t_game *game, char **path)
+{
+	char	*str;
+	int		init;
+	int		end;
+	int		out;
+
+	init = 0;
+	str = *path;
+	while (str[init] == ' ' || str[init] == '\t')
+		init++;
+	end = init;
+	while (str[end] != ' ' && str[end] != '\t' && str[end] != '\0')
+		end++;
+	out = end;
+	while (str[out] != '\0')
+	{
+		if (str[out] == ' ' || str[out] == '\t')
+			out++;
+		else
+		{
+			(free(*path), *path = NULL);
+			c_error(game, "NO texture can't be loaded.");
+		}
+	}
+	return (ft_substr(str, init, end - init));
+}
 
 /** 
  * @brief Function to check wether the colors are correct
