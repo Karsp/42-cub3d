@@ -1,6 +1,7 @@
-SO ./textures/south_texture.xpm
-WE ./textures/west_texture.xpm
-EA ./textures/east_texture.xpm
+NO ./src/textures/direction_name/north_texture.png
+SO ./src/textures/direction_name/south_texture.png
+WE ./src/textures/direction_name/west_texture.png
+EA ./src/textures/direction_name/east_texture.png
 F 220,100,0
 C 225,30,0
 

@@ -1,7 +1,7 @@
-NO            	./src/assets/wolf/eagle.png
-SO    	./src/assets/wolf/purplestone.png
-WE ./src/assets/wolf/redbrick.png
-EA  ./src/assets/wolf/wood.png
+NO            	./src/textures/wolf/eagle.png
+SO    	./src/textures/wolf/purplestone.png
+WE ./src/textures/wolf/redbrick.png
+EA  ./src/textures/wolf/wood.png
 F 98,105,109
 C 80,130,200
 

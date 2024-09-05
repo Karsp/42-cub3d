@@ -1,7 +1,7 @@
-NO            	./src/assets/Texture1.png
-SO    	./src/assets/Texture2.png
-EA  ./src/assets/Texture3.png
-WE ./src/assets/Texture4.png
+NO ./src/textures/wolf/redbrick.png
+SO ./src/textures/wolf/greystone.png
+WE ./src/textures/wolf/eagle.png
+EA ./src/textures/wolf/redbrick.png
 
 
 F          0, 204,  204

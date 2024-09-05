@@ -1,7 +1,7 @@
-NO            	./src/assets/new/north_texture.png
-SO    	./src/assets/new/south_texture.png
-WE ./src/assets/new/west_texture.png
-EA  ./src/assets/new/east_texture.png
+NO            	./src/textures/new/north_texture.png
+SO    	./src/textures/new/south_texture.png
+WE ./src/textures/new/west_texture.png
+EA  ./src/textures/new/east_texture.png
 F 98,105,109
 C 80,130,200
 

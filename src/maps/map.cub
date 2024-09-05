@@ -1,7 +1,7 @@
-NO ./src/assets/wolf/bluestone.xmp
-SO ./src/assets/wolf/colorstone.xmp
-WE ./src/assets/wolf/purplestone.xmp
-EA ./src/assets/wolf/greystone.xmp
+NO ./src/textures/wolf/bluestone.png
+SO ./src/textures/wolf/colorstone.png
+WE ./src/textures/wolf/purplestone.png
+EA ./src/textures/wolf/greystone.png
 F 220,100,0
 C 225,30,0
 

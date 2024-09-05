@@ -1,8 +1,8 @@
-NO            	./src/assets/wolf/bluestone.png
-NO            	./src/assets/wolf/colorstone.png
-SO    	./src/assets/wolf/colorstone.png
-WE ./src/assets/wolf/mossy.png
-EA  ./src/assets/wolf/greystone.png
+NO            	./src/textures/wolf/bluestone.png
+NO            	./src/textures/wolf/colorstone.png
+SO    	./src/textures/wolf/colorstone.png
+WE ./src/textures/wolf/mossy.png
+EA  ./src/textures/wolf/greystone.png
 F 220,100,0
 C 225,30,0
 

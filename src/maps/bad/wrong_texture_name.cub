@@ -1,7 +1,7 @@
-NO            	./src/assets/wolf/bluestone.png
-SO    	./src/assets/wolf/colorstone.png
-WE ./src/assets/wolf/mossy.png
-EA  ./src/assets/wolf/greystone.png
+NO            	./src/textures/wolf/bluestone.png
+SO    	./src/textures/wolf/colorstone.png
+WE ./src/textures/wolf/mossy.png
+EA  ./src/textures/wolf/greystone.png
 PP ./path_to_pepe
 F 220,100,0a
 C 225,30,0

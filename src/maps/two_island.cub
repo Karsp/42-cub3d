@@ -1,14 +1,28 @@
+
 NO ./src/textures/wolf/greystone.png
+
+
 SO ./src/textures/wolf/greystone.png
 WE ./src/textures/wolf/greystone.png
+
+
 EA ./src/textures/wolf/greystone.png
 
-F 245,40,145
-C 56,56,255
+
+F 112,112,112
+C 56,56,56
 
 
 
 
-        1
-       1S1
-        1
+
+1111111111111
+1000001    1    111
+100N01      1   101
+100001      1    1
+11111111    1
+
+
+
+
+1
