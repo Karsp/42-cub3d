@@ -78,6 +78,4 @@ In this project, you'll navigate through a maze, see realistic 3D textures, and 
 
 ## 📜 **License**
 This project is open-source and available under the [MIT License](LICENSE).
-```
 
-This markdown version includes everything from the second step (navigating to the project directory) and the rest of the instructions, all formatted in markdown syntax. Let me know if you'd like to add or adjust anything further!
