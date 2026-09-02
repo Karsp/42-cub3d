@@ -13,13 +13,13 @@
 NAME = cub3D
 ##########################   COMPILING SETTINGS   #########################
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -Wunreachable-code -g3 #-fsanitize=address 
+CFLAGS = -Werror -Wextra -Wall -O3 #-fsanitize=address 
 RM = rm -f
 
 ##########################		DIRS		#################################
 SRC_DIR = src
 OBJ_DIR = obj
-HEADERS = -I ./include -I $(MLX_DIR)/include #include/cub3d2.h 
+HEADERS = -I ./include -I $(MLX_DIR)/include -I /opt/homebrew/include
 
 #########################		LIBS		#################################
 LIBFT_DIR = external/libft/
@@ -29,7 +29,7 @@ LIBFT = $(LIBFT_DIR)libft.a
 MLX_DIR = ./external/mlx42
 # MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -L $(MLX_DIR) #MAC
 # MLX_CFLAGS = -L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext -lz 
-MLX_CFLAGS = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+MLX_CFLAGS = $(MLX_DIR)/build/libmlx42.a -L/opt/homebrew/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit -pthread -lm
 
 ###########################    FILES   ####################################
 SRC = $(shell find $(SRC_DIR) -name '*.c') #Quitar y poner todos los archivos

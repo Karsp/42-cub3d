@@ -120,7 +120,7 @@ void	check_next_line(t_game *game)
 			check_line(game, l);
 		else if (l[0] == '\0' || l[0] == '\n')
 			continue ;
-		else if (game->map->i_map >= 6 && l && (l[0] != '\0' || l[0] != '\n'))
+		else if (game->map->i_map >= 6 && l && (l[0] != '\0' && l[0] != '\n'))
 			break ;
 	}
 	game->map->init_line = map_line;

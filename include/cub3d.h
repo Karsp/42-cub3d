@@ -29,8 +29,8 @@
 # define M_GRIDSIZE 10
 # define GRIDSIZE 25
 # define MINMAP_SIZE 310
-# define SPEEDRATIO 0.17  //Move speed. <Lower> is slower
-# define ROTSPEED 0.035  //Rotation speed. <Lower> is slower
+# define SPEEDRATIO 0.00007  //Move speed. <Lower> is slower
+# define ROTSPEED 0.00005  //Rotation speed. <Lower> is slower
 
 # define ERRORARG "Select a map from src/maps/"
 
